@@ -1,7 +1,14 @@
-import "./App.css";
+import './App.css';
+import Navbar from './components/Navbar/Navbar';
+import RecommendedMuseums from './components/RecommendedMuseums/RecommendedMuseums';
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <Navbar />
+      <RecommendedMuseums />
+    </>
+  );
 }
 
 export default App;
