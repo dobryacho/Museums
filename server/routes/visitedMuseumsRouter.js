@@ -12,7 +12,7 @@ router.get('/:id', async (req, res) => {
   res.json(visitedMuseum);
 });
 
-router.card('/', async (req, res) => {
+router.post('/', async (req, res) => {
   const visitedMuseum = await VisitedMuseum.create(req.body);
   res.json(visitedMuseum);
 });

@@ -12,7 +12,7 @@ router.get('/:id', async (req, res) => {
   res.json(museum);
 });
 
-router.card('/', async (req, res) => {
+router.post('/', async (req, res) => {
   const museum = await Museum.create(req.body);
   res.json(museum);
 });

@@ -12,7 +12,7 @@ router.get('/:id', async (req, res) => {
   res.json(card);
 });
 
-router.card('/', async (req, res) => {
+router.post('/', async (req, res) => {
   const card = await Card.create(req.body);
   res.json(card);
 });
