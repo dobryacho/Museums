@@ -1,5 +1,5 @@
-DB_USER=user1
-DB_PASSWORD=123
-DB_NAME=todos
 PORT=3000
+
+DB=postgres://test:123@localhost:5432/mydb
+
 SESSION_SECRET=OctoCat
