@@ -1,12 +1,10 @@
 import './App.css';
-import Navbar from './components/Navbar/Navbar';
-import RecommendedMuseums from './components/RecommendedMuseums/RecommendedMuseums';
+import Home from './Pages/Home/Home';
 
 function App() {
   return (
     <>
-      <Navbar />
-      <RecommendedMuseums />
+      <Home />
     </>
   );
 }
