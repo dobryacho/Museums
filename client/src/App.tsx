@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "./App.css";
-import AllMuseums from "./pages/AllMuseums/AllMuseums";
+import AllMuseums from "./Pages/AllMuseums/AllMuseums";
 import { fetchAuth } from "./redux/thunkActions";
 import { useAppDispatch } from "./redux/hooks";
 
