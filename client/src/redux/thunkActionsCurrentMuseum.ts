@@ -1,11 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { RootState } from './store'; 
 
 export const fetchAddFavorite = createAsyncThunk(
   'favorites/add',
-  async (museumId: number) => {
+  async (museumId: number, { getState }) => {
     try {
-      const response = await axios.post('/api/favoritesMuseums', { museumId }, {
+      const state = getState() as RootState;
+      const userId = state.userSlice.user.id;
+      const response = await axios.post('http://localhost:3000/api/favorites', { museumId, userId }, {
         withCredentials: true,
       });
 
@@ -23,7 +26,7 @@ export const fetchAddFavorite = createAsyncThunk(
 export const fetchRemoveFavorite = createAsyncThunk(
   'favorites/remove',
   async (id: number) => {
-    const response = await axios.delete(`/api/favoritesMuseums/${id}`, {
+    const response = await axios.delete(`http://localhost:3000/api/favorites/${id}`, {
       withCredentials: true,
     });
 
@@ -37,9 +40,11 @@ export const fetchRemoveFavorite = createAsyncThunk(
 
 export const fetchAddVisited = createAsyncThunk(
   'visited/add',
-  async (museumId: number) => {
+  async (museumId: number, { getState }) => {
     try {
-      const response = await axios.post('/api/visitedMuseums', { museumId }, {
+      const state = getState() as RootState;
+      const userId = state.userSlice.user.id;
+      const response = await axios.post('http://localhost:3000/api/visited', { userId, museumId }, {
         withCredentials: true,
       });
 
@@ -57,7 +62,7 @@ export const fetchAddVisited = createAsyncThunk(
 export const fetchRemoveVisited = createAsyncThunk(
   'visited/remove',
   async (id: number) => {
-    const response = await axios.delete(`/api/visitedMuseums/${id}`, {
+    const response = await axios.delete(`http://localhost:3000/api/visited/${id}`, {
       withCredentials: true,
     });
 
@@ -72,7 +77,7 @@ export const fetchRemoveVisited = createAsyncThunk(
 export const fetchRecalls = createAsyncThunk(
   'recalls/fetchByMuseum',
   async (museumId: number) => {
-    const response = await axios.get(`/api/recall?museumId=${museumId}`);
+    const response = await axios.get(`http://localhost:3000/api/recall?museumId=${museumId}`);
 
     if (response.status !== 200) {
       throw new Error('Не удалось загрузить отзывы');

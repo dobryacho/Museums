@@ -7,14 +7,19 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(Museum, {
         through: 'FavoriteMuseum',
         foreignKey: 'userId',
+        as: 'favoriteMuseums',
       });
+
       this.belongsToMany(Museum, {
         through: 'VisitedMuseum',
         foreignKey: 'userId',
+        as: 'visitedMuseums',
       });
+
       this.belongsToMany(Museum, {
         through: 'Recall',
         foreignKey: 'userId',
+        as: 'recalledMuseums',
       });
     }
   }

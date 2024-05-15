@@ -1,29 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import {
-  fetchAddFavorite,
+import axios from 'axios';
+import { fetchAddFavorite,
   fetchRemoveFavorite,
   fetchAddVisited,
   fetchRemoveVisited,
   fetchRecalls,
 } from '../../redux/thunkActionsCurrentMuseum';
-// import Navbar from '../Navbar/Navbar';
-import type { RecallType, RouteParams } from './currMusTypes';
+
+import type { RecallType, RouteParams, MuseumType } from './currMusTypes';
 
 export default function CurrentMuseum(): JSX.Element {
   const { id } = useParams<RouteParams>();
+  console.log(id);
 
   const dispatch = useAppDispatch();
 
+  const [museum, setMuseum] = useState<MuseumType | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [isVisited, setIsVisited] = useState(false);
 
-  const museum = useAppSelector((store) => store.museumSlice); // дописать, слайс у Равиля?
-  const user = useAppSelector((store) => store.userSlice.user.login);
+  const user = useAppSelector((store) => store.userSlice.user.email);
   const favorites = useAppSelector((store) => store.favoritesSlice.favorites);
   const visitedMuseums = useAppSelector((store) => store.visitedSlice.visited);
-  const recalls = useAppSelector((store) => store.recallsSlice.recalls);
+  const recalls = useAppSelector((store) => store.recallsSlice.recalls); //fix here!
+
+  useEffect(() => {
+    axios.get<MuseumType>(`http://localhost:3000/api/museums/${id}`).then((res) => {
+     console.log(res.data);
+     setMuseum(res.data);
+    });
+   }, []);
 
   useEffect(() => {
     dispatch(fetchRecalls(parseInt(id, 10)));
@@ -32,10 +40,9 @@ export default function CurrentMuseum(): JSX.Element {
   useEffect(() => {
     setIsFavorite(favorites.some((fav) => fav.museumId === parseInt(id, 10)));
   }, [favorites, id]);
-
+  
   useEffect(() => {
-    setIsVisited(
-      visitedMuseums.some((vis) => vis.museumId === parseInt(id, 10)),
+    setIsVisited(visitedMuseums.some((vis) => vis.museumId === parseInt(id, 10)),
     );
   }, [visitedMuseums, id]);
 
@@ -76,7 +83,6 @@ export default function CurrentMuseum(): JSX.Element {
 
   return (
     <>
-      {/* <Navbar /> */}
       {museum.photo && <img src={museum.photo} alt={museum.name} />}
       <h2>{museum.name}</h2>
       <p>{museum.description}</p>
@@ -84,7 +90,7 @@ export default function CurrentMuseum(): JSX.Element {
         Адрес: {museum.city}, {museum.location}
       </p>
       <p>Время работы: {museum.workedTime}</p>
-      <p>Выходной: {museum.holiday}</p>
+      <p>Выходной: {museum.holidays}</p>
 
       {user && (
         <>
@@ -107,7 +113,7 @@ export default function CurrentMuseum(): JSX.Element {
         </>
       )}
 
-      <div>
+      {/* <div>
         <h3>Отзывы</h3>
         {recalls.length > 0 ? (
           recalls.map((recall: RecallType) => (
@@ -120,9 +126,7 @@ export default function CurrentMuseum(): JSX.Element {
         ) : (
           <p>Здесь пока нет отзывов</p>
         )}
-      </div>
-
-      <footer></footer>
+      </div> */}
     </>
   );
 }
