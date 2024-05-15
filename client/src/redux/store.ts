@@ -1,11 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import todoSlice from "./todoSlice";
 import userSlice from "./userSlice";
+import favoritesSlice from "./favoritesSlice";
+import recallsSlice from "./recallsSlice";
+import visitedSlice from "./visitedSlice";
 
 const storeOptions = {
   reducer: {
     todoSlice,
-    userSlice
+    userSlice,
+    favoritesSlice,
+    recallsSlice,
+    visitedSlice,
   },
 };
 
