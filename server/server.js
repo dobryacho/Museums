@@ -42,4 +42,5 @@ app.use(express.static(__dirname));
 app.use('/api', apiRouter);
 
 // Запуск сервера
+
 app.listen(PORT, () => console.log(`Server has started on PORT ${PORT}`));
