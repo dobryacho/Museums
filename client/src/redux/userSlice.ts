@@ -1,13 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { UserSlice } from "../types";
 import { fetchAuth, fetchLogin, fetchLogout, fetchReg } from "./thunkActions";
-import { store } from "./store";
 
-const initialState: UserSlice = {
+const initialState: {user: {id: number;login: string;password: string; err?: string}} = {
   user: {
     id: 0,
     login: "",
     password: "",
+    err: "",
   },
 };
 
@@ -25,11 +24,12 @@ const usersSlice = createSlice({
     builder.addCase(fetchLogin.fulfilled, (state, action) => {
       state.user = action.payload
     })
-    builder.addCase(fetchLogout.fulfilled, (store) => {
-      store.user = {
+    builder.addCase(fetchLogout.fulfilled, (state) => {
+      state.user = {
         id: 0,
         login: "",
         password: "",
+        err: "",
       }
     })
   },
