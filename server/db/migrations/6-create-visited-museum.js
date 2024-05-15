@@ -30,6 +30,8 @@ module.exports = {
         },
       },
       rating: {
+        allowNull: true,
+        defaultValue: null,
         type: Sequelize.INTEGER,
       },
       createdAt: {

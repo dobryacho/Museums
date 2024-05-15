@@ -1,5 +1,5 @@
 const express = require('express');
-const { VisitedMuseum } = require('../db/models');
+const  { VisitedMuseum } = require('../db/models');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -13,7 +13,9 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const visitedMuseum = await VisitedMuseum.create(req.body);
+  console.log(VisitedMuseum);
+  const { userId, museumId } = req.body
+  const visitedMuseum = await VisitedMuseum.create({userId: 1, museumId: 2, rating: 3});
   res.json(visitedMuseum);
 });
 

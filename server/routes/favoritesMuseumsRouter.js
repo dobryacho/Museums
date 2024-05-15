@@ -8,12 +8,15 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
+  console.log(req.params.id);
   const favoriteMuseum = await FavoriteMuseum.findByPk(req.params.id);
   res.json(favoriteMuseum);
 });
 
 router.post('/', async (req, res) => {
-  const favoriteMuseum = await FavoriteMuseum.create(req.body);
+  const { userId, museumId } = req.body;
+  console.log('look', { userId, museumId } );
+  const favoriteMuseum = await FavoriteMuseum.create({ userId, museumId });
   res.json(favoriteMuseum);
 });
 
