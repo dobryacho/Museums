@@ -14,7 +14,7 @@ import type { RecallType, RouteParams, MuseumType } from './currMusTypes';
 export default function CurrentMuseum(): JSX.Element {
   const { id } = useParams<RouteParams>();
   console.log(id);
-
+//test
   const dispatch = useAppDispatch();
 
   const [museum, setMuseum] = useState<MuseumType | null>(null);
