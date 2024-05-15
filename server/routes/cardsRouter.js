@@ -1,5 +1,5 @@
-const { Card } = require('../db/models');
 const express = require('express');
+const { Card } = require('../db/models');
 const router = express.Router();
 
 router.get('/', async (req, res) => {

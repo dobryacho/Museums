@@ -1,21 +1,36 @@
-import { useEffect } from "react";
-import "./App.css";
-import AllMuseums from "./Pages/AllMuseums/AllMuseums";
-import { fetchAuth } from "./redux/thunkActions";
-import { useAppDispatch } from "./redux/hooks";
+import { useEffect } from 'react';
+import './App.css';
+import AllMuseums from './Pages/AllMuseums/AllMuseums';
+import { fetchAuth } from './redux/thunkActions';
+import { useAppDispatch } from './redux/hooks';
+import CurrentMuseum from './Pages/CurrentMuseum/CurrentMuseum';
+import { Route, Routes } from 'react-router-dom';
+import Home from './Pages/Home/Home';
+import Navbar from './components/Navbar/Navbar';
+import Footer from './components/Footer/Footer';
+import Register from './Pages/Register/Register';
+import Login from './Pages/Login/Login';
 
-function App():JSX.Element  {
-const dispatch = useAppDispatch();
+function App(): JSX.Element {
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchAuth());
   }, []);
 
   return (
-  <>
-  <AllMuseums />
-  </>
-  )
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/allmuseums" element={<AllMuseums />} />
+        <Route path="/allmuseums/:id" element={<CurrentMuseum />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+      <Footer />
+    </>
+  );
 }
 
 export default App;

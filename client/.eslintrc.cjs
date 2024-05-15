@@ -5,14 +5,21 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
+    'plugin:prettier/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
   rules: {
-    'react-refresh/only-export-components': [
+    'no-var': 'error',
+    'prefer-const': 'warn',
+    'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'prettier/prettier': [
       'warn',
-      { allowConstantExport: true },
+      {
+        endOfLine: 'auto',
+      },
     ],
   },
-}
+};
