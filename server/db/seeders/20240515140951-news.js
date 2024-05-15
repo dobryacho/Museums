@@ -50,6 +50,7 @@ module.exports = {
           photo: 'http://localhost:3000/newsImages/передвижникипитер.jpg',
           date: new Date('2024-06-07T18:30:00'),
           createdAt: new Date(),
+
           updatedAt: new Date(),
         },
         {
