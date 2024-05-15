@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 type MuseumType = {
     id: number;
@@ -21,9 +22,13 @@ export default function Minimuseum({ museum }: MuseumProps): JSX.Element  {
   
   return (
     <div>
-      <h3>{museum.name}</h3>
+      <Link to={`/allmuseums/:id`}>
+        <h3>{museum.name}</h3>
+      </Link>
       <div>{museum.description}</div>
-      <img src={museum.photo} alt={museum.name} />
+      <Link to={`/allmuseums/:id`}>
+        <img src={museum.photo} alt={museum.name} />
+      </Link>
     </div>
   )
 }
