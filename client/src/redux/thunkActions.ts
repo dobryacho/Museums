@@ -1,7 +1,16 @@
 import axios from "axios";
-import { NewPost, ToDo, ToDos, User, UserInputs } from "../types";
+import { NewPost, ToDo, ToDos, UserInputs } from "../types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Inputs } from "../components/Form/Form";
+
+type User = {
+  id: number;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  city: string;
+  phone?: string;
+}
 
 export const fetchTodos = createAsyncThunk("todo/all", async () => {
   const response = await axios.get<ToDos>("http://localhost:3000/api/todos");
@@ -42,7 +51,7 @@ export const fetchChange = createAsyncThunk(
 export const fetchReg = createAsyncThunk(
   "user/reg",
   async (user: UserInputs): Promise<User> => {
-    const response = await axios.post("http://localhost:3000/user", user, {withCredentials: true});
+    const response = await axios.post("http://localhost:3000/api/user", user, {withCredentials: true});
     return response.data;
   }
 );
@@ -51,7 +60,7 @@ export const fetchLogin = createAsyncThunk(
   "user/login",
   async (user: UserInputs): Promise<User> => {
     const response = await axios.post(
-      "http://localhost:3000/user/login",
+      "http://localhost:3000/api/user/login",
       user,
       { withCredentials: true }
     );
@@ -62,7 +71,7 @@ export const fetchLogin = createAsyncThunk(
 export const fetchAuth = createAsyncThunk(
   "user/auth",
   async (): Promise<User> => {
-    const response = await axios.get("http://localhost:3000/user/auth", {
+    const response = await axios.get("http://localhost:3000/api/user/auth", {
       withCredentials: true,
     });
     return response.data;
@@ -72,7 +81,7 @@ export const fetchAuth = createAsyncThunk(
 export const fetchLogout = createAsyncThunk(
   "user/logout",
   async (): Promise<void> => {
-    await axios.get("http://localhost:3000/user/logout", {
+    await axios.get("http://localhost:3000/api/user/logout", {
       withCredentials: true,
     });
   }
