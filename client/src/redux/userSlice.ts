@@ -1,12 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchAuth, fetchLogin, fetchLogout, fetchReg } from "./thunkActions";
 
-const initialState: {user: {id: number;email: string;password: string; err?: string}} = {
+const initialState: {user: {id: number;email: string;password: string; err?: string;firstName: string;lastName: string;city: string;phone: string}} = {
   user: {
     id: 0,
     email: "",
     password: "",
     err: "",
+    firstName: "",
+    lastName: "",
+    city: "",
+    phone: "",
   },
 };
 
