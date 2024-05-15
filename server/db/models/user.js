@@ -2,7 +2,7 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    static associate({ Card, Museum, FavoriteMuseum, VisitedMuseum }) {
+    static associate({ Card, Museum }) {
       this.hasMany(Card, { foreignKey: 'userId' });
       this.belongsToMany(Museum, {
         through: 'FavoriteMuseum',
@@ -21,19 +21,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         as: 'recalledMuseums',
       });
-
-      // this.belongsToMany(Museum, {
-      //   through: FavoriteMuseum,
-      //   foreignKey: 'userId',
-      // });
-      // this.belongsToMany(Museum, {
-      //   through: VisitedMuseum,
-      //   foreignKey: 'userId',
-      // });
-      // this.belongsToMany(Museum, {
-      //   through: 'Recall',
-      //   foreignKey: 'userId',
-      // });
     }
   }
   User.init(
