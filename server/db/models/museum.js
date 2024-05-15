@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       workedTime: DataTypes.STRING,
       holidays: DataTypes.STRING,
       theme: DataTypes.STRING,
+      coordinates: DataTypes.STRING,
     },
     {
       sequelize,
