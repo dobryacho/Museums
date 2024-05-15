@@ -22,7 +22,7 @@ export type MuseumType = {
   city: string;
   photo: string;
   workedTime: string;
-  holiday: string;
+  holidays: string;
   createdAt: Date;
   updatedAt: Date;
 };
