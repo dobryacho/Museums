@@ -1,9 +1,15 @@
 import { Link } from 'react-router-dom';
 import styles from './Navbar.module.css';
-import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { fetchLogout } from '../../redux/thunkActions';
 
 export default function Navbar() {
-  const [isAuthenticated, setisAuthenticated] = useState(false);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((store) => store.userSlice.user.email);
+
+  const logoutHandle = () => {
+    dispatch(fetchLogout());
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -14,10 +20,15 @@ export default function Navbar() {
         <Link to={'/allmuseums'}>
           <button className={styles.link}>Все музеи</button>
         </Link>
-        {isAuthenticated ? (
-          <Link to={'/profile'}>
-            <button className={styles.link}>Личный кабинет</button>
-          </Link>
+        {user ? (
+          <>
+            <Link to={'/profile'}>
+              <button className={styles.link}>Личный кабинет</button>
+            </Link>
+            <button onClick={logoutHandle} className={styles.link}>
+              Выйти
+            </button>
+          </>
         ) : (
           <>
             <Link to={'/register'}>

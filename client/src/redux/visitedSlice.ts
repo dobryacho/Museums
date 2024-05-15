@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchAddVisited, fetchRemoveVisited } from './thunkActionsCurrentMuseum';
-import type { VisitedMuseum } from '../Pages/CurrentMuseum/currMusTypes';
+import {
+  fetchAddVisited,
+  fetchRemoveVisited,
+} from './thunkActionsCurrentMuseum';
+import type { VisitedMuseum } from '../pages/CurrentMuseum/currMusTypes';
 
 interface VisitedState {
   visited: VisitedMuseum[];
@@ -15,12 +18,20 @@ const visitedSlice = createSlice({
   initialState: initialVisitedState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchAddVisited.fulfilled, (state, action: PayloadAction<VisitedMuseum>) => {
-      state.visited.push(action.payload);
-    });
-    builder.addCase(fetchRemoveVisited.fulfilled, (state, action: PayloadAction<number>) => {
-      state.visited = state.visited.filter(visit => visit.museumId !== action.payload);
-    });
+    builder.addCase(
+      fetchAddVisited.fulfilled,
+      (state, action: PayloadAction<VisitedMuseum>) => {
+        state.visited.push(action.payload);
+      },
+    );
+    builder.addCase(
+      fetchRemoveVisited.fulfilled,
+      (state, action: PayloadAction<number>) => {
+        state.visited = state.visited.filter(
+          (visit) => visit.museumId !== action.payload,
+        );
+      },
+    );
   },
 });
 

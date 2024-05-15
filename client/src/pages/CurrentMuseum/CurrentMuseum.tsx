@@ -20,7 +20,7 @@ export default function CurrentMuseum(): JSX.Element {
   const [isVisited, setIsVisited] = useState(false);
 
   const museum = useAppSelector((store) => store.museumSlice); // дописать, слайс у Равиля?
-  const user = useAppSelector((store) => store.userSlice.user.login);
+  const user = useAppSelector((store) => store.userSlice.user.email);
   const favorites = useAppSelector((store) => store.favoritesSlice.favorites);
   const visitedMuseums = useAppSelector((store) => store.visitedSlice.visited);
   const recalls = useAppSelector((store) => store.recallsSlice.recalls);
