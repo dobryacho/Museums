@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchAddVisited, fetchRemoveVisited } from './thunkActionsCurrentMuseum';
-import type { VisitedMuseum } from '../pages/CurrentMuseum/currMusTypes';
+import type { VisitedMuseum } from '../Pages/CurrentMuseum/currMusTypes';
 
 interface VisitedState {
   visited: VisitedMuseum[];
