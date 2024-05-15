@@ -9,6 +9,7 @@ type MuseumType = {
     photo: string;
     workedTime: string;
     holiday: string;
+    theme: string;
     createdAt: Date;
     updatedAt: Date;
   };
