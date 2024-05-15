@@ -1,6 +1,5 @@
 const express = require('express');
 const { FavoriteMuseum } = require('../db/models');
-const express = require('express');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
