@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchRecalls } from './thunkActionsCurrentMuseum';
-import type { RecallType } from '../pages/CurrentMuseum/currMusTypes';
+import type { RecallType } from '../Pages/CurrentMuseum/currMusTypes';
 
 interface RecallsState {
   [museumId: string]: RecallType[];

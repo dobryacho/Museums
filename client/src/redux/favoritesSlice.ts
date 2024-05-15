@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchAddFavorite, fetchRemoveFavorite } from './thunkActionsCurrentMuseum';
-import type { FavoriteMuseum } from '../pages/CurrentMuseum/currMusTypes';
+import type { FavoriteMuseum } from '../Pages/CurrentMuseum/currMusTypes';
 
 interface FavoritesState {
   favorites: FavoriteMuseum[];
