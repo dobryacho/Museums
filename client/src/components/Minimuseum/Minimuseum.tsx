@@ -23,7 +23,7 @@ export default function Minimuseum({ museum }: MuseumProps): JSX.Element  {
     <div>
       <h3>{museum.name}</h3>
       <div>{museum.description}</div>
-      <img>{museum.photo}</img>
+      <img src={museum.photo} alt={museum.name} />
     </div>
   )
 }
