@@ -48,7 +48,7 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/auth', async (req, res) => {
-  console.log(req.session);
+  console.log();
   if (req.session?.login) {
     const user = await User.findOne({ where: { email: req.session.login } });
     return res.json(user);

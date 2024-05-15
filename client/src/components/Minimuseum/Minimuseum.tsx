@@ -22,11 +22,11 @@ export default function Minimuseum({ museum }: MuseumProps): JSX.Element  {
   
   return (
     <div>
-      <Link to={`/allmuseums/:id`}>
+      <Link to={`/allmuseums/${museum.id}`}>
         <h3>{museum.name}</h3>
       </Link>
       <div>{museum.description}</div>
-      <Link to={`/allmuseums/:id`}>
+      <Link to={`/allmuseums/${museum.id}`}>
         <img src={museum.photo} alt={museum.name} />
       </Link>
     </div>

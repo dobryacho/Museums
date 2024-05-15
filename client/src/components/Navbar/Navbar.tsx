@@ -14,8 +14,9 @@ export default function Navbar() {
   return (
     <div className={styles.wrapper}>
       <div>
+        <div>{user}</div>
         <Link to={'/'}>
-          <button className={styles.link}>Главная</button>
+          <button className={styles.link}> Главная</button>
         </Link>
         <Link to={'/allmuseums'}>
           <button className={styles.link}>Все музеи</button>
