@@ -46,7 +46,7 @@ router.get('/auth', async (req, res) => {
     const user = await User.findOne({ where: { login: req.session.login } });
     return res.json(user);
   }
-  res.json({ err: 'Nope' });
+  res.end();
 });
 
 module.exports = router;
