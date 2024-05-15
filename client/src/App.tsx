@@ -3,7 +3,7 @@ import "./App.css";
 import AllMuseums from "./Pages/AllMuseums/AllMuseums";
 import { fetchAuth } from "./redux/thunkActions";
 import { useAppDispatch } from "./redux/hooks";
-import CurrentMuseum from "./pages/CurrentMuseum/CurrentMuseum"
+import CurrentMuseum from "./Pages/CurrentMuseum/CurrentMuseum"
 import { Route, Routes } from 'react-router-dom';
 
 function App():JSX.Element  {
