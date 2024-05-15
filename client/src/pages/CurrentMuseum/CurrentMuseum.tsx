@@ -14,7 +14,7 @@ export default function CurrentMuseum(): JSX.Element {
   const [isVisited, setIsVisited] = useState(false);
 
   const museum = useAppSelector(store => store.museumSlice); // дописать, слайс у Равиля?
-  const user = useAppSelector(store => store.userSlice);
+  const user = useAppSelector(store => store.userSlice.user);
   const favorites = useAppSelector(store => store.favoritesSlice.favorites);
   const visitedMuseums = useAppSelector(store => store.visitedSlice.visited);
   const recalls = useAppSelector(store => store.recallsSlice.recalls);
@@ -74,7 +74,7 @@ export default function CurrentMuseum(): JSX.Element {
       <p>Время работы: {museum.workedTime}</p>
       <p>Выходной: {museum.holiday}</p>
 
-      {user && (
+      {user.login && (
         <>
         <div>
           <span
