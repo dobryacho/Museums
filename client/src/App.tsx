@@ -11,6 +11,7 @@ import Footer from './components/Footer/Footer';
 import Register from './Pages/Register/Register';
 import Login from './Pages/Login/Login';
 import ListMuseums from './components/ListMuseums/ListMuseums';
+import FavoritesMuseums from './components/FavoritesMuseums/FavoritesMuseums';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -32,6 +33,7 @@ function App(): JSX.Element {
         <Route path="/allmuseums/:id" element={<CurrentMuseum />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/favoritesMuseums" element={<FavoritesMuseums />} />
       </Routes>
       <Footer />
     </>
