@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const { User, Museum } = require('../db/models');
+const { User } = require('../db/models');
 
 const router = express.Router();
 
@@ -63,7 +63,10 @@ router.get('/auth', async (req, res) => {
 });
 
 router.get('/visit/:id', async (req, res) => {
-  const users = await User.findAll({where: {id: req.params.id}, include: ['visitedMuseums', 'recalledMuseums']});
+  const users = await User.findAll({
+    where: { id: req.params.id },
+    include: ['visitedMuseums', 'recalledMuseums'],
+  });
   res.json(users);
 });
 
