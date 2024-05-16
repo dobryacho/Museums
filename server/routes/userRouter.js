@@ -4,6 +4,11 @@ const { User } = require('../db/models');
 
 const router = express.Router();
 
+router.get('/allusers', async (req, res) => {
+  const users = await User.findAll();
+  res.json(users);
+});
+
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ where: { email } });
@@ -34,6 +39,7 @@ router.post('/', async (req, res) => {
     city,
     phone,
   });
+  console.log('OOOOO', newUser);
   req.session.login = newUser.email;
   req.session.save(() => {
     res.json(newUser);
