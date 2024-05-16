@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   VisitedMuseum.init(
     {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
       userId: DataTypes.INTEGER,
       museumId: DataTypes.INTEGER,
       rating: DataTypes.INTEGER,

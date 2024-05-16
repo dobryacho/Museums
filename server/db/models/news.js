@@ -8,9 +8,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   News.init(
     {
-      text: DataTypes.STRING,
+      title: DataTypes.STRING,
+      text: DataTypes.TEXT,
       museumId: DataTypes.INTEGER,
       photo: DataTypes.STRING,
+      date: DataTypes.DATE,
     },
     {
       sequelize,

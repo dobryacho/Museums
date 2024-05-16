@@ -3,12 +3,12 @@ const { FavoriteMuseum } = require('../db/models');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const favoritesMuseums = await FavoriteMuseum.findAll();
+  const { userId } = req.query;
+  const favoritesMuseums = await FavoriteMuseum.findAll({ where: { userId } });
   res.json(favoritesMuseums);
 });
 
 router.get('/:id', async (req, res) => {
-  console.log(req.params.id);
   const favoriteMuseum = await FavoriteMuseum.findByPk(req.params.id);
   res.json(favoriteMuseum);
 });
@@ -27,8 +27,10 @@ router.patch('/:id', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
+  const favoriteMuseum = await FavoriteMuseum.findByPk(req.params.id);
+  const favMusId = favoriteMuseum.museumId;
   await FavoriteMuseum.destroy({ where: { id: req.params.id } });
-  res.sendStatus(200);
+  res.json(favMusId);
 });
 
 module.exports = router;

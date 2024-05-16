@@ -8,7 +8,9 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  const museum = await Museum.findByPk(req.params.id);
+  const museum = await Museum.findByPk(req.params.id, {
+    include: 'recalledByUsers',
+  });
   res.json(museum);
 });
 
