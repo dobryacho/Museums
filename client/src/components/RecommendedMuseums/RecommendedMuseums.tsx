@@ -13,6 +13,7 @@ export default function Navbar() {
     theme: string;
   };
   const [museums, setMuseums] = useState([]);
+
   const userCity = useAppSelector((store) => store.userSlice.user.city);
 
   useEffect(() => {
@@ -52,7 +53,7 @@ export default function Navbar() {
     };
 
     getAllMuseums();
-  }, []);
+  }, [userCity]);
 
   return (
     <div>
