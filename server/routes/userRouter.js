@@ -17,6 +17,7 @@ router.post('/login', async (req, res) => {
   }
   const checkPass = await bcrypt.compare(password, user.password);
   if (checkPass) {
+    req.session.userId = user.id;
     req.session.login = user.email;
     res.json(user);
   } else {
@@ -40,6 +41,7 @@ router.post('/', async (req, res) => {
     phone,
   });
   console.log('OOOOO', newUser);
+  req.session.userId = newUser.id;
   req.session.login = newUser.email;
   req.session.save(() => {
     res.json(newUser);
@@ -54,7 +56,6 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/auth', async (req, res) => {
-  console.log();
   if (req.session?.login) {
     const user = await User.findOne({ where: { email: req.session.login } });
     return res.json(user);

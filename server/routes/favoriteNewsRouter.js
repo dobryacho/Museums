@@ -1,11 +1,26 @@
 const express = require('express');
-const { FavoriteMuseum } = require('../db/models');
+const { FavoriteMuseum, News, Museum } = require('../db/models');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const { userId } = req.query;
-  const favoritesMuseums = await FavoriteMuseum.findAll({ where: { userId } });
-  res.json(favoritesMuseums);
+  try {
+    const userId = req.session.userId;
+    const favoriteMuseums = await FavoriteMuseum.findAll({ where: { userId } });
+    const museumIds = favoriteMuseums.map((museum) => museum.museumId);
+    const news = await News.findAll({
+      where: { museumId: museumIds },
+      include: {
+        model: Museum,
+        attributes: ['name', 'location', 'city'],
+      },
+    });
+    res.json(news);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: 'An error occurred while fetching news from favorite museums.',
+    });
+  }
 });
 
 router.get('/:id', async (req, res) => {
