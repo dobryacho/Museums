@@ -1,6 +1,6 @@
 import react, { useEffect, useState } from "react";
 import Minimuseum from "../../components/Minimuseum/Minimuseum";
-import { Select, Button, FormControl, FormLabel, FormErrorMessage, FormHelperText, } from '@chakra-ui/react'
+import { Select, Button, FormControl } from '@chakra-ui/react'
 import axios from "axios";
 
 
