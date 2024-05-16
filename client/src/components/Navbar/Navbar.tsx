@@ -6,7 +6,6 @@ import { useAppSelector } from '../../redux/hooks';
 export default function Navbar() {
   const [isAuthenticated, setisAuthenticated] = useState(false);
 const user = useAppSelector((store) => store.userSlice.user.email);
-console.log(user)
   return (
     <div className={styles.wrapper}>
       <div>

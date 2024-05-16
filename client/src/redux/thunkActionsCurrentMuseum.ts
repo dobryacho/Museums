@@ -2,12 +2,33 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from './store'; 
 
+export const fetchFavorites = createAsyncThunk(
+  'favorites/fetchAll',
+  async (userId: number) => {
+    const response = await axios.get(`http://localhost:3000/api/favorites?userId=${userId}`, {
+      withCredentials: true,
+    });
+    return response.data;
+  }
+);
+
+export const fetchVisited = createAsyncThunk(
+  'visited/fetchAll',
+  async (userId: number) => {
+    const response = await axios.get(`http://localhost:3000/api/visited?userId=${userId}`, {
+      withCredentials: true,
+    });
+    return response.data;
+  }
+);
+
 export const fetchAddFavorite = createAsyncThunk(
   'favorites/add',
-  async (museumId: number, { getState }) => {
-    try {
-      const state = getState() as RootState;
-      const userId = state.userSlice.user.id;
+  // async (museumId: number, { getState }) => {
+  //   try {
+  //     const state = getState() as RootState;
+  //     const userId = state.userSlice.user.id;
+  async ({ userId, museumId }: { userId: number; museumId: number }) => {
       const response = await axios.post('http://localhost:3000/api/favorites', { museumId, userId }, {
         withCredentials: true,
       });
@@ -17,9 +38,6 @@ export const fetchAddFavorite = createAsyncThunk(
       }
 
       return response.data;
-    } catch (error) {
-      throw new Error('Не удалось добавить в избранное');
-    }
   }
 );
 
@@ -34,16 +52,13 @@ export const fetchRemoveFavorite = createAsyncThunk(
       throw new Error('Не удалось удалить из избранного');
     }
 
-    return id;
+    return response.data;
   }
 );
 
 export const fetchAddVisited = createAsyncThunk(
   'visited/add',
-  async (museumId: number, { getState }) => {
-    try {
-      const state = getState() as RootState;
-      const userId = state.userSlice.user.id;
+  async ({ userId, museumId }: { userId: number; museumId: number }) => {
       const response = await axios.post('http://localhost:3000/api/visited', { userId, museumId }, {
         withCredentials: true,
       });
@@ -53,9 +68,6 @@ export const fetchAddVisited = createAsyncThunk(
       }
 
       return response.data;
-    } catch (error) {
-      throw new Error('Не удалось добавить в посещенные');
-    }
   }
 );
 
@@ -68,19 +80,6 @@ export const fetchRemoveVisited = createAsyncThunk(
 
     if (response.status !== 200) {
       throw new Error('Не удалось удалить из посещенных');
-    }
-
-    return id;
-  }
-);
-
-export const fetchRecalls = createAsyncThunk(
-  'recalls/fetchByMuseum',
-  async (museumId: number) => {
-    const response = await axios.get(`http://localhost:3000/api/recall?museumId=${museumId}`);
-
-    if (response.status !== 200) {
-      throw new Error('Не удалось загрузить отзывы');
     }
 
     return response.data;
