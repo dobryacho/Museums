@@ -23,6 +23,9 @@ export type MuseumType = {
   photo: string;
   workedTime: string;
   holidays: string;
+  theme: string;
+  coordinates: string;
+  recalls: RecallType[];
   createdAt: Date;
   updatedAt: Date;
 };
@@ -39,6 +42,10 @@ export type VisitedMuseum = {
   userId: number;
   museumId: number;
   createdAt: string;
+};
+
+export type visitedSliceState = {
+  favorites: VisitedMuseum[];
 };
 
 // export type MuseumsType = Array<MuseumType>;

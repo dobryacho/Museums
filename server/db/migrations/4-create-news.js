@@ -9,9 +9,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      text: {
+      title: {
         allowNull: false,
         type: Sequelize.STRING,
+      },
+      text: {
+        allowNull: false,
+        type: Sequelize.TEXT,
       },
       museumId: {
         allowNull: false,
@@ -26,6 +30,10 @@ module.exports = {
       photo: {
         allowNull: false,
         type: Sequelize.STRING,
+      },
+      date: {
+        allowNull: false,
+        type: Sequelize.DATE,
       },
       createdAt: {
         allowNull: false,
