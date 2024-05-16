@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { fetchAuth, fetchLogin, fetchLogout, fetchReg } from "./thunkActions";
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchAuth, fetchLogin, fetchLogout, fetchReg } from './thunkActions';
 
 const initialState: {user: {id: number;email: string;password: string; err?: string;firstName: string;lastName: string;city: string;phone?: string}} = {
   user: {
@@ -15,7 +15,7 @@ const initialState: {user: {id: number;email: string;password: string; err?: str
 };
 
 const usersSlice = createSlice({
-  name: "todoSlice",
+  name: 'todoSlice',
   initialState,
   reducers: {},
   extraReducers(builder) {
@@ -23,11 +23,11 @@ const usersSlice = createSlice({
       state.user = action.payload;
     });
     builder.addCase(fetchAuth.fulfilled, (state, action) => {
-      state.user = action.payload
-    })
+      state.user = action.payload;
+    });
     builder.addCase(fetchLogin.fulfilled, (state, action) => {
-      state.user = action.payload
-    })
+      state.user = action.payload;
+    });
     builder.addCase(fetchLogout.fulfilled, (state) => {
       state.user = {
         id: 0,
