@@ -11,10 +11,10 @@ import Footer from './components/Footer/Footer';
 import Register from './Pages/Register/Register';
 import Login from './Pages/Login/Login';
 import ListMuseums from './components/ListMuseums/ListMuseums';
+import Profile from './Pages/Profile/Profile';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
-
 
   useEffect(() => {
     dispatch(fetchAuth());
@@ -26,10 +26,11 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/allmuseums" element={<AllMuseums />}>
-          <Route path='list' element={<ListMuseums />} />
-          <Route path='map' element={<p>Компонент с картой</p>} />
+          <Route path="list" element={<ListMuseums />} />
+          <Route path="map" element={<p>Компонент с картой</p>} />
         </Route>
         <Route path="/allmuseums/:id" element={<CurrentMuseum />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
       </Routes>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAppSelector } from '../../redux/hooks';
 
-export default function Navbar() {
+export default function AllNews() {
   const [news, setNews] = useState([]);
   const userCity = useAppSelector((store) => store.userSlice.user.city);
 
