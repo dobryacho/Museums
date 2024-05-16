@@ -10,6 +10,7 @@ type MuseumType = {
     workedTime: string;
     holiday: string;
     theme: string;
+    coordinates: string;
     createdAt: Date;
     updatedAt: Date;
   };
