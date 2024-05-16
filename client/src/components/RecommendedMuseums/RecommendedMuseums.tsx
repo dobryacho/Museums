@@ -12,13 +12,13 @@ export default function Navbar() {
     holidays: string;
     theme: string;
   };
-  const [museums, setMuseums] = useState([]);
 
+  const [museums, setMuseums] = useState([]);
   const userCity = useAppSelector((store) => store.userSlice.user.city);
 
   useEffect(() => {
-    // Получение всех музеев
     const getAllMuseums = async () => {
+      // Получение всех музеев
       const response = await fetch('http://localhost:3000/api/museums');
       const data = await response.json();
 
@@ -62,7 +62,7 @@ export default function Navbar() {
         <div key={museum.id}>
           <img src={museum.photo} alt="Тут должно быть фото музея" />
           <h4>{museum.name}</h4>
-          <p>{museum.city}</p>
+          <p>{museum.description}</p>
         </div>
       ))}
     </div>

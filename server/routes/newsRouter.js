@@ -1,9 +1,15 @@
 const express = require('express');
-const { News } = require('../db/models');
+const { News, Museum } = require('../db/models');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const news = await News.findAll();
+  const news = await News.findAll({
+    include: {
+      model: Museum,
+      attributes: ['name', 'location', 'city'],
+    },
+  });
+  console.log(news);
   res.json(news);
 });
 
