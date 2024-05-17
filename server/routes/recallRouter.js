@@ -23,9 +23,10 @@ router.patch('/:id', async (req, res) => {
   res.json(recall);
 });
 
-router.delete('/:id', async (req, res) => {
-  await Recall.destroy({ where: { id: req.params.id } });
-  res.sendStatus(200);
+router.delete('/', async (req, res) => {
+  const { userId, museumId } = req.body;
+  await Recall.destroy({ where: { userId, museumId } });
+  res.sendStatus(200).end();
 });
 
 module.exports = router;
