@@ -8,17 +8,56 @@ import Checkbox from '../../components/Checkbox/Checkbox';
 
 import type { RecallType, RouteParams, MuseumType } from './currMusTypes';
 
+export interface MuseumsType {
+  id:              number;
+  name:            string;
+  description:     string;
+  location:        string;
+  city:            string;
+  photo:           string;
+  workedTime:      string;
+  holidays:        string;
+  theme:           string;
+  coordinates:     string;
+  createdAt:       Date;
+  updatedAt:       Date;
+  recalledByUsers: RecalledByUser[];
+}
+
+export interface RecalledByUser {
+  id:        number;
+  email:     string;
+  firstName: string;
+  lastName:  string;
+  password:  string;
+  city:      string;
+  phone:     string;
+  createdAt: Date;
+  updatedAt: Date;
+  Recall:    Recall;
+}
+
+export interface Recall {
+  text:      string;
+  userId:    number;
+  museumId:  number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+
 export default function CurrentMuseum(): JSX.Element {
   const { id } = useParams<RouteParams>();
 
   const dispatch = useAppDispatch();
 
-  const [museum, setMuseum] = useState<MuseumType | null>(null);
+  const [museum, setMuseum] = useState<MuseumsType>([]);
+console.log(museum);
 
   const user = useAppSelector((store) => store.userSlice.user);
   
     useEffect(() => {
-      axios.get<MuseumType>(`http://localhost:3000/api/museums/${id}`).then((res) => {
+      axios.get<MuseumsType>(`http://localhost:3000/api/museums/${id}`).then((res) => {
        setMuseum(res.data);
       });
      }, [id]);
@@ -50,12 +89,12 @@ export default function CurrentMuseum(): JSX.Element {
 
       <div>
         <h3>Отзывы</h3>
-        {museum?.recalls?.length > 0 ? (
-          museum?.recalls.map((recall: RecallType) => (
-            <div key={recall.id}>
-              <p>{recall.text}</p>
-              <p>Автор: {recall.userId}</p>
-              <p>Дата: {new Date(recall.createdAt).toLocaleDateString()}</p>
+        {museum?.recalledByUsers?.length > 0 ? (
+          museum?.recalledByUsers.map((recall) => (
+            <div key={recall.Recall.museumId}>
+              <p>{recall.Recall.text}</p>
+              <p>Автор: {recall.firstName} {recall.lastName}</p>
+              <p>Дата: {new Date(recall.Recall.createdAt).toLocaleDateString()}</p>
             </div>
           ))
         ) : (

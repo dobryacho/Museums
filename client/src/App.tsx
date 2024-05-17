@@ -13,7 +13,7 @@ import Login from './Pages/Login/Login';
 import ListMuseums from './components/ListMuseums/ListMuseums';
 import FavoritesMuseums from './components/FavoritesMuseums/FavoritesMuseums';
 import Profile from './Pages/Profile/Profile';
-import { Switch } from '@chakra-ui/react';
+import MapMuseuns from './components/MapMuseums/MapMuseuns';
 import AddMuseum from './components/AddMuseum/AddMuseum';
 
 function App(): JSX.Element {
@@ -30,7 +30,7 @@ function App(): JSX.Element {
         <Route path="/" element={<Home />} />
         <Route path="/allmuseums" element={<AllMuseums />}>
           <Route path="list" element={<ListMuseums />} />
-          <Route path="map" element={<p>Компонент с картой</p>} />
+          <Route path="map" element={<MapMuseuns/>} />
         </Route>
         <Route path="/allmuseums/:id" element={<CurrentMuseum />} />
         <Route path="/profile" element={<Profile />} />
