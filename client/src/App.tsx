@@ -14,6 +14,7 @@ import ListMuseums from './components/ListMuseums/ListMuseums';
 import FavoritesMuseums from './components/FavoritesMuseums/FavoritesMuseums';
 import Profile from './Pages/Profile/Profile';
 import MapMuseuns from './components/MapMuseums/MapMuseuns';
+import AddMuseum from './components/AddMuseum/AddMuseum';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -35,7 +36,9 @@ function App(): JSX.Element {
         <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        {/* <Route path="/pay" element={<StripeContainer />} /> */}
         <Route path="/favoritesMuseums" element={<FavoritesMuseums />} />
+        <Route path="/addMuseum" element={<AddMuseum />} />
       </Routes>
       <Footer />
     </>

@@ -50,7 +50,7 @@ function Register() {
         <input
           type="text"
           name="firstName"
-          placeholder="Fits name"
+          placeholder="First name"
           required
           onChange={changeInputs}
         />
