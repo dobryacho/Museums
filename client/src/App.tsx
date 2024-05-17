@@ -10,7 +10,7 @@ import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import Register from './Pages/Register/Register';
 import Login from './Pages/Login/Login';
-import Pay from './Pages/Pay/Pay';
+import Pay from './components/Pay/Pay';
 import ListMuseums from './components/ListMuseums/ListMuseums';
 import FavoritesMuseums from './components/FavoritesMuseums/FavoritesMuseums';
 import Profile from './Pages/Profile/Profile';

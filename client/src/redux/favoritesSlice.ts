@@ -23,10 +23,8 @@ const favoritesSlice = createSlice({
     });
     builder.addCase(fetchRemoveFavorite.fulfilled, (state, action: PayloadAction<number>) => {
       state.favorites = state.favorites.filter(fav => {
-        console.log(fav.museumId, action.payload);
         return (fav.museumId !== action.payload);
       })
-      console.log(state.favorites);;
     });
   },
 });

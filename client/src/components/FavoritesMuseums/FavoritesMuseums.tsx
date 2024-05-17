@@ -32,7 +32,6 @@ export default function FavoritesMuseums() {
         .then((res) => {
           const [userData] = res.data;
           setFavorites(userData?.favoriteMuseums);
-          console.log(userData?.favoriteMuseums);
         });
     }
   }, [user.id]);
