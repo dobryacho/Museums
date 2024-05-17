@@ -13,6 +13,8 @@ import Login from './Pages/Login/Login';
 import ListMuseums from './components/ListMuseums/ListMuseums';
 import FavoritesMuseums from './components/FavoritesMuseums/FavoritesMuseums';
 import Profile from './Pages/Profile/Profile';
+import { Switch } from '@chakra-ui/react';
+import AddMuseum from './components/AddMuseum/AddMuseum';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -35,6 +37,7 @@ function App(): JSX.Element {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/favoritesMuseums" element={<FavoritesMuseums />} />
+        <Route path="/addMuseum" element={<AddMuseum />} />
       </Routes>
       <Footer />
     </>
