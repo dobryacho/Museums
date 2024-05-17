@@ -1,21 +1,6 @@
-import { Dispatch, SetStateAction } from 'react';
-import { EdMuseum } from '../../VisitedMuseums';
+import { StarProp } from '../../VisitedMuseums';
 
-function Star({
-  el,
-  setHover,
-  i,
-  handlerRating,
-  hover,
-  mus,
-}: {
-  el: number;
-  setHover: Dispatch<SetStateAction<{ star: number }>>;
-  i: number;
-  handlerRating: (e: any) => void;
-  hover: { star: number };
-  mus: EdMuseum;
-}) {
+function Star({ el, setHover, i, handlerRating, hover, mus }: StarProp) {
   return (
     <div
       className={`${el}`}

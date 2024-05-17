@@ -1,5 +1,5 @@
 import { Button, Textarea } from '@chakra-ui/react';
-import { EdMuseum, UserMuseums } from '../VisitedMuseums';
+import { RecallProps } from '../VisitedMuseums';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
@@ -7,13 +7,7 @@ import Star from './Star/Star';
 
 const rating = [1, 2, 3, 4, 5, 6];
 
-type Props = {
-  mus: EdMuseum;
-  setUpdate: (el: any) => void;
-  visited: UserMuseums;
-};
-
-function Recalls({ mus, setUpdate, visited }: Props) {
+function Recalls({ mus, setUpdate, visited }: RecallProps) {
   const navigate = useNavigate();
   const [recall, setRecall] = useState({ text: '' });
   const [hover, setHover] = useState({ star: 0 });

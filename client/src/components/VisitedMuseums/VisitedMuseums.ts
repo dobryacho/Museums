@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface UserMuseums {
   id?:              number;
   email?:           string;
@@ -46,3 +48,17 @@ export interface VisitedMuseum {
   updatedAt: Date;
 }
 
+export type StarProp = {
+  el: number;
+  setHover: Dispatch<SetStateAction<{ star: number }>>;
+  i: number;
+  handlerRating: (e: any) => void;
+  hover: { star: number };
+  mus: EdMuseum;
+}
+
+export type RecallProps = {
+  mus: EdMuseum;
+  setUpdate: (el: any) => void;
+  visited: UserMuseums;
+};
