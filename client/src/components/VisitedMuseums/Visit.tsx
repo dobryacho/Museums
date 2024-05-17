@@ -23,7 +23,6 @@ function Visit() {
       .get(`http://127.0.0.1:3000/api/user/visit/${user.id}`)
       .then((res) => setVisited(res.data[0]));
   }, [user, update]);
-console.log(hover);
 
   return (
     <>

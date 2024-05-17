@@ -71,8 +71,6 @@ router.get('/visit/:id', async (req, res) => {
   res.json(users);
 });
 
-module.exports = router;
-
 router.get('/test', async (req, res) => {
   const users = await User.findAll({
     attributes: ['id'],
@@ -84,8 +82,8 @@ router.get('/test', async (req, res) => {
 });
 
 router.get('/favorites/:id', async (req, res) => {
-  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', req.params.id);
   const favorites = await User.findAll({where: {id: req.params.id}, attributes: ['id'], include: ['favoriteMuseums']});
-  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', favorites);
   res.json(favorites);
 });
+
+module.exports = router;

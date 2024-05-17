@@ -25,7 +25,7 @@ export type MuseumType = {
   holidays: string;
   theme: string;
   coordinates: string;
-  recalls: RecallType[];
+  recalledByUsers: RecallType[];
   createdAt: Date;
   updatedAt: Date;
 };
