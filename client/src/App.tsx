@@ -36,6 +36,7 @@ function App(): JSX.Element {
         <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        {/* <Route path="/pay" element={<StripeContainer />} /> */}
         <Route path="/favoritesMuseums" element={<FavoritesMuseums />} />
         <Route path="/addMuseum" element={<AddMuseum />} />
       </Routes>
