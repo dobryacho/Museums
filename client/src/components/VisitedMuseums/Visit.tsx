@@ -31,7 +31,7 @@ console.log(hover);
         .sort((a, b) => a.id - b.id)
         .map((mus) => (
           <div key={mus.id}>
-            <div>{mus.description}</div>
+            <div>{mus.name}</div>
             {visited?.recalledMuseums.find((el) => el.id === mus.id) ? (
               <div className='recall'>
                 Ваш отзыв:{' '}
