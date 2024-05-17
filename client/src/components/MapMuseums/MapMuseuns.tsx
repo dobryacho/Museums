@@ -58,8 +58,12 @@ function MapMuseuns() {
                 modules={['geoObject.addon.balloon']}
                 defaultGeometry={el.coordinates.match(/\d*\.\d*/gi) || moscow.center}
                 properties={{
-                  balloonContentBody: `<img src="${el.photo}" style="width: 100px;height: auto;" align="left" vspace="5" hspace="5"></img> <b>${el.name}</b><p>${el.description}</p>
-            <p>время работы: ${el.workedTime}</p>`,
+                  balloonContentBody: `
+                  <img src="${el.photo}" style="width: 100px;height: auto;" align="left" vspace="5" hspace="5"/>
+                  <a href='/allmuseums/${el.id}'><b>${el.name}</b></a>
+                  <p>${el.description}</p>
+                  <p>время работы: ${el.workedTime}</p>
+                `,
                 }}
               />
             ))}

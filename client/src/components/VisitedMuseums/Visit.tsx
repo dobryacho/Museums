@@ -24,16 +24,13 @@ function Visit() {
   return (
     <>
       {visited?.visitedMuseums
-        .sort((a, b) => a.id - b.id)
+        .sort((a, b) => b.VisitedMuseum.id - a.VisitedMuseum.id)
         .map((mus) => (
-          <Recalls
-            mus={mus}
-            setUpdate={setUpdate}
-            visited={visited}
-            key={`mus${mus.id}`}
-          />
+          <div className="visit-card" key={`mus${mus.id}`}>
+            <Recalls mus={mus} setUpdate={setUpdate} visited={visited} />
+          </div>
         ))}
-    </>
+    </> 
   );
 }
 
