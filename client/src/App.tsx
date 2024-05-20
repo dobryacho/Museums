@@ -34,7 +34,7 @@ function App(): JSX.Element {
         <Route path="/" element={<Home />} />
         <Route path="/allmuseums" element={<AllMuseums />}>
           <Route path="list" element={<ListMuseums />} />
-          <Route path="map" element={<MapMuseuns/>} />
+          <Route path="map" element={<MapMuseuns />} />
         </Route>
         <Route path="/allmuseums/:id" element={<CurrentMuseum />} />
         <Route 

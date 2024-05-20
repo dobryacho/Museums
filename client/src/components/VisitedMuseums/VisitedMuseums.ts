@@ -55,6 +55,7 @@ export type StarProp = {
   handlerRating: (e: any) => void;
   hover: { star: number };
   mus: EdMuseum;
+  color?: string;
 }
 
 export type RecallProps = {

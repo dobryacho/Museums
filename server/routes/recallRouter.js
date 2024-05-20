@@ -17,9 +17,10 @@ router.post('/', async (req, res) => {
   res.json(recall);
 });
 
-router.patch('/:id', async (req, res) => {
-  const recall = await Recall.findByPk(req.params.id);
-  await recall.update(req.body);
+router.patch('/', async (req, res) => {
+  const { userId, museumId, text } = req.body;
+  const recall = await Recall.findOne({ where: { userId, museumId } });
+  await recall.update({ text });
   res.json(recall);
 });
 
