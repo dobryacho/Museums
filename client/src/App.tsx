@@ -3,7 +3,6 @@ import './App.css';
 import AllMuseums from './Pages/AllMuseums/AllMuseums';
 import { fetchAuth } from './redux/thunkActions';
 import { useAppDispatch } from './redux/hooks';
-
 import CurrentMuseum from './Pages/CurrentMuseum/CurrentMuseum';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Pages/Home/Home';
@@ -14,6 +13,7 @@ import Login from './Pages/Login/Login';
 import ListMuseums from './components/ListMuseums/ListMuseums';
 import FavoritesMuseums from './components/FavoritesMuseums/FavoritesMuseums';
 import Profile from './Pages/Profile/Profile';
+import MusCard from './Pages/MusCard/MusCard';
 import MapMuseuns from './components/MapMuseums/MapMuseuns';
 import AddMuseum from './components/AddMuseum/AddMuseum';
 import QrCodeScanner from './components/QRScanner/QRCodeScanner';
@@ -39,6 +39,7 @@ function App(): JSX.Element {
         <Route path="/profile" element={<Profile />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/card" element={<MusCard />} />
         <Route path="/scan" element={<QrCodeScanner />} />
         <Route path="/qr" element={<QrCodeGenerator />} />
         <Route path="/favoritesMuseums" element={<FavoritesMuseums />} />
