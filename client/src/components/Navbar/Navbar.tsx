@@ -17,7 +17,7 @@ export default function Navbar() {
         <Link to={'/'}>
           <button className={styles.link}> Главная</button>
         </Link>
-        <Link to={'/allmuseums'}>
+        <Link to={'/allmuseums/list'}>
           <button className={styles.link}>Все музеи</button>
         </Link>
         {user ? (
