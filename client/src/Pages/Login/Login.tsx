@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppDispatch } from '../../redux/hooks';
 import { fetchLogin } from '../../redux/thunkActions';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const initialValue = {
   email: '',
@@ -9,6 +10,8 @@ const initialValue = {
 };
 
 function Login() {
+  const { t } = useTranslation();
+
   const [inputs, setInputs] = useState(initialValue);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -37,7 +40,7 @@ function Login() {
           placeholder="password"
           onChange={changeInputs}
         />
-        <button type="submit">Войти</button>
+        <button type="submit">{t('login')}</button>
       </form>
     </>
   );

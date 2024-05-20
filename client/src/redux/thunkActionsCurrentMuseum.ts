@@ -59,17 +59,32 @@ export const fetchRemoveFavorite = createAsyncThunk(
 export const fetchAddVisited = createAsyncThunk(
   'visited/add',
   async ({ userId, museumId }: { userId: number; museumId: number }) => {
-      const response = await axios.post('http://localhost:3000/api/visited', { userId, museumId }, {
-        withCredentials: true,
-      });
+    const response = await axios.post('http://localhost:3000/api/visited', { userId, museumId }, {
+      withCredentials: true,
+    });
 
-      if (response.status !== 200) {
-        throw new Error('Не удалось добавить в посещенные');
-      }
+    if (response.status !== 200) {
+      throw new Error('Не удалось добавить в посещенные');
+    }
 
-      return response.data;
+    return response.data;
   }
 );
+
+// export const fetchAddVisited = createAsyncThunk(
+//   'visited/add',
+//   async ({ userId, museumId }: { userId: number; museumId: number }) => {
+//       const response = await axios.post('http://localhost:3000/api/visited', { userId, museumId }, {
+//         withCredentials: true,
+//       });
+
+//       if (response.status !== 200) {
+//         throw new Error('Не удалось добавить в посещенные');
+//       }
+
+//       return response.data;
+//   }
+// );
 
 export const fetchRemoveVisited = createAsyncThunk(
   'visited/remove',

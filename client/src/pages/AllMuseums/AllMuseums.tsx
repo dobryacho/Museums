@@ -1,17 +1,21 @@
 import { Button } from '@chakra-ui/react';
 import { Link, Outlet } from 'react-router-dom';
 
+import { useTranslation } from 'react-i18next';
+
 export default function AllMuseums() {
+  const { t } = useTranslation();
+
   return (
     <>
       <Link to="list">
         <Button colorScheme="green" margin="2px">
-          Список
+          {t('list')}
         </Button>
       </Link>
       <Link to="map">
         <Button colorScheme="green" margin="2px">
-          Карта
+        {t('map')}
         </Button>
       </Link>
 

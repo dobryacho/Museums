@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useAppSelector } from '../../redux/hooks';
+import { useTranslation } from 'react-i18next';
 
 export default function AllNews() {
+  const { t } = useTranslation();
   const [news, setNews] = useState([]);
   const userCity = useAppSelector((store) => store.userSlice.user.city);
 
@@ -33,7 +35,7 @@ export default function AllNews() {
 
   return (
     <div>
-      <h2>Предстоящие мероприятия:</h2>
+      <h2>{t('events')}</h2>
       {news.map((el) => {
         const eventDate = new Date(el.date);
         const formattedDate = eventDate.toLocaleString('ru-RU', {
@@ -45,9 +47,9 @@ export default function AllNews() {
             <h4>{el.title}</h4>
             <img src={el.photo} alt="Тут должно быть фото музея" />
             <p>{el.text}</p>
-            <p>Место проведения: {el.Museum.name}.</p>
-            <p>Дата проведения: {formattedDate}.</p>
-            <p>Адрес: {el.Museum.location}.</p>
+            <p>{t('eventPlace')} {el.Museum.name}.</p>
+            <p>{t('eventDate')} {formattedDate}.</p>
+            <p>{t('address')} {el.Museum.location}.</p>
           </div>
         );
       })}

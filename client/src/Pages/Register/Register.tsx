@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchReg } from '../../redux/thunkActions';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const initialValue = {
   email: '',
@@ -13,6 +14,8 @@ const initialValue = {
 };
 
 function Register() {
+  const { t } = useTranslation();
+
   const [inputs, setInputs] = useState(initialValue);
   const dispatch = useAppDispatch();
   const userErrors = useAppSelector((store) => store.userSlice.user.err);
@@ -50,7 +53,7 @@ function Register() {
         <input
           type="text"
           name="firstName"
-          placeholder="Fits name"
+          placeholder="First name"
           required
           onChange={changeInputs}
         />
@@ -63,9 +66,9 @@ function Register() {
         />
         <select name="city" id="city" onChange={changeInputs}>
           <option value="moscow" selected>
-            Москва
+            {t('moscow')}
           </option>
-          <option value="petersburg">Санкт-Петербург</option>
+          <option value="petersburg">{t('spb')}</option>
         </select>
         <input
           type="text"
@@ -73,7 +76,7 @@ function Register() {
           placeholder="Phone number"
           onChange={changeInputs}
         />
-        <button type="submit">Зарегистрироваться</button>
+        <button type="submit">{t('register')}</button>
       </form>
       <p>{userErrors}</p>
     </>
