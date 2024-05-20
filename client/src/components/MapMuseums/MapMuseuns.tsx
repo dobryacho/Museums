@@ -24,14 +24,13 @@ type TopLevel = {
 
 function MapMuseuns() {
   const { t } = useTranslation();
-
-// удалить
+  // удалить
   const [allMuseums, setAllMuseums] = useState<TopLevel[]>([]);
 
   useEffect(() => {
     axios.get<TopLevel[]>('http://localhost:3000/api/museums').then((res) => {
-      setAllMuseums(res.data);      
-    })
+      setAllMuseums(res.data);
+    });
   }, []);
   // удалить
 
