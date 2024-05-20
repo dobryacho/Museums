@@ -18,6 +18,7 @@ import MapMuseuns from './components/MapMuseums/MapMuseuns';
 import AddMuseum from './components/AddMuseum/AddMuseum';
 import QrCodeScanner from './components/QRScanner/QRCodeScanner';
 import QrCodeGenerator from './components/QRScanner/QRCode/QRCode'
+import RepresentCard from './components/RepresentCard/RepresentCard';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -29,6 +30,7 @@ function App(): JSX.Element {
   return (
     <>
       <Navbar />
+      <RepresentCard/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/allmuseums" element={<AllMuseums />}>
