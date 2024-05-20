@@ -22,8 +22,8 @@ export default function Navbar() {
         <Link to={'/'}>
           <button className={styles.link}>{t('main')}</button>
         </Link>
-        <Link to={'/allmuseums'}>
-          <button className={styles.link}>{t('all')}</button>
+        <Link to={'/allmuseums/list'}>
+          <button className={styles.link}>Все музеи</button>
         </Link>
         {user ? (
           <>
