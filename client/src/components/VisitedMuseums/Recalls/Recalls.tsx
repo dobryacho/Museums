@@ -1,16 +1,16 @@
-import { Box, Button, ButtonGroup, Textarea } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Stack, Textarea } from '@chakra-ui/react';
 import { RecallProps } from '../VisitedMuseums';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ChangeEvent, useState } from 'react';
 import axios from 'axios';
 import Star from './Star/Star';
+import styles from './Recalls.module.css';
 
 const COLOR_STAR_VOITED: string = 'tomato';
 
 const rating = [1, 2, 3, 4, 5, 6];
 
 function Recalls({ mus, setUpdate, visited }: RecallProps) {
-  const navigate = useNavigate();
   const [recall, setRecall] = useState({ text: '' });
   const [hover, setHover] = useState({ star: 0 });
   const [editRecall, setEditRecall] = useState(true);
@@ -90,90 +90,99 @@ function Recalls({ mus, setUpdate, visited }: RecallProps) {
   return (
     <>
       <div>
-        <a href="" onClick={() => navigate(`/allmuseums/${mus.id}`)}>
-          {mus.name}
-        </a>
+        <Link to={`/allmuseums/${mus.id}`}>{mus.name}</Link>
       </div>
-      {visited?.recalledMuseums.find((el) => el.id === mus.id) ? (
-        <div className="recall">
-          {editRecall ? (
-            <>
-              <div>
-                Ваш отзыв:{' '}
-                <Box w={'60vw'} p={5}>
-                  {
-                    visited?.recalledMuseums.find((el) => el.id === mus.id)
-                      ?.Recall?.text
+      <Stack spacing={4} borderWidth="1px" p={1}>
+        {visited?.recalledMuseums.find((el) => el.id === mus.id) ? (
+          <div>
+            {editRecall ? (
+              <>
+                <div>
+                  Ваш отзыв:{' '}
+                  <Box w={'60vw'} p={5}>
+                    {
+                      visited?.recalledMuseums.find((el) => el.id === mus.id)
+                        ?.Recall?.text
+                    }
+                  </Box>
+                </div>
+                <ButtonGroup size="xs" spacing="3">
+                  <Button colorScheme="blue" onClick={handlerEditRecall}>
+                    Редактировать
+                  </Button>
+                  <Button
+                    colorScheme="red"
+                    id={`${mus.id}`}
+                    onClick={handlerDeleteRecall}
+                  >
+                    Удалить отзыв
+                  </Button>
+                </ButtonGroup>
+              </>
+            ) : (
+              <>
+                <Textarea
+                  value={recall.text}
+                  onChange={(e) =>
+                    setRecall((pre) => ({
+                      ...pre,
+                      text: e.target.value,
+                    }))
                   }
-                </Box>
-              </div>
-              <ButtonGroup size="xs" spacing="3">
-                <Button colorScheme="blue" onClick={handlerEditRecall}>
-                  Редактировать
-                </Button>
-                <Button
-                  colorScheme="red"
-                  id={`${mus.id}`}
-                  onClick={handlerDeleteRecall}
-                >
-                  Удалить отзыв
-                </Button>
-              </ButtonGroup>
-            </>
-          ) : (
-            <>
-              <Textarea
-                value={recall.text}
-                onChange={(e) =>
-                  setRecall((pre) => ({
-                    ...pre,
-                    text: e.target.value,
-                  }))
-                }
-              />
-              <ButtonGroup size="xs" spacing="3" m={3}>
-                <Button colorScheme="blue" onClick={handlerSubmitEditRecall}>
-                  Изменить
-                </Button>
-                <Button onClick={handlerUndoEditRecall}>Отмена</Button>
-              </ButtonGroup>
-            </>
-          )}
+                />
+                <ButtonGroup size="xs" spacing="3" m={3}>
+                  <Button colorScheme="blue" onClick={handlerSubmitEditRecall}>
+                    Изменить
+                  </Button>
+                  <Button onClick={handlerUndoEditRecall}>Отмена</Button>
+                </ButtonGroup>
+              </>
+            )}
+          </div>
+        ) : (
+          <>
+            <Textarea
+              backgroundColor={'white'}
+              value={recall.text}
+              onChange={(e) =>
+                setRecall((pre) => ({
+                  ...pre,
+                  text: e.target.value,
+                }))
+              }
+            />
+            <Button
+              className={styles.recall_btn}
+              m={3}
+              id={`${mus.id}`}
+              onClick={handlerRecall}
+            >
+              Оставить отзыв
+            </Button>
+          </>
+        )}
+      </Stack>
+      <Stack>
+        <div>
+          {mus.VisitedMuseum.rating ? 'Ваша оценка: ' : 'Оцените музей: '}
         </div>
-      ) : (
-        <>
-          <Textarea
-            backgroundColor={'white'}
-            value={recall.text}
-            onChange={(e) =>
-              setRecall((pre) => ({
-                ...pre,
-                text: e.target.value,
-              }))
-            }
-          />
-          <Button m={3} id={`${mus.id}`} onClick={handlerRecall}>
-            Оставить отзыв
-          </Button>
-        </>
-      )}
-      <div>{mus.VisitedMuseum.rating ? ('Ваша оценка: ') : ('Оцените музей: ')}</div>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        {rating.map((el, i) => (
-          <Star
-            key={`star${el}`}
-            el={el}
-            i={i}
-            setHover={setHover}
-            handlerRating={handlerRating}
-            hover={hover}
-            mus={mus}
-            color={
-              el <= (mus.VisitedMuseum.rating || 0) ? COLOR_STAR_VOITED : ''
-            }
-          />
-        ))}
-      </div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {rating.map((el, i) => (
+            <Star
+              key={`star${el}`}
+              el={el}
+              i={i}
+              setHover={setHover}
+              handlerRating={handlerRating}
+              hover={hover}
+              mus={mus}
+              color={
+                el <= (mus.VisitedMuseum.rating || 0) ? COLOR_STAR_VOITED : ''
+              }
+            />
+          ))}
+        </div>
+      </Stack>
     </>
   );
 }

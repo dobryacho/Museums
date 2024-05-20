@@ -4,6 +4,7 @@ import { useAppSelector } from '../../redux/hooks';
 import { UserMuseums } from './VisitedMuseums';
 import './visit.css';
 import Recalls from './Recalls/Recalls';
+import { Stack } from '@chakra-ui/react';
 
 function Visit() {
   const [visited, setVisited] = useState<UserMuseums>({
@@ -26,9 +27,9 @@ function Visit() {
       {visited?.visitedMuseums
         .sort((a, b) => b.VisitedMuseum.id - a.VisitedMuseum.id)
         .map((mus) => (
-          <div className="visit-card" key={`mus${mus.id}`}>
-            <Recalls mus={mus} setUpdate={setUpdate} visited={visited} />
-          </div>
+            <Stack key={mus.id} spacing={4} shadow='md' borderWidth='1px' p={5} m={5}>
+            <Recalls mus={mus} setUpdate={setUpdate} visited={visited}/>
+            </Stack>
         ))}
     </> 
   );
