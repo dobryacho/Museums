@@ -1,10 +1,12 @@
 import react, { useEffect, useState } from "react";
 import Minimuseum from "../../components/Minimuseum/Minimuseum";
 import { Select, Button, FormControl } from '@chakra-ui/react'
-import axios from "axios";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { fetchMuseums } from "../../redux/thunkActionsAllMuseums";
+import { updateMuseums, filterMuseumsByCity, filterMuseumsByDirection, selectCity, selectDirection } from './redux/postSlice';
 
 
-type MuseumType = {
+export type MuseumType = {
     id: number;
     name: string;
     description: string;
@@ -19,43 +21,36 @@ type MuseumType = {
     updatedAt: Date;
   };
 
-type Museums = Array<MuseumType>;
+export type Museums = Array<MuseumType>;
 
 export default function ListMuseums() {
-    
-  const [selectedCity, setSelectedCity] = useState('');
   
-  const [selectedDirection, setSelectedDirection] = useState('');
+  const dispatch = useAppDispatch();
+  const {allMuseums, museums, selectedCity, selectedDirection} = useAppSelector((store) => store.allMuseumsSlice);
+
   
-  const [allMuseums, setAllMuseums] = useState<Museums>([]);
-
-  const [museums, setMuseums] = useState<Museums>([]);
-
-
   useEffect(() => {
-    axios.get<Museums>('http://localhost:3000/api/museums').then((res) => {
-      setAllMuseums(res.data);
-      setMuseums(res.data);
-    })
+    void dispatch(fetchMuseums());
+    dispatch(updateMuseums(allMuseums));
   }, []);
 
   const handleSelectCityChange = (e: { target: { value: react.SetStateAction<string>; }; }) => {
-        setSelectedCity(e.target.value);
+    dispatch(selectCity(e.target.value));
   };
     
   const handleSelectDirectionChange  = (e: { target: { value: react.SetStateAction<string>; }; }) => {
-        setSelectedDirection(e.target.value);
+    dispatch(selectDirection(e.target.value));
   };
 
-    const handleSubmit =  () => {
-      setMuseums(allMuseums);
-        if(selectedCity) {
-          setMuseums((museums) => museums.filter((museum) => museum.city === selectedCity));
+  const handleSubmit =  () => {
+    dispatch(updateMuseums(allMuseums));
+      if(selectedCity) {
+        dispatch(filterMuseumsByCity(selectedCity));
         }
-        if(selectedDirection) {
-          setMuseums((museums) => museums.filter((museum) => museum.theme === selectedDirection));
-        }
-    };
+      if(selectedDirection) {
+        dispatch(filterMuseumsByDirection(selectedDirection));
+      }
+  };
 
     return (
         <>

@@ -23,7 +23,7 @@ export default function Navbar() {
           <button className={styles.link}>{t('main')}</button>
         </Link>
         <Link to={'/allmuseums/list'}>
-          <button className={styles.link}>Все музеи</button>
+          <button className={styles.link}>{t('all')}</button>
         </Link>
         {user ? (
           <>
