@@ -4,10 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import Star from './Star/Star';
+import { useTranslation } from 'react-i18next';
 
 const rating = [1, 2, 3, 4, 5, 6];
 
 function Recalls({ mus, setUpdate, visited }: RecallProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [recall, setRecall] = useState({ text: '' });
   const [hover, setHover] = useState({ star: 0 });
@@ -72,7 +74,7 @@ function Recalls({ mus, setUpdate, visited }: RecallProps) {
       {visited?.recalledMuseums.find((el) => el.id === mus.id) ? (
         <div className="recall">
           <div>
-            Ваш отзыв:{' '}
+          {t('yourReview')}{' '}
             {
               visited?.recalledMuseums.find((el) => el.id === mus.id)?.Recall
                 ?.text
@@ -83,7 +85,7 @@ function Recalls({ mus, setUpdate, visited }: RecallProps) {
             id={`${mus.id}`}
             onClick={handlerDeleteRecall}
           >
-            Удалить отзыв
+            {t('deleteReview')}
           </Button>
         </div>
       ) : (
@@ -99,13 +101,13 @@ function Recalls({ mus, setUpdate, visited }: RecallProps) {
           />
 
           <Button id={`${mus.id}`} onClick={handlerRecall}>
-            Оставить отзыв
+          {t('submitReview')}
           </Button>
         </>
       )}
       {mus.VisitedMuseum.rating === null ? (
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          Оцените музей:
+          {t('rateMuseum')}
           {rating.map((el, i) => (
             <Star
               key={`star${el}`}

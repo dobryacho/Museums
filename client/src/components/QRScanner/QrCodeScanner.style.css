@@ -1,0 +1,17 @@
+.scanner-video {
+  width: 100%;
+  max-width: 600px;
+  border: 1px solid #ccc;
+}
+
+.result {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.checkmark {
+  color: green;
+  font-size: 2rem;
+  margin-right: 10px;
+}

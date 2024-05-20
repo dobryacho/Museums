@@ -3,7 +3,12 @@ import styles from './Navbar.module.css';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchLogout } from '../../redux/thunkActions';
 
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../../components/LangSwitch/LangSwitch';
+
 export default function Navbar() {
+  const { t } = useTranslation();
+
   const dispatch = useAppDispatch();
   const user = useAppSelector((store) => store.userSlice.user.email);
 
@@ -15,30 +20,31 @@ export default function Navbar() {
     <div className={styles.wrapper}>
       <div>
         <Link to={'/'}>
-          <button className={styles.link}> Главная</button>
+          <button className={styles.link}>{t('main')}</button>
         </Link>
         <Link to={'/allmuseums'}>
-          <button className={styles.link}>Все музеи</button>
+          <button className={styles.link}>{t('all')}</button>
         </Link>
         {user ? (
           <>
             <Link to={'/profile'}>
-              <button className={styles.link}>Личный кабинет</button>
+              <button className={styles.link}>{t('profile')}</button>
             </Link>
             <button onClick={logoutHandle} className={styles.link}>
-              Выйти
+            {t('logout')}
             </button>
           </>
         ) : (
           <>
             <Link to={'/register'}>
-              <button className={styles.link}>Регистрация</button>
+              <button className={styles.link}>{t('register')}</button>
             </Link>
             <Link to={'/login'}>
-              <button className={styles.link}>Войти</button>
+              <button className={styles.link}>{t('login')}</button>
             </Link>
           </>
         )}
+        <LanguageSwitcher />
       </div>
     </div>
   );

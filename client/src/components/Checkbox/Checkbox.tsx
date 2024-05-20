@@ -1,6 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useTranslation } from 'react-i18next';
+
 import {
   fetchVisited, fetchAddVisited,fetchRemoveVisited,
 } from '../../redux/thunkActionsCurrentMuseum';
@@ -8,6 +10,7 @@ import {
 import type { RouteParams } from '../../Pages/CurrentMuseum/currMusTypes';
 
 export default function Checkbox() {
+  const { t } = useTranslation();
   const { id } = useParams<RouteParams>();
 
   const dispatch = useAppDispatch();
@@ -37,7 +40,7 @@ export default function Checkbox() {
               checked={isVisited}
               onChange={handleVisitedClick}
             />
-            <label>Посетил этот музей</label>
+            <label>{t('visited')}</label>
           </div>
   )
 }

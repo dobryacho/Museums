@@ -3,15 +3,24 @@ const { Card } = require('../db/models');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
+  console.log(req.query);
   const { userId } = req.query;
   const cards = await Card.findAll({ where: { userId } });
+  console.log(cards);
   res.json(cards);
 });
 
-router.get('/:id', async (req, res) => {
-  const card = await Card.findByPk(req.params.id);
-  res.json(card);
-});
+// router.get('/:id', async (req, res) => {
+//   const userId = req.params.id;
+//   console.log('--->', req.params);
+
+//   const card = await Card.findOne({ where: { userId } });
+//   if (card && new Date(card.validity) > new Date()) {
+//     console.log('HEEREEEE', res);
+//     return res.json({ valid: true });
+//   }
+//   return res.json({ valid: false });
+// });
 
 router.post('/', async (req, res) => {
   const card = await Card.create(req.body);
@@ -24,9 +33,7 @@ router.put('/:id', async (req, res) => {
   await Card.update({ userId, validity }, { where: { id } });
   const updatedCard = await Card.findByPk(id);
   res.json(updatedCard);
-  console.log('CARRRRRR', updatedCard);
 });
-
 
 router.patch('/:id', async (req, res) => {
   const card = await Card.findByPk(req.params.id);

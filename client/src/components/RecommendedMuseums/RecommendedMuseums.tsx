@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useAppSelector } from '../../redux/hooks';
+import { useTranslation } from 'react-i18next';
 
-export default function Navbar() {
+export default function RecommendedMuseums () {
+  const { t } = useTranslation();
   type Museum = {
     name: string;
     description: string;
@@ -57,7 +59,7 @@ export default function Navbar() {
 
   return (
     <div>
-      <h2>Рекомендованные музеи:</h2>
+      <h2>{t('recommendedMus')}</h2>
       {museums.map((museum) => (
         <div key={museum.id}>
           <img src={museum.photo} alt="Тут должно быть фото музея" />

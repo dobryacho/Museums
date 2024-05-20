@@ -9,7 +9,6 @@ router.get('/', async (req, res) => {
       attributes: ['name', 'location', 'city'],
     },
   });
-  console.log(news);
   res.json(news);
 });
 

@@ -3,6 +3,7 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import axios from 'axios';
 import { useAppSelector } from '../../redux/hooks';
@@ -24,23 +25,21 @@ interface CardInfoType {
 }
 
 const PaymentForm = () => {
+  const { t } = useTranslation();
+  
   const stripe = useStripe();
   const elements = useElements();
   const { handleSubmit, setValue } = useForm();
   const [message, setMessage] = useState<string>('');
   const [cardInfo, setCardInfo] = useState<CardInfoType | null>(null);
   const user = useAppSelector((store) => store.userSlice.user);
-  console.log(user.id);
 
   useEffect(() => {
     const fetchCardInfo = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/api/cards/?userId=${user.id}`);
         if (response.data.length > 0) {
-          console.log(response.data);
-          console.log(cardInfo);
           setCardInfo(response.data[0]);
-          console.log(cardInfo);
         }
       } catch (error) {
         console.error(error);
@@ -67,7 +66,7 @@ const PaymentForm = () => {
           userId: user.id,
           validity: validity.toISOString(),
         });
-        console.log(response);
+
         setCardInfo({ ...cardInfo, validity: validity.toISOString() });
       } else {
         validity.setFullYear(validity.getFullYear() + 1);
@@ -77,7 +76,6 @@ const PaymentForm = () => {
       });
 
       const { id } = response.data;
-      console.log(id);
 
       setCardInfo({ id, validity: validity.toISOString() });
     }
@@ -94,9 +92,9 @@ const PaymentForm = () => {
     <div>
       {cardInfo ? (
         <>
-          <p>Номер вашей Музейной карты: {cardInfo.id}</p>
-          <p>Срок действия: {new Date(cardInfo.validity).toLocaleDateString()}</p>
-          <h2>Продлить музейную карту</h2>
+          <p>{t('cardNumber')} {cardInfo.id}</p>
+          <p>{t('validity')} {new Date(cardInfo.validity).toLocaleDateString()}</p>
+          <h2>{t('renewCard')}</h2>
         </>
       ) : (
         <h2>Купить музейную карту</h2>
@@ -104,13 +102,13 @@ const PaymentForm = () => {
       <div className="card-container">
         <form onSubmit={handleSubmit(onSubmit)}>
           <label>
-            <p>Годовая Музейная Карта<br />Сумма к оплате: 6000 руб</p>
+            <p>{t('oneYearCard')}<br />{t('totalSum')}</p>
           </label>
           <label>
             <CardElement className="card-element" options={{ hidePostalCode: true }} />
           </label>
           <button type="submit" disabled={!stripe}>
-            Оплатить
+          {t('buy')}
           </button>
         </form>
       </div>

@@ -2,6 +2,7 @@ import { Map, Placemark, YMaps } from '@pbe/react-yandex-maps';
 import { useAppSelector } from '../../redux/hooks';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 const piter = { center: [59.938573235606746, 30.323395361055585], zoom: 11 };
 const moscow = { center: [55.75, 37.57], zoom: 11 };
@@ -23,14 +24,15 @@ type TopLevel = {
 
 
 function MapMuseuns() {
+  const { t } = useTranslation();
 
 // удалить
   const [allMuseums, setAllMuseums] = useState<TopLevel[]>([]);
 
   useEffect(() => {
     axios.get<TopLevel[]>('http://localhost:3000/api/museums').then((res) => {
-      setAllMuseums(res.data);      
-    })
+      setAllMuseums(res.data);   
+    });
   }, []);
 // удалить
 
@@ -66,7 +68,7 @@ function MapMuseuns() {
           </Map>
         </YMaps>
       ) : (
-        <div>Загрузка</div>
+        <div>{t('loading')}</div>
       )}
     </>
   );
