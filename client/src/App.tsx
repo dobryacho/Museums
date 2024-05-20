@@ -4,6 +4,7 @@ import AllMuseums from './Pages/AllMuseums/AllMuseums';
 import { fetchAuth } from './redux/thunkActions';
 import { useAppDispatch } from './redux/hooks';
 
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import CurrentMuseum from './Pages/CurrentMuseum/CurrentMuseum';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Pages/Home/Home';
@@ -36,7 +37,14 @@ function App(): JSX.Element {
           <Route path="map" element={<MapMuseuns/>} />
         </Route>
         <Route path="/allmuseums/:id" element={<CurrentMuseum />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route 
+          path="/profile" 
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          } 
+        />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/scan" element={<QrCodeScanner />} />
