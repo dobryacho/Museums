@@ -25,6 +25,7 @@ router.get('/:id', async (req, res) => {
           theme: museum.theme_en,
           photo: museum.photo,
           coordinates: museum.coordinates,
+          recalledByUsers: museum.recalledByUsers,
         }
       : lang === 'de'
         ? {
@@ -37,6 +38,7 @@ router.get('/:id', async (req, res) => {
             theme: museum.theme_de,
             photo: museum.photo,
             coordinates: museum.coordinates,
+            recalledByUsers: museum.recalledByUsers,
           }
         : {
             name: museum.name,
@@ -48,6 +50,7 @@ router.get('/:id', async (req, res) => {
             theme: museum.theme,
             photo: museum.photo,
             coordinates: museum.coordinates,
+            recalledByUsers: museum.recalledByUsers,
           };
   res.json(response);
 });

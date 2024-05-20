@@ -57,7 +57,6 @@ export default function CurrentMuseum(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const [museum, setMuseum] = useState<MuseumsType>([]);
-console.log(museum);
 
   const user = useAppSelector((store) => store.userSlice.user);
   
