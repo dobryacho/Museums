@@ -11,7 +11,7 @@ import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import Register from './Pages/Register/Register';
 import Login from './Pages/Login/Login';
-import ListMuseums from './components/ListMuseums/ListMuseums_transl';
+import ListMuseums from './components/ListMuseums/ListMuseums';
 import FavoritesMuseums from './components/FavoritesMuseums/FavoritesMuseums';
 import Profile from './Pages/Profile/Profile';
 import MapMuseuns from './components/MapMuseums/MapMuseuns';

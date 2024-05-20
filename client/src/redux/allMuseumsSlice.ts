@@ -7,6 +7,7 @@ type AllMuseumsSliceType = {
     museums: Museums;
     selectedCity: String;
     selectedDirection: String;
+    input: String;
   };
 
 const initialAllMuseumsState: AllMuseumsSliceType = {
@@ -14,6 +15,7 @@ const initialAllMuseumsState: AllMuseumsSliceType = {
   museums: [],
   selectedCity: '',
   selectedDirection: '',
+  input: '',
 };
 
 const allMuseumsSlice = createSlice({
@@ -35,10 +37,17 @@ const allMuseumsSlice = createSlice({
     selectDirection(state, action) {
       state.selectedDirection = action.payload;
     },
+    searchByContent(state, action) {
+      state.input = action.payload;
+    },
+    filterByInput(state, action) {
+      state.museums = state.museums.filter((museum) => museum.name.toLowerCase().includes(action.payload.toLowerCase()));
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchMuseums.fulfilled, (state, action) => {
       state.allMuseums = action.payload;
+      state.museums = action.payload;
     });
     builder.addCase(fetchMuseums.rejected, () => {
       console.log('Ответа нет');
@@ -47,3 +56,4 @@ const allMuseumsSlice = createSlice({
 });
 
 export default allMuseumsSlice.reducer;
+export const { updateMuseums, filterMuseumsByCity, filterMuseumsByDirection, selectCity, selectDirection, searchByContent, filterByInput } = allMuseumsSlice.actions;
