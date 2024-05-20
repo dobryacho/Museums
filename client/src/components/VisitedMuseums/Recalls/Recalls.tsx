@@ -1,28 +1,34 @@
-import { Button, Textarea } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Stack, Textarea } from '@chakra-ui/react';
 import { RecallProps } from '../VisitedMuseums';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ChangeEvent, useState } from 'react';
 import axios from 'axios';
 import Star from './Star/Star';
+import styles from './Recalls.module.css';
+
+const COLOR_STAR_VOITED: string = 'tomato';
 
 const rating = [1, 2, 3, 4, 5, 6];
 
 function Recalls({ mus, setUpdate, visited }: RecallProps) {
-  const navigate = useNavigate();
   const [recall, setRecall] = useState({ text: '' });
   const [hover, setHover] = useState({ star: 0 });
+  const [editRecall, setEditRecall] = useState(true);
 
-  const handlerRating = (e: any): void => {
-    axios
-      .patch(`http://127.0.0.1:3000/api/visited/${e.target.id}`, {
-        rating: e.target.className,
-      })
-      .then(() => {
-        setUpdate({ rate: 2 });
-      });
+  const handlerRating = (e: ChangeEvent): void => {
+    if (Number(e.currentTarget.className) !== mus.VisitedMuseum.rating) {
+      axios
+        .patch(`http://127.0.0.1:3000/api/visited/${e.currentTarget.id}`, {
+          rating: e.currentTarget.className,
+        })
+        .then(() => {
+          setUpdate({ rate: 2 });
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
-  const handlerRecall = (e: any) => {
+  const handlerRecall = (e: ChangeEvent | any): void => {
     if (recall.text) {
       axios
         .post(`http://127.0.0.1:3000/api/recall`, {
@@ -34,78 +40,133 @@ function Recalls({ mus, setUpdate, visited }: RecallProps) {
           setUpdate({ el: 0 });
         })
         .catch((err) => console.log(err));
-      setRecall((pre: any) => ({ ...pre, text: '' }));
+      setRecall(() => ({ text: '' }));
     }
   };
 
-  const handlerDeleteRecall = (e: any) => {
+  const handlerDeleteRecall = () => {
     axios
       .delete(`http://127.0.0.1:3000/api/recall`, {
         data: {
           userId: visited.id,
-          museumId: Number(e.target.id),
+          museumId: mus.id,
         },
       })
       .then(() => {
         setUpdate({ del: 1 });
-      });
+      })
+      .catch((err) => console.log(err));
   };
 
-  const handlerDeleteRate = (e: any) => {
+  const handlerEditRecall = () => {
+    setEditRecall(false);
+    setRecall({
+      text:
+        visited.recalledMuseums.find((el) => el.id === mus.id)?.Recall?.text ||
+        '',
+    });
+  };
+
+  const handlerUndoEditRecall = () => {
+    setEditRecall(true);
+    setRecall({ text: '' });
+  };
+
+  const handlerSubmitEditRecall = () => {
     axios
-      .patch(`http://127.0.0.1:3000/api/visited/${e.target.id}`, {
-        rating: null,
+      .patch(`http://127.0.0.1:3000/api/recall`, {
+        userId: visited.id,
+        museumId: mus.id,
+        text: recall.text,
       })
       .then(() => {
-        setUpdate({ rate: 0 });
-        setHover({ star: 0 });
-      });
+        setEditRecall(true);
+        setRecall({ text: '' });
+        setUpdate({ edt: 1 });
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
     <>
       <div>
-        <a href="" onClick={() => navigate(`/allmuseums/${mus.id}`)}>
-          {mus.name}
-        </a>
+        <Link to={`/allmuseums/${mus.id}`}>{mus.name}</Link>
       </div>
-      {visited?.recalledMuseums.find((el) => el.id === mus.id) ? (
-        <div className="recall">
+      <Stack spacing={4} borderWidth="1px" p={1}>
+        {visited?.recalledMuseums.find((el) => el.id === mus.id) ? (
           <div>
-            Ваш отзыв:{' '}
-            {
-              visited?.recalledMuseums.find((el) => el.id === mus.id)?.Recall
-                ?.text
-            }
+            {editRecall ? (
+              <>
+                <div>
+                  Ваш отзыв:{' '}
+                  <Box w={'60vw'} p={5}>
+                    {
+                      visited?.recalledMuseums.find((el) => el.id === mus.id)
+                        ?.Recall?.text
+                    }
+                  </Box>
+                </div>
+                <ButtonGroup size="xs" spacing="3">
+                  <Button colorScheme="blue" onClick={handlerEditRecall}>
+                    Редактировать
+                  </Button>
+                  <Button
+                    colorScheme="red"
+                    id={`${mus.id}`}
+                    onClick={handlerDeleteRecall}
+                  >
+                    Удалить отзыв
+                  </Button>
+                </ButtonGroup>
+              </>
+            ) : (
+              <>
+                <Textarea
+                  value={recall.text}
+                  onChange={(e) =>
+                    setRecall((pre) => ({
+                      ...pre,
+                      text: e.target.value,
+                    }))
+                  }
+                />
+                <ButtonGroup size="xs" spacing="3" m={3}>
+                  <Button colorScheme="blue" onClick={handlerSubmitEditRecall}>
+                    Изменить
+                  </Button>
+                  <Button onClick={handlerUndoEditRecall}>Отмена</Button>
+                </ButtonGroup>
+              </>
+            )}
           </div>
-          <Button
-            colorScheme="red"
-            id={`${mus.id}`}
-            onClick={handlerDeleteRecall}
-          >
-            Удалить отзыв
-          </Button>
+        ) : (
+          <>
+            <Textarea
+              backgroundColor={'white'}
+              value={recall.text}
+              onChange={(e) =>
+                setRecall((pre) => ({
+                  ...pre,
+                  text: e.target.value,
+                }))
+              }
+            />
+            <Button
+              className={styles.recall_btn}
+              m={3}
+              id={`${mus.id}`}
+              onClick={handlerRecall}
+            >
+              Оставить отзыв
+            </Button>
+          </>
+        )}
+      </Stack>
+      <Stack>
+        <div>
+          {mus.VisitedMuseum.rating ? 'Ваша оценка: ' : 'Оцените музей: '}
         </div>
-      ) : (
-        <>
-          <Textarea
-            value={recall.text}
-            onChange={(e) =>
-              setRecall((pre) => ({
-                ...pre,
-                text: e.target.value,
-              }))
-            }
-          />
-
-          <Button id={`${mus.id}`} onClick={handlerRecall}>
-            Оставить отзыв
-          </Button>
-        </>
-      )}
-      {mus.VisitedMuseum.rating === null ? (
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          Оцените музей:
           {rating.map((el, i) => (
             <Star
               key={`star${el}`}
@@ -115,21 +176,13 @@ function Recalls({ mus, setUpdate, visited }: RecallProps) {
               handlerRating={handlerRating}
               hover={hover}
               mus={mus}
+              color={
+                el <= (mus.VisitedMuseum.rating || 0) ? COLOR_STAR_VOITED : ''
+              }
             />
           ))}
         </div>
-      ) : (
-        <>
-          <div>Ваша оценка: {mus.VisitedMuseum.rating}</div>
-          <Button
-            colorScheme="red"
-            id={`${mus.VisitedMuseum.id}`}
-            onClick={handlerDeleteRate}
-          >
-            Удалить оценку
-          </Button>
-        </>
-      )}
+      </Stack>
     </>
   );
 }

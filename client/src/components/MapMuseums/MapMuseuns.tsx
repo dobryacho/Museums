@@ -7,32 +7,30 @@ const piter = { center: [59.938573235606746, 30.323395361055585], zoom: 11 };
 const moscow = { center: [55.75, 37.57], zoom: 11 };
 
 type TopLevel = {
-  id:          number;
-  name:        string;
+  id: number;
+  name: string;
   description: string;
-  location:    string;
-  city:        string;
-  photo:       string;
-  workedTime:  string;
-  holidays:    string;
-  theme:       string;
-  coordinates: string,
-  createdAt:   Date;
-  updatedAt:   Date;
-}
-
+  location: string;
+  city: string;
+  photo: string;
+  workedTime: string;
+  holidays: string;
+  theme: string;
+  coordinates: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
 function MapMuseuns() {
-
-// удалить
+  // удалить
   const [allMuseums, setAllMuseums] = useState<TopLevel[]>([]);
 
   useEffect(() => {
     axios.get<TopLevel[]>('http://localhost:3000/api/museums').then((res) => {
-      setAllMuseums(res.data);      
-    })
+      setAllMuseums(res.data);
+    });
   }, []);
-// удалить
+  // удалить
 
   const user = useAppSelector((store) => store.userSlice.user);
   const [load, setLoad] = useState(false);
@@ -49,17 +47,25 @@ function MapMuseuns() {
         <YMaps>
           <Map
             defaultState={user?.city === 'petersburg' ? piter : moscow}
-            width={'90vw'}
+            width={'90%'}
             height={700}
           >
+            <Placemark modules={['geoObject.addon.balloon']} />
             {allMuseums.map((el) => (
               <Placemark
-                key={el.id}
-                modules={['geoObject.addon.balloon']}
-                defaultGeometry={el.coordinates.match(/\d*\.\d*/gi) || moscow.center}
+                key={`map${el.id}`}
+                defaultGeometry={
+                  el.coordinates.match(/\d*\.\d*/gi) || moscow.center
+                }
                 properties={{
-                  balloonContentBody: `<img src="${el.photo}" style="width: 100px;height: auto;" align="left" vspace="5" hspace="5"></img> <b>${el.name}</b><p>${el.description}</p>
-            <p>время работы: ${el.workedTime}</p>`,
+                  balloonContentHeader: `<a href='/allmuseums/${el.id}'><b>${el.name}</b></a>`,
+                  balloonContentBody: `
+                  <a href='/allmuseums/${el.id}'>
+                    <img src="${el.photo}" style="width: 100px;height: auto;" align="left" vspace="5" hspace="5"/>
+                  </a>                  
+                  <p>${el.description}</p>                  
+                `,
+                  balloonContentFooter: `<p>время работы: ${el.workedTime}</p>`,
                 }}
               />
             ))}
