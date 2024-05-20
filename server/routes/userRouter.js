@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
     city,
     phone,
   });
-  console.log('OOOOO', newUser);
+
   req.session.userId = newUser.id;
   req.session.login = newUser.email;
   req.session.save(() => {

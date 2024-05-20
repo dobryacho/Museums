@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchLogin } from '../../redux/thunkActions';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Button, Input, Stack } from '@chakra-ui/react';
 
 const ERROR_MASSEGE_COLOR = '#ff6d6d';
@@ -12,6 +13,8 @@ const initialValue = {
 };
 
 function Login() {
+  const { t } = useTranslation();
+
   const [inputs, setInputs] = useState(initialValue);
   const dispatch = useAppDispatch();
   const user = useAppSelector((store) => store.userSlice.user);
@@ -50,7 +53,7 @@ function Login() {
             placeholder="password *"
             onChange={changeInputs}
           />
-          <Button type="submit">Войти</Button>
+          <Button type="submit">{t('login')}</Button>
           <p>
             <b style={{ color: ERROR_MASSEGE_COLOR }}>{user.err}</b>
           </p>

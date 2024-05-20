@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchReg } from '../../redux/thunkActions';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   Button,
   Input,
@@ -23,6 +24,8 @@ const initialValue = {
 };
 
 function Register() {
+  const { t } = useTranslation();
+
   const [inputs, setInputs] = useState(initialValue);
   const dispatch = useAppDispatch();
   const user = useAppSelector((store) => store.userSlice.user);
@@ -79,9 +82,9 @@ function Register() {
           />
           <Select name="city" id="city" onChange={changeInputs}>
             <option value="moscow" selected>
-              Москва
+            {t('moscow')}
             </option>
-            <option value="petersburg">Санкт-Петербург</option>
+            <option value="petersburg">{t('spb')}</option>
           </Select>
           <InputGroup>
             <InputLeftAddon>+7</InputLeftAddon>
@@ -92,7 +95,7 @@ function Register() {
               onChange={changeInputs}
             />
           </InputGroup>
-          <Button type="submit">Зарегистрироваться</Button>
+          <Button type="submit">{t('register')}</Button>
           <p>
             <b style={{ color: ERROR_MASSEGE_COLOR }}>{user.err}</b>
           </p>

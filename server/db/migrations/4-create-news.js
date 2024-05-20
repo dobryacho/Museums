@@ -43,6 +43,22 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
       },
+      title_en: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      text_en: {
+        allowNull: false,
+        type: Sequelize.TEXT,
+      },
+      title_de: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      text_de: {
+        allowNull: false,
+        type: Sequelize.TEXT,
+      },
     });
   },
   async down(queryInterface, Sequelize) {

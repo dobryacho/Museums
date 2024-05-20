@@ -8,10 +8,48 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
+  const { lang } = req.query;
   const museum = await Museum.findByPk(req.params.id, {
     include: 'recalledByUsers',
   });
-  res.json(museum);
+
+  const response =
+    lang === 'en'
+      ? {
+          name: museum.name_en,
+          description: museum.description_en,
+          location: museum.location_en,
+          city: museum.city_en,
+          workedTime: museum.workedTime_en,
+          holidays: museum.holidays_en,
+          theme: museum.theme_en,
+          photo: museum.photo,
+          coordinates: museum.coordinates,
+        }
+      : lang === 'de'
+        ? {
+            name: museum.name_de,
+            description: museum.description_de,
+            location: museum.location_de,
+            city: museum.city_de,
+            workedTime: museum.workedTime_de,
+            holidays: museum.holidays_de,
+            theme: museum.theme_de,
+            photo: museum.photo,
+            coordinates: museum.coordinates,
+          }
+        : {
+            name: museum.name,
+            description: museum.description,
+            location: museum.location,
+            city: museum.city,
+            workedTime: museum.workedTime,
+            holidays: museum.holidays,
+            theme: museum.theme,
+            photo: museum.photo,
+            coordinates: museum.coordinates,
+          };
+  res.json(response);
 });
 
 router.post('/', async (req, res) => {

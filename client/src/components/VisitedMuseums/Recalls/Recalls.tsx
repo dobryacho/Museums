@@ -5,12 +5,14 @@ import { ChangeEvent, useState } from 'react';
 import axios from 'axios';
 import Star from './Star/Star';
 import styles from './Recalls.module.css';
+import { useTranslation } from 'react-i18next';
 
 const COLOR_STAR_VOITED: string = 'tomato';
 
 const rating = [1, 2, 3, 4, 5, 6];
 
 function Recalls({ mus, setUpdate, visited }: RecallProps) {
+  const { t } = useTranslation();
   const [recall, setRecall] = useState({ text: '' });
   const [hover, setHover] = useState({ star: 0 });
   const [editRecall, setEditRecall] = useState(true);

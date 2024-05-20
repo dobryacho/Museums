@@ -1,16 +1,14 @@
 import RecommendedMuseums from '../../components/RecommendedMuseums/RecommendedMuseums';
 import AllNews from '../../components/AllNews/AllNews';
+import { useTranslation } from 'react-i18next';
+
 
 function Home() {
+  const { t } = useTranslation();
   return (
     <>
-      <h1>Добро пожаловать на наш сайт!</h1>
-      <p>
-        {' '}
-        Здесь вы можете купить или продлить Музейную Карту, найти актуальную
-        информацию о всех музеях, входящих в систему Музейной Карты, а также
-        узнать о проходящих в них мероприятиях.
-      </p>
+    <h1>{t('welcome')}</h1>
+      <p>{t('description')}</p>
       <RecommendedMuseums />
       <AllNews />
     </>
