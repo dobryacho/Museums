@@ -8,6 +8,7 @@
 
 .navbar {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
 }
@@ -15,6 +16,7 @@
 .wrapper {
   height: 100px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 90px;
 }
