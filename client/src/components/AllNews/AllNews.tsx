@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useAppSelector } from '../../redux/hooks';
 import { useTranslation } from 'react-i18next';
+import { Carousel } from 'react-bootstrap';
+import styles from './AllNews.module.css';
 
 export default function AllNews() {
   const { t } = useTranslation();
@@ -34,25 +36,41 @@ export default function AllNews() {
   }, [userCity]);
 
   return (
-    <div>
-      <h2>{t('events')}</h2>
-      {news.map((el) => {
-        const eventDate = new Date(el.date);
-        const formattedDate = eventDate.toLocaleString('ru-RU', {
-          timeZone: 'Europe/Moscow',
-        });
-
-        return (
-          <div key={el.id}>
-            <h4>{el.title}</h4>
-            <img src={el.photo} alt="Тут должно быть фото музея" />
-            <p>{el.text}</p>
-            <p>{t('eventPlace')} {el.Museum.name}.</p>
-            <p>{t('eventDate')} {formattedDate}.</p>
-            <p>{t('address')} {el.Museum.location}.</p>
-          </div>
-        );
-      })}
+    <div className={styles.wrapper}>
+      <h2 className={styles.title}>{t('events')}</h2>
+      <div className={styles['carousel-container']}>
+        <Carousel>
+          {news.map((el) => (
+            <Carousel.Item key={el.id}>
+              <div className={styles['image-container']}>
+                <img
+                  className={styles.photo}
+                  src={el.photo}
+                  alt="Тут должно быть фото музея"
+                />
+                <div className={styles['image-overlay']}></div>
+              </div>
+              <Carousel.Caption>
+                <h3 className={styles.cardTitle}>{el.title}</h3>
+                <p>{el.text}</p>
+                <p>
+                  {t('eventPlace')} {el.Museum.name}.
+                </p>
+                <p>
+                  {t('eventDate')}{' '}
+                  {new Date(el.date).toLocaleString('ru-RU', {
+                    timeZone: 'Europe/Moscow',
+                  })}
+                  .
+                </p>
+                <p>
+                  {t('address')} {el.Museum.location}.
+                </p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </div>
     </div>
   );
 }

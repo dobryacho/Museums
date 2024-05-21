@@ -1,8 +1,12 @@
+import '../../App.css';
+import styles from './RecommendedMuseums.module.css';
 import { useState, useEffect } from 'react';
 import { useAppSelector } from '../../redux/hooks';
 import { useTranslation } from 'react-i18next';
+import { Carousel } from 'react-bootstrap';
+import MinimuseumForSlider from '../MinimuseumForSlider/MinimuseumForSlider';
 
-export default function RecommendedMuseums () {
+export default function RecommendedMuseums() {
   const { t } = useTranslation();
   type Museum = {
     name: string;
@@ -58,15 +62,19 @@ export default function RecommendedMuseums () {
   }, [userCity]);
 
   return (
-    <div>
-      <h2>{t('recommendedMus')}</h2>
-      {museums.map((museum) => (
-        <div key={museum.id}>
-          <img src={museum.photo} alt="Тут должно быть фото музея" />
-          <h4>{museum.name}</h4>
-          <p>{museum.description}</p>
+    <>
+      <div className={styles.wrapper}>
+        {/* <h2>{t('recommendedMus')}</h2> */}
+        <div className={styles['carousel-container']}>
+          <Carousel>
+            {museums.map((museum, index) => (
+              <Carousel.Item key={index}>
+                <MinimuseumForSlider museum={museum} />
+              </Carousel.Item>
+            ))}
+          </Carousel>
         </div>
-      ))}
-    </div>
+      </div>
+    </>
   );
 }

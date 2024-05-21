@@ -17,7 +17,7 @@ import Profile from './Pages/Profile/Profile';
 import MapMuseuns from './components/MapMuseums/MapMuseuns';
 import AddMuseum from './components/AddMuseum/AddMuseum';
 import QrCodeScanner from './components/QRScanner/QRCodeScanner';
-import QrCodeGenerator from './components/QRScanner/QRCode/QRCode'
+import QrCodeGenerator from './components/QRScanner/QRCode/QRCode';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
