@@ -4,6 +4,8 @@ import userSlice from "./userSlice";
 import favoritesSlice from "./favoritesSlice";
 // import recallsSlice from "./recallsSlice";
 import visitedSlice from "./visitedSlice";
+import cardSlice from "./cardSlice";
+import allMuseumsSlice from "./allMuseumsSlice";
 
 const storeOptions = {
   reducer: {
@@ -12,6 +14,8 @@ const storeOptions = {
     favoritesSlice,
     // recallsSlice,
     visitedSlice,
+    cardSlice,
+    allMuseumsSlice,
   },
 };
 

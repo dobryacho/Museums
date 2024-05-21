@@ -1,10 +1,12 @@
 import react, { useEffect, useState } from "react";
 import Minimuseum from "../../components/Minimuseum/Minimuseum";
-import { Select, Button, FormControl } from '@chakra-ui/react'
-import axios from "axios";
+import { Select, Button, FormControl, Input } from '@chakra-ui/react'
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { fetchMuseums } from "../../redux/thunkActionsAllMuseums";
+import { updateMuseums, filterMuseumsByCity, filterMuseumsByDirection, selectCity, selectDirection, filterByInput, searchByContent } from '../../redux/allMuseumsSlice';
 
 
-type MuseumType = {
+export type MuseumType = {
     id: number;
     name: string;
     description: string;
@@ -19,53 +21,52 @@ type MuseumType = {
     updatedAt: Date;
   };
 
-type Museums = Array<MuseumType>;
+export type Museums = Array<MuseumType>;
 
 export default function ListMuseums() {
-    
-  const [selectedCity, setSelectedCity] = useState('');
   
-  const [selectedDirection, setSelectedDirection] = useState('');
+  const dispatch = useAppDispatch();
+  const {allMuseums, museums, selectedCity, selectedDirection, input } = useAppSelector((store) => store.allMuseumsSlice);
+
   
-  const [allMuseums, setAllMuseums] = useState<Museums>([]);
-
-  const [museums, setMuseums] = useState<Museums>([]);
-
-
   useEffect(() => {
-    axios.get<Museums>('http://localhost:3000/api/museums').then((res) => {
-      setAllMuseums(res.data);
-      setMuseums(res.data);
-    })
+    void dispatch(fetchMuseums());
   }, []);
 
   const handleSelectCityChange = (e: { target: { value: react.SetStateAction<string>; }; }) => {
-        setSelectedCity(e.target.value);
+    dispatch(selectCity(e.target.value));
   };
     
   const handleSelectDirectionChange  = (e: { target: { value: react.SetStateAction<string>; }; }) => {
-        setSelectedDirection(e.target.value);
+    dispatch(selectDirection(e.target.value));
   };
 
-    const handleSubmit =  () => {
-      setMuseums(allMuseums);
-        if(selectedCity) {
-          setMuseums((museums) => museums.filter((museum) => museum.city === selectedCity));
+  const handleInputChange =  (e: { target: { value: react.SetStateAction<string>; }; }) => {
+    dispatch(searchByContent(e.target.value));
+  };
+
+  const handleSubmit =  () => {
+    dispatch(updateMuseums(allMuseums));
+      if(selectedCity) {
+        dispatch(filterMuseumsByCity(selectedCity));
         }
-        if(selectedDirection) {
-          setMuseums((museums) => museums.filter((museum) => museum.theme === selectedDirection));
-        }
-    };
+      if(selectedDirection) {
+        dispatch(filterMuseumsByDirection(selectedDirection));
+      }
+      if(input) {
+        dispatch(filterByInput(input))
+      }
+  };
 
     return (
         <>
     
         <FormControl>
-          <Select placeholder="Все города" value={selectedCity} onChange={handleSelectCityChange}>
+          <Select placeholder="Все города" onChange={handleSelectCityChange}>
             <option value='Москва'>Москва</option>
             <option value='Санкт-Петербург'>Санкт-Петербург</option>
           </Select>
-          <Select placeholder="Все направления" value={selectedDirection} onChange={handleSelectDirectionChange}>
+          <Select placeholder="Все направления" onChange={handleSelectDirectionChange}>
             <option value='Искусство'>Искусство</option>
             <option value='Наука и техника'>Наука и техника</option>
             <option value='Этнография'>Этнография</option>
@@ -73,8 +74,10 @@ export default function ListMuseums() {
             <option value='Архитектура'>Архитектура</option>
             <option value='История'>История</option>
           </Select>
+          <Input placeholder="Поиск по ключевому слову" onChange={handleInputChange}/>
           <Button onClick={handleSubmit} colorScheme="blue" >Продемонстрировать</Button>
         </FormControl>
+            
     
         <div>
           {museums.length ? (

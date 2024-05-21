@@ -12,7 +12,7 @@ const LanguageSwitcher = () => {
   const getFlagSrc = (language) => {
     switch (language) {
       case 'ru':
-        return '/../Rus_flag.png';
+        return '../Rus_flag.png';
       case 'en':
         return '../GB_flag.png';
       case 'de':
