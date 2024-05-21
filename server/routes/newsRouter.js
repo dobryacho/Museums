@@ -31,6 +31,7 @@ router.patch('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   await News.destroy({ where: { id: req.params.id } });
   res.sendStatus(200);
+  res.end();
 });
 
 module.exports = router;

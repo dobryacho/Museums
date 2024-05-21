@@ -28,6 +28,7 @@ module.exports = {
           },
           key: 'id',
         },
+        onDelete: 'cascade',
       },
       rating: {
         allowNull: true,

@@ -20,7 +20,7 @@ const steps = [
   { title: 'Third', description: 'Вы прекрасны!' },
 ];
 
-function StepperCard({ step }: { step: number }) {
+function StepperCard({ step }: { step:number }) {
   const { activeStep, setActiveStep } = useSteps({
     index: 0,
     count: steps.length,
