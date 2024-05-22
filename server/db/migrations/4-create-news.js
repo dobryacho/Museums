@@ -45,19 +45,19 @@ module.exports = {
         type: Sequelize.DATE,
       },
       title_en: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       text_en: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.TEXT,
       },
       title_de: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       text_de: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.TEXT,
       },
     });

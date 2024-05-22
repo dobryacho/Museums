@@ -6,6 +6,7 @@ import { fetchAddVisited, fetchVisited } from '../../redux/thunkActionsCurrentMu
 import { fetchCardInfo } from '../../redux/thunkActionsCard';
 import './QrCodeScanner.style.css';
 import { useTranslation } from 'react-i18next';
+import { Button } from '@chakra-ui/react';
 
 export interface CardInfoType {
   id: number;
@@ -105,6 +106,7 @@ const QrCodeScanner = () => {
           <p>{errorMessage}</p>
         </div>
       )}
+
     </div>
   );
 };
