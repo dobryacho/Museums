@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent } from 'react';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -82,8 +82,6 @@ export default function CurrentMuseum(): JSX.Element {
       }
     }, [dispatch, user.id]);
 
-<<<<<<< HEAD
-=======
 const handelEdit = () => {
   setEditMuseum((pre)=>!pre)
   if (!editMuseum) {
@@ -122,7 +120,6 @@ const handlerConfirm = () => {
   axios.delete(`http://localhost:3000/api/museums/${museum.id}`).then(()=>{dispatch(updateMuseums(allMuseums.filter((mus)=> mus.id !== museum.id)));navigate("/allmuseums/list");})
   
 }
->>>>>>> 9c1e9a967b9919b79b7c9c4c9fab757ec65b3129
 
   return (
     <>
