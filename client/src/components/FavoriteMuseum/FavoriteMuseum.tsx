@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchAddFavorite, fetchFavorites, fetchRemoveFavorite } from "../../redux/thunkActionsCurrentMuseum";
 import { useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 
 type MuseumType = {
     id: number;
@@ -24,6 +25,7 @@ type MuseumProps = {
   };
 
 export default function FavoriteMuseum({ museum }: MuseumProps): JSX.Element  {
+  const { i18n } = useTranslation();
     
     const dispatch = useAppDispatch();
 
@@ -36,7 +38,7 @@ export default function FavoriteMuseum({ museum }: MuseumProps): JSX.Element  {
         if (user.id) {
           dispatch(fetchFavorites(user.id));
         }
-      }, [dispatch, user.id]);
+      }, [dispatch, user.id, i18n.language]);
 
     const handleFavoriteClick = () => {
         if (museum.id) {
@@ -55,9 +57,9 @@ export default function FavoriteMuseum({ museum }: MuseumProps): JSX.Element  {
   return (
     <div>
       <Link to={`/allmuseums/${museum.id}`}>
-        <h3>{museum.name}</h3>
+        <h3>{museum?.name || museum?.name_en || museum?.name_de}</h3>
       </Link>
-      <img src={museum.photo} alt={museum.name} />
+      <img src={museum.photo} alt={museum?.name || museum?.name_en || museum?.name_de} />
       <span
         onClick={handleFavoriteClick}
         style={{ color: isFavorite ? 'red' : 'grey', cursor: 'pointer' }}

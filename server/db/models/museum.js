@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       this.belongsToMany(User, {
+        through: 'Scan',
+        foreignKey: 'museumId',
+        as: 'scansByUsers',
+      });
+
+      this.belongsToMany(User, {
         through: 'Recall',
         foreignKey: 'museumId',
         as: 'recalledByUsers',

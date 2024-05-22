@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { fetchMuseums } from "../../redux/thunkActionsAllMuseums";
+import axios from 'axios';
 
 const piter = { center: [59.938573235606746, 30.323395361055585], zoom: 11 };
 const moscow = { center: [55.75, 37.57], zoom: 11 };
@@ -23,18 +24,29 @@ type TopLevel = {
 };
 
 function MapMuseuns() {
-  const { t } = useTranslation();
-  const dispatch = useAppDispatch();
-  const { allMuseums }  = useAppSelector((store) => store.allMuseumsSlice);
+  const { t, i18n } = useTranslation();
+  // const dispatch = useAppDispatch();
+  // const { allMuseums }  = useAppSelector((store) => store.allMuseumsSlice);
+  // удалить
+  const [allMuseums, setAllMuseums] = useState<TopLevel[]>([]);
+
+  useEffect(() => {
+    axios.get<TopLevel[]>(`http://localhost:3000/api/museums?lang=${i18n.language}`).then((res) => {
+      setAllMuseums(res.data);
+      setLoad(true);
+    });
+  }, [i18n.language]);
+  // удалить
+
   const user = useAppSelector((store) => store.userSlice.user);
   const [load, setLoad] = useState(false);
 
-  useEffect(() => {
-    void dispatch(fetchMuseums());
-    if (allMuseums?.length) {
-      setLoad(true);
-    }
-  }, [allMuseums]);
+  // useEffect(() => {
+  //   void dispatch(fetchMuseums());
+  //   if (allMuseums?.length) {
+  //     setLoad(true);
+  //   }
+  // }, [allMuseums]);
 
   return (
     <>

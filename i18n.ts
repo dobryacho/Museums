@@ -2,11 +2,11 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import HttpApi from 'i18next-http-backend';
+import store from './client/src/redux/store';
 
 import translationEN from "./server/public/locals/en/translation.json";
 import translationRU from "./server/public/locals/ru/translation.json";
 import translationDE from "./server/public/locals/de/translation.json";
-
 
 const resources = {
   en: {
@@ -40,4 +40,20 @@ i18n
     },
   });
 
+  // язык на основе состояния
+  const initializeI18n = (store) => {
+    const state = store.getState();
+    const language = state.language.language;
+    i18n.changeLanguage(language);
+  
+    // Наблюдает за изменением состояния языка
+    store.subscribe(() => {
+      const newState = store.getState();
+      if (i18n.language !== newState.language.language) {
+        i18n.changeLanguage(newState.language.language);
+      }
+    });
+  };
+
 export default i18n;
+export { initializeI18n, languageReducer };

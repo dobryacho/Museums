@@ -53,9 +53,12 @@ export default function MusCard() {
     dispatch(addNewOrder({userId, userName, address}))
   }
 
+  if (!user.email) {
+    return <div>Загрузка...</div>
+  }
+  
   return (
     <>
-      <div>Инфа о карте и как ее купить</div>
       <StripeContainer />
       {isCardValid && (
         <button onClick={handleScanClick}>

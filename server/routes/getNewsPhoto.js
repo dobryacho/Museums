@@ -5,6 +5,7 @@ const router = express.Router();
 const addNewsMiddleware = require('../middleware/addNews');
 
 router.post('/', addNewsMiddleware.single('avatar'), (req, res) => {
+  console.log(req);
   try {
     if (req.file) {
       res.json(req.file);

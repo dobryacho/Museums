@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './Navbar.module.css';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { fetchLogout } from '../../redux/thunkActions';
@@ -8,12 +8,16 @@ import LanguageSwitcher from '../../components/LangSwitch/LangSwitch';
 
 export default function Navbar() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
   const user = useAppSelector((store) => store.userSlice.user.email);
 
   const logoutHandle = () => {
-    dispatch(fetchLogout());
+    dispatch(fetchLogout())
+    .then(()=>{
+      navigate('/', { replace: true })
+    });
   };
 
   return (
@@ -27,9 +31,11 @@ export default function Navbar() {
         </Link>
         {user ? (
           <>
-            <Link to={'/card'}>
+            {user !== 'admin_museums@mail.ru' && (
+              <Link to={'/card'}>
               <button className={styles.link}>{t('musCard')}</button>
             </Link>
+            )}
             <Link to={'/profile'}>
               <button className={styles.link}>{t('profile')}</button>
             </Link>

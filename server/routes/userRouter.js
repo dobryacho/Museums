@@ -64,9 +64,21 @@ router.get('/auth', async (req, res) => {
 });
 
 router.get('/visit/:id', async (req, res) => {
+  const { lang } = req.query;
+
   const users = await User.findAll({
     where: { id: req.params.id },
-    include: ['visitedMuseums', 'recalledMuseums'],
+    include: [
+      {
+        model: Museum,
+        as: 'visitedMuseums',
+        attributes: [
+          'id',
+          lang === 'en' ? 'name_en' : lang === 'de' ? 'name_de' : 'name',
+        ],
+      },
+      'recalledMuseums',
+    ],
   });
   res.json(users);
 });
@@ -82,7 +94,24 @@ router.get('/test', async (req, res) => {
 });
 
 router.get('/favorites/:id', async (req, res) => {
-  const favorites = await User.findAll({where: {id: req.params.id}, attributes: ['id'], include: ['favoriteMuseums']});
+  const { lang } = req.query;
+
+  const favorites = await User.findAll({
+    where: { id: req.params.id },
+    attributes: ['id'],
+    include: [
+      {
+        model: Museum,
+        as: 'favoriteMuseums',
+        attributes: [
+          'id',
+          'photo',
+          lang === 'en' ? 'name_en' : lang === 'de' ? 'name_de' : 'name',
+        ],
+      },
+      'recalledMuseums',
+    ],
+  });
   res.json(favorites);
 });
 
