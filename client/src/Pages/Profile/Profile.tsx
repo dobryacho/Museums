@@ -9,6 +9,7 @@ import { useAppSelector } from '../../redux/hooks';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import QrCodeGenerator from '../../components/QRScanner/QRCode/QRCode'
+import { Navigate } from 'react-router-dom';
 
 interface CardInfoType {
   id: number;
@@ -39,7 +40,7 @@ export default function Profile() {
   }, [user.id]);
 
   if (!user.email) {
-    return <div>Загрузка...</div>
+    return (<div>Загрузка...{user?.anon && (<Navigate to="/" />)}</div>)
   }
 
   return (
