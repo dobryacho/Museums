@@ -8,6 +8,7 @@ import Stat from '../../components/Stat/Stat';
 import { useAppSelector } from '../../redux/hooks';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import QrCodeGenerator from '../../components/QRScanner/QRCode/QRCode'
 
 interface CardInfoType {
   id: number;
@@ -32,8 +33,9 @@ export default function Profile() {
         console.error(error);
       }
     };
-
-    fetchCardInfo();
+    if (user.email) {
+      fetchCardInfo();
+    };
   }, [user.id]);
 
   if (!user.email) {
@@ -45,6 +47,7 @@ export default function Profile() {
       {user.email === 'admin_museums@mail.ru' ? (
         <>
           <AddMuseum />
+          <QrCodeGenerator />
           <AddNews />
           <Stat />
         </>

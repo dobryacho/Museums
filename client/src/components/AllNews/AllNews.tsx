@@ -19,7 +19,7 @@ export default function AllNews() {
       let newsToShow; // Переменная для хранения отфильтрованных музеев
 
       // Фильтрация новостей по городу
-      if (userCity === 'moscow') {
+      if (user.city === 'moscow') {
         newsToShow = data.filter((el) => el.museumCity === 'Москва' || el.museumCity === 'Moscow' || el.museumCity === 'Moskau');
       } else {
         newsToShow = data.filter((el) => el.museumCity === 'Санкт-Петербург' || el.museumCity === 'Saint Petersburg' || el.museumCity === 'Sankt Petersburg');

@@ -59,5 +59,10 @@
   "placeReview": "Leave feedback",
   "wordSearch": "Search by keyword",
   "paymentSuccess": "Payment succeeded",
-  "error": "Something went wrong"
+  "paymentError": "Payment error",
+  "enterAllData": "Please enter all data",
+  "error": "Something went wrong",
+  "backToList": "Back to all museums",
+  "userNotFound": "User not found, please register",
+  "incorrectPassword": "Incorrect password"
 }
