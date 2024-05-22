@@ -1,9 +1,10 @@
 import react, { useEffect, useState } from "react";
 import Minimuseum from "../../components/Minimuseum/Minimuseum";
-import { Select, Button, FormControl, Input } from '@chakra-ui/react'
+import { Select, Button, FormControl, Input, useToast } from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchMuseums } from "../../redux/thunkActionsAllMuseums";
 import { updateMuseums, filterMuseumsByCity, filterMuseumsByDirection, selectCity, selectDirection, filterByInput, searchByContent } from '../../redux/allMuseumsSlice';
+import { useLocation } from "react-router-dom";
 
 
 export type MuseumType = {
@@ -24,6 +25,19 @@ export type MuseumType = {
 export type Museums = Array<MuseumType>;
 
 export default function ListMuseums() {
+  const location = useLocation();
+  const toast = useToast()
+  
+  if (location.state) {
+    toast({
+      title: `музей удален`,
+      status: 'success',
+      isClosable: true,
+      duration: 1000,
+      position: 'bottom-right',
+    })
+    location.state = null;
+  }
   
   const dispatch = useAppDispatch();
   const {allMuseums, museums, selectedCity, selectedDirection, input } = useAppSelector((store) => store.allMuseumsSlice);

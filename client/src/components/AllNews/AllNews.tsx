@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useAppSelector } from '../../redux/hooks';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@chakra-ui/react';
+import { Button, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 
 export default function AllNews() {
   const { t } = useTranslation();
   const [news, setNews] = useState([]);
   const user = useAppSelector((store) => store.userSlice.user);
+  const toast = useToast()
 
   useEffect(() => {
     const getAllNews = async () => {
@@ -37,7 +38,14 @@ export default function AllNews() {
 
   const handleDelete = (e: any) => {
       axios.delete(`http://localhost:3000/api/news/${e.target.parentNode.id}`).then(()=>{
-        setNews((data)=> ([...data.filter((el)=> el.id !== Number(e.target.parentNode.id))]))        
+        setNews((data)=> ([...data.filter((el)=> el.id !== Number(e.target.parentNode.id))]))
+        toast({
+          title: `новость удалена`,
+          status: 'success',
+          isClosable: true,
+          duration: 1000,
+          position: 'bottom-right',
+        })        
       })
   }
 

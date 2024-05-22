@@ -9,7 +9,7 @@ import FavIcon from '../../components/FavIcon/FavIcon';
 import Checkbox from '../../components/Checkbox/Checkbox';
 
 import type { RecallType, RouteParams, MuseumType } from './currMusTypes';
-import { Button, ButtonGroup, Input, Stack, Textarea } from '@chakra-ui/react';
+import { Button, ButtonGroup, Input, Stack, Textarea, useToast } from '@chakra-ui/react';
 import DelBtn from './DelBtn/DelBtn';
 import { updateMuseums } from '../../redux/allMuseumsSlice';
 
@@ -66,12 +66,20 @@ export default function CurrentMuseum(): JSX.Element {
   const [inputs, setInputs] = useState(initialState);
   const [updateRecalls, setUpdateRecalls] = useState<boolean>(true);
   const navigate = useNavigate();
+  const toast = useToast()
 
   const user = useAppSelector((store) => store.userSlice.user);
 
     useEffect(() => {
       axios.get<MuseumsType>(`http://localhost:3000/api/museums/${id}?lang=${i18n.language}`).then((res) => {
        setMuseum(res.data);
+       !updateRecalls && toast({
+        title: `комментарий удален`,
+        status: 'success',
+        isClosable: true,
+        duration: 1000,
+        position: 'bottom-right',
+      })
       });
      }, [id, i18n.language, updateRecalls]);
 
@@ -107,6 +115,13 @@ const handleConfirmEdit = () => {
     workedTime: inputs.workedTime, 
     holidays: inputs.holidays}));
     setEditMuseum((pre)=>!pre);
+    toast({
+      title: `успешно изменено`,
+      status: 'info',
+      isClosable: true,
+      duration: 1000,
+      position: 'bottom-right',
+    })
   })
 }
 
@@ -117,7 +132,11 @@ const changeInputs = (
 };
 
 const handlerConfirm = () => {
-  axios.delete(`http://localhost:3000/api/museums/${museum.id}`).then(()=>{dispatch(updateMuseums(allMuseums.filter((mus)=> mus.id !== museum.id)));navigate("/allmuseums/list");})
+  axios.delete(`http://localhost:3000/api/museums/${museum.id}`)
+  .then(()=>{
+    dispatch(updateMuseums(allMuseums.filter((mus)=> mus.id !== museum.id)));
+    navigate("/allmuseums/list", {state: true});
+  })
   
 }
 

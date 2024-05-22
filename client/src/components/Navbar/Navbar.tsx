@@ -31,9 +31,11 @@ export default function Navbar() {
         </Link>
         {user ? (
           <>
-            <Link to={'/card'}>
+            {user !== 'admin_museums@mail.ru' && (
+              <Link to={'/card'}>
               <button className={styles.link}>{t('musCard')}</button>
             </Link>
+            )}
             <Link to={'/profile'}>
               <button className={styles.link}>{t('profile')}</button>
             </Link>
