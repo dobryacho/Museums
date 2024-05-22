@@ -60,6 +60,15 @@
   "placeReview": "Leave feedback",
   "wordSearch": "Search by keyword",
   "paymentSuccess": "Payment succeeded",
+  "paymentError": "Payment error",
+  "enterAllData": "Please enter all data",
   "error": "Something went wrong",
-  "workingTime": "Open hours:"
+  "workingTime": "Open hours:",
+  "backToList": "Back to all museums",
+  "userNotFound": "User not found, please register",
+  "incorrectPassword": "Incorrect password",
+  "getPlasticCard": "Your plastic Museum Card has been sent to you by mail",
+  "orderPlasticCard": "Get plastic Museum Card by post",
+  "addressPlasticCard": "Enter the postal address to which the Museum Card will be sent",
+  "send": "Send"
 }

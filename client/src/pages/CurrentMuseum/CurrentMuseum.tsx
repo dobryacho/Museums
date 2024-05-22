@@ -196,7 +196,7 @@ const handlerConfirm = () => {
           <p>{t('noReviews')}</p>
         )}
       </div>
-      <Button as={Link} to="/allmuseums/list#top" colorScheme="purple">Вернуться к списку музеев</Button>
+      <Button as={Link} to="/allmuseums/list#top" colorScheme="purple">{t('backToList')}</Button>
     </>
   );
 }

@@ -27,7 +27,7 @@ export default function AddNews() {
   }, []);
 
   // Ручка изменения инпутов
-  const changeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
+  const changeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -100,8 +100,8 @@ export default function AddNews() {
   return (
     <div>
       <h2>Добавить новое мероприятие:</h2>
-      <input onChange={changeHandler} name="title" value={inputs.title} />
-      <input onChange={changeHandler} name="text" value={inputs.text} />
+      <input onChange={changeHandler} name="title" value={inputs.title} placeholder='Заголовок'/>
+      <textarea onChange={changeHandler} name="text" value={inputs.text} placeholder='Описание'/>
       <input
         onChange={changeHandler}
         type="datetime-local"

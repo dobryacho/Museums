@@ -60,6 +60,15 @@
   "placeReview": "Hinterlasse Kommentar",
   "wordSearch": "über Schlüsselwort suchen",
   "paymentSuccess": "Zahlung erfolgreich durchgeführt",
+  "paymentError": "Zahlungsfehler",
+  "enterAllData": "Bitte geben Sie alle Daten ein",
   "error": "Etwas ist schief gelaufen",
-  "workingTime": "Öffnungszeiten:"
+  "workingTime": "Öffnungszeiten:",
+  "backToList": "Zurück zu allen Museen",
+  "userNotFound": "Benutzer nicht gefunden, bitte registrieren",
+  "incorrectPassword": "Falsches Passwort",
+  "choosePlasticCard": "Получить пластиковую музейную карту по почте",
+  "getPlasticCard": "Ihre Plastik-Museumskarte wurde Ihnen per Post zugesandt",
+  "addressPlasticCard": "Geben Sie die Postanschrift ein, an die die Museumskarte gesendet werden soll",
+  "send": "Senden"
 }

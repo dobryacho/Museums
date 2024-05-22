@@ -44,6 +44,7 @@ function App(): JSX.Element {
         <Route path="/qr" element={<QrCodeGenerator />} />
         <Route path="/favoritesMuseums" element={<FavoritesMuseums />} />
         <Route path="/addMuseum" element={<AddMuseum />} />
+        <Route path="/orders" element={<UserOrders />} />
       </Routes>
       <Footer />
     </>

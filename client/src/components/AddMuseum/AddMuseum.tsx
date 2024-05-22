@@ -15,7 +15,7 @@ export default function AddMuseum() {
   });
 
   // Ручка изменения инпутов
-  const changeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
+  const changeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -99,25 +99,28 @@ export default function AddMuseum() {
   return (
     <div>
       <h2>Добавить новый музей:</h2>
-      <input onChange={changeHandler} name="name" value={inputs.name} />
-      <input
+      <input onChange={changeHandler} name="name" value={inputs.name} placeholder='Название музея'/>
+      <textarea
         onChange={changeHandler}
         name="description"
         value={inputs.description}
+        placeholder='Описание музея'
       />
-      <input onChange={changeHandler} name="location" value={inputs.location} />
-      <input onChange={changeHandler} name="city" value={inputs.city} />
+      <input onChange={changeHandler} name="location" value={inputs.location}  placeholder='Адрес музея'/>
+      <input onChange={changeHandler} name="city" value={inputs.city}  placeholder='Город'/>
       <input
         onChange={changeHandler}
         name="workedTime"
         value={inputs.workedTime}
+        placeholder='Время работы'
       />
-      <input onChange={changeHandler} name="holidays" value={inputs.holidays} />
-      <input onChange={changeHandler} name="theme" value={inputs.theme} />
+      <input onChange={changeHandler} name="holidays" value={inputs.holidays} placeholder='Нерабочие дни' />
+      <input onChange={changeHandler} name="theme" value={inputs.theme} placeholder='Тематика' />
       <input
         onChange={changeHandler}
         name="coordinates"
         value={inputs.coordinates}
+        placeholder='Координаты'
       />
 
       <div className="avatar">

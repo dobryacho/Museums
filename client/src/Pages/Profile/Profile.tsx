@@ -9,6 +9,8 @@ import { useAppSelector } from '../../redux/hooks';
 import axios from 'axios';
 import styles from './Profile.module.css';
 import { useTranslation } from 'react-i18next';
+import QrCodeGenerator from '../../components/QRScanner/QRCode/QRCode'
+import { Navigate } from 'react-router-dom';
 
 interface CardInfoType {
   id: number;
@@ -35,12 +37,13 @@ export default function Profile() {
         console.error(error);
       }
     };
-
-    fetchCardInfo();
+    if (user.email) {
+      fetchCardInfo();
+    };
   }, [user.id]);
 
   if (!user.email) {
-    return <div>Загрузка...</div>;
+    return (<div>Загрузка...{user?.anon && (<Navigate to="/" />)}</div>)
   }
 
   return (
@@ -48,6 +51,7 @@ export default function Profile() {
       {user.email === 'admin_museums@mail.ru' ? (
         <>
           <AddMuseum />
+          <QrCodeGenerator />
           <AddNews />
           <Stat />
         </>
