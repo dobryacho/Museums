@@ -31,7 +31,7 @@ type MuseumProps = {
 };
 
 export default function FavoriteMuseum({ museum }: MuseumProps): JSX.Element {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const dispatch = useAppDispatch();
 
@@ -80,7 +80,7 @@ export default function FavoriteMuseum({ museum }: MuseumProps): JSX.Element {
           {museum?.name || museum?.name_en || museum?.name_de}
         </Card.Title>
         <Card.Text className={styles.time}>
-          Время работы: {museum.workedTime}
+          {t('workingTime')} {museum.workedTime}
         </Card.Text>
         <Button
           onClick={handleFavoriteClick}

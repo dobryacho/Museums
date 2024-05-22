@@ -47,6 +47,7 @@
   "deleteReview": "Удалить отзыв",
   "submitReview": "Оставить отзыв",
   "rateMuseum": "Оцените музей:",
+  "yourRating": "Ваша оценка:",
   "workingHours": "Время работы:",
   "dayOff": "Выходной:",
   "reviews": "Отзывы",
@@ -59,5 +60,6 @@
   "placeReview": "Оставить отзыв",
   "wordSearch": "Поиск по ключевому слову",
   "paymentSuccess": "Оплата прошла успешно",
-  "error": "Что-то пошло не так"
-  }
+  "error": "Что-то пошло не так",
+  "workingTime": "Время работы:"
+}

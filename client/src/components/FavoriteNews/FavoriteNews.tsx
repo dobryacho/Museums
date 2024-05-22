@@ -70,7 +70,7 @@ export default function FavoriteNews() {
                         <h3 className={styles.cardTitle}>{el.title}</h3>
                         <p>{el.text}</p>
                         <p>
-                          {t('eventPlace')} {el.Museum.name}.
+                          {t('eventPlace')} {el?.museumName}.
                         </p>
                         <p>
                           {t('eventDate')}{' '}
@@ -80,7 +80,7 @@ export default function FavoriteNews() {
                           .
                         </p>
                         <p>
-                          {t('address')} {el.Museum.location}.
+                          {t('address')} {el?.museumLocation}.
                         </p>
                       </Carousel.Caption>
                     </Carousel.Item>

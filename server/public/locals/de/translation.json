@@ -43,7 +43,8 @@
   "totalSum": "Gesamtsumme: 6000 Rub",
   "buy": "Museumskarte kaufen",
   "scanQR": "QR-Code scannen",
-  "yourReview": "Ihre Bewertung:",
+  "yourReview": "Rezension:",
+  "yourRating": "Ihre Bewertung:",
   "deleteReview": "Löschen",
   "submitReview": "Bewertung absenden",
   "rateMuseum": "Museum bewerten:",
@@ -59,5 +60,6 @@
   "placeReview": "Hinterlasse Kommentar",
   "wordSearch": "über Schlüsselwort suchen",
   "paymentSuccess": "Zahlung erfolgreich durchgeführt",
-  "error": "Etwas ist schief gelaufen"
+  "error": "Etwas ist schief gelaufen",
+  "workingTime": "Öffnungszeiten:"
 }

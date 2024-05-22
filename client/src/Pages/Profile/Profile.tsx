@@ -24,7 +24,9 @@ export default function Profile() {
   useEffect(() => {
     const fetchCardInfo = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/cards/?userId=${user.id}`);
+        const response = await axios.get(
+          `http://localhost:3000/api/cards/?userId=${user.id}`,
+        );
         if (response.data.length > 0) {
           setCardInfo(response.data[0]);
         }
@@ -37,7 +39,7 @@ export default function Profile() {
   }, [user.id]);
 
   if (!user.email) {
-    return <div>Загрузка...</div>
+    return <div>Загрузка...</div>;
   }
 
   return (
@@ -52,13 +54,17 @@ export default function Profile() {
         <>
           {cardInfo ? (
             <>
-              <p>{t('cardNumber')} {cardInfo.id}</p>
-              <p>{t('validity')} {new Date(cardInfo.validity).toLocaleDateString()}</p>
+              <p>
+                {t('cardNumber')} {cardInfo.id}
+              </p>
+              <p>
+                {t('validity')}{' '}
+                {new Date(cardInfo.validity).toLocaleDateString()}
+              </p>
             </>
           ) : (
             <h2>{t('noCard')}</h2>
           )}
-          <Visit />
           <FavoriteNews />
           <FavoritesMuseums />
           <Visit />

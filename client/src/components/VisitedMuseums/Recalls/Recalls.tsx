@@ -203,7 +203,7 @@ function Recalls({ mus, setUpdate, visited }: RecallProps) {
         </Stack>
         <Stack>
           <div>
-            {mus.VisitedMuseum.rating ? t('yourReview') : t('rateMuseum')}
+            {mus.VisitedMuseum.rating ? t('yourRating') : t('rateMuseum')}
           </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             {rating.map((el, i) => (

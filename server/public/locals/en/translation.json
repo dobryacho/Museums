@@ -44,6 +44,7 @@
   "buy": "Buy Museum Card",
   "scanQR": "Scan QR code",
   "yourReview": "Your feedback:",
+  "yourRating": "Your rating:",
   "deleteReview": "Delete feedback",
   "submitReview": "Submit feedback",
   "rateMuseum": "Rate museum:",
@@ -59,5 +60,6 @@
   "placeReview": "Leave feedback",
   "wordSearch": "Search by keyword",
   "paymentSuccess": "Payment succeeded",
-  "error": "Something went wrong"
+  "error": "Something went wrong",
+  "workingTime": "Open hours:"
 }
