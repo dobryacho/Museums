@@ -24,6 +24,8 @@ type Museums = Array<MuseumType>;
 
 export default function FavoritesMuseums() {
   const { t } = useTranslation();
+  const { i18n } = useTranslation();
+
   const user = useAppSelector((store) => store.userSlice.user);
 
   const [favorites, setFavorites] = useState<Museums>([]);
@@ -31,13 +33,13 @@ export default function FavoritesMuseums() {
   useEffect(() => {
     if (user.id) {
       axios
-        .get(`http://localhost:3000/api/user/favorites/${user.id}`)
+        .get(`http://localhost:3000/api/user/favorites/${user.id}?lang=${i18n.language}`)
         .then((res) => {
           const [userData] = res.data;
           setFavorites(userData?.favoriteMuseums);
         });
     }
-  }, [user.id]);
+  }, [user.id, i18n.language]);
 
   return (
     <div className={styles.wrapper}>

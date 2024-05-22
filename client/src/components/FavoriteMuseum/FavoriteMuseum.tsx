@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import styles from './FavoriteMuseum.module.css';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { useTranslation } from 'react-i18next';
 
 type MuseumType = {
   id: number;
@@ -30,6 +31,8 @@ type MuseumProps = {
 };
 
 export default function FavoriteMuseum({ museum }: MuseumProps): JSX.Element {
+  const { i18n } = useTranslation();
+
   const dispatch = useAppDispatch();
 
   const user = useAppSelector((store) => store.userSlice.user);
@@ -43,7 +46,7 @@ export default function FavoriteMuseum({ museum }: MuseumProps): JSX.Element {
     if (user.id) {
       dispatch(fetchFavorites(user.id));
     }
-  }, [dispatch, user.id]);
+  }, [dispatch, user.id, i18n.language]);
 
   const handleFavoriteClick = () => {
     if (museum.id) {
@@ -69,11 +72,13 @@ export default function FavoriteMuseum({ museum }: MuseumProps): JSX.Element {
             <Card.Img
               className={styles.museumLogo}
               src={museum.photo}
-              alt={museum.name}
+              alt={museum?.name || museum?.name_en || museum?.name_de}
             />
           </div>
         </Link>
-        <Card.Title className={styles.title}>{museum.name}</Card.Title>
+        <Card.Title className={styles.title}>
+          {museum?.name || museum?.name_en || museum?.name_de}
+        </Card.Title>
         <Card.Text className={styles.time}>
           Время работы: {museum.workedTime}
         </Card.Text>

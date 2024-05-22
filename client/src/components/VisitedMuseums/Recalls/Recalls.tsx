@@ -93,7 +93,9 @@ function Recalls({ mus, setUpdate, visited }: RecallProps) {
     <>
       <div className={styles.wrapper}>
         <div className={styles.title}>
-          <Link to={`/allmuseums/${mus.id}`}>{mus.name}</Link>
+          <Link to={`/allmuseums/${mus.id}`}>
+            {mus?.name_en || mus?.name_de || mus?.name}
+          </Link>
         </div>
         <Stack spacing={4} p={1}>
           {visited?.recalledMuseums.find((el) => el.id === mus.id) ? (
@@ -101,7 +103,7 @@ function Recalls({ mus, setUpdate, visited }: RecallProps) {
               {editRecall ? (
                 <>
                   <div>
-                    Ваш отзыв:{' '}
+                    {t('yourReview')}{' '}
                     <Box
                       bg="#fff"
                       color={'black'}
@@ -124,14 +126,14 @@ function Recalls({ mus, setUpdate, visited }: RecallProps) {
                       id={`${mus.id}`}
                       onClick={handlerEditRecall}
                     >
-                      Редактировать
+                      {t('edit')}
                     </Button>
                     <Button
                       colorScheme="red"
                       id={`${mus.id}`}
                       onClick={handlerDeleteRecall}
                     >
-                      Удалить отзыв
+                      {t('deleteReview')}
                     </Button>
                   </ButtonGroup>
                 </>
@@ -158,14 +160,14 @@ function Recalls({ mus, setUpdate, visited }: RecallProps) {
                       colorScheme=""
                       onClick={handlerSubmitEditRecall}
                     >
-                      Изменить
+                      {t('change')}
                     </Button>
                     <Button
                       className={styles.button}
                       colorScheme="red"
                       onClick={handlerUndoEditRecall}
                     >
-                      Отмена
+                      {t('cancel')}
                     </Button>
                   </ButtonGroup>
                 </>
@@ -194,14 +196,14 @@ function Recalls({ mus, setUpdate, visited }: RecallProps) {
                 id={`${mus.id}`}
                 onClick={handlerRecall}
               >
-                Оставить отзыв
+                {t('placeReview')}
               </Button>
             </>
           )}
         </Stack>
         <Stack>
           <div>
-            {mus.VisitedMuseum.rating ? 'Ваша оценка: ' : 'Оцените музей: '}
+            {mus.VisitedMuseum.rating ? t('yourReview') : t('rateMuseum')}
           </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             {rating.map((el, i) => (

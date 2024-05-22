@@ -4,17 +4,35 @@ import { useTranslation } from 'react-i18next';
 import { Carousel } from 'react-bootstrap';
 import styles from './FavoriteNews.module.css';
 
+type NewsType = {
+  id: number;
+  title: string;
+  text: string;
+  museumId: number;
+  museumName: string;
+  museumLocation: string;
+  photo: string;
+  date: string;
+};
+
+type News = Array<NewsType>;
+
 export default function FavoriteNews() {
   const { t } = useTranslation();
-  const [news, setNews] = useState([]);
+  const { i18n } = useTranslation();
+
+  const [news, setNews] = useState<News>([]);
   const userCity = useAppSelector((store) => store.userSlice.user.city);
 
   useEffect(() => {
     const getAllNews = async () => {
       // Получение всех новостей
-      const response = await fetch('http://localhost:3000/api/favnews', {
-        credentials: 'include',
-      });
+      const response = await fetch(
+        `http://localhost:3000/api/favnews?lang=${i18n.language}`,
+        {
+          credentials: 'include',
+        },
+      );
       const data = await response.json();
 
       // Сортировка по дате
@@ -25,7 +43,7 @@ export default function FavoriteNews() {
       setNews(sortedByTimeNews);
     };
     getAllNews();
-  }, [userCity]);
+  }, [userCity, i18n.language]);
 
   return (
     <div className={styles.wrapper}>
@@ -56,7 +74,7 @@ export default function FavoriteNews() {
                         </p>
                         <p>
                           {t('eventDate')}{' '}
-                          {new Date(el.date).toLocaleString('ru-RU', {
+                          {new Date(el.date).toLocaleString(i18n.language, {
                             timeZone: 'Europe/Moscow',
                           })}
                           .

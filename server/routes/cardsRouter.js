@@ -3,10 +3,10 @@ const { Card } = require('../db/models');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  console.log(req.query);
+  // console.log(req.query);
   const { userId } = req.query;
   const cards = await Card.findAll({ where: { userId } });
-  console.log(cards);
+  // console.log(cards);
   res.json(cards);
 });
 

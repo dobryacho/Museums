@@ -5,8 +5,11 @@ import { UserMuseums } from './VisitedMuseums';
 import styles from './Visit.module.css';
 import Recalls from './Recalls/Recalls';
 import { Stack } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 function Visit() {
+  const { i18n } = useTranslation();
+
   const [visited, setVisited] = useState<UserMuseums>({
     visitedMuseums: [],
     recalledMuseums: [],
@@ -18,9 +21,10 @@ function Visit() {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:3000/api/user/visit/${user.id}`)
+      .get(`http://127.0.0.1:3000/api/user/visit/${user.id}?lang=${i18n.language}`)
       .then((res) => setVisited(res.data[0]));
-  }, [user, update]);
+  }, [user, update, i18n.language]);
+  console.log(visited);
 
   return (
     <>

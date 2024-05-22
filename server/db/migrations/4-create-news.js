@@ -26,6 +26,7 @@ module.exports = {
           },
           key: 'id',
         },
+        onDelete: 'cascade',
       },
       photo: {
         allowNull: false,

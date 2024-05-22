@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('VisitedMuseums', {
+    await queryInterface.createTable('Scans', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,7 +10,6 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       userId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: {
@@ -20,7 +19,6 @@ module.exports = {
         },
       },
       museumId: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: {
@@ -29,11 +27,6 @@ module.exports = {
           key: 'id',
         },
         onDelete: 'cascade',
-      },
-      rating: {
-        allowNull: true,
-        defaultValue: null,
-        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -46,6 +39,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('VisitedMuseums');
+    await queryInterface.dropTable('Scans');
   },
 };

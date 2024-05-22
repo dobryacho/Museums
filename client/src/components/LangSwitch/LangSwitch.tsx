@@ -9,18 +9,22 @@ import {
   Flex,
   Image,
 } from '@chakra-ui/react';
+import { useAppDispatch } from '../../redux/hooks';
+import { setLanguage } from '../../redux/languageSlice';
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+    dispatch(setLanguage(lng));
   };
 
   const getFlagSrc = (language) => {
     switch (language) {
       case 'ru':
-        return '/../Rus_flag.png';
+        return '../Rus_flag.png';
       case 'en':
         return '../GB_flag.png';
       case 'de':
