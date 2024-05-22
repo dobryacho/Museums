@@ -23,13 +23,10 @@ export default function MusCard() {
   }, []);
 
   useEffect(() => {
-    dispatch(makeOrder(orders.some((order) => order.userId === user.id)))
-    console.log(cardIsOrdered);
-  }, [cardIsOrdered, orders]);
-
-  if (!user.email) {
-    return <Navigate to="/" />;
-  }
+    if (user.email) {
+      dispatch(makeOrder(orders.some((order) => order.userId === user.id)))
+    }
+  }, [cardIsOrdered, orders, user.email]);
 
   const handleScanClick = () => {
     navigate('/scan');
@@ -54,7 +51,7 @@ export default function MusCard() {
   }
 
   if (!user.email) {
-    return <div>{t('loading')}</div>
+    return (<div>{t('loading')}{user?.anon && (<Navigate to="/" />)}</div>)
   }
   
   return (
