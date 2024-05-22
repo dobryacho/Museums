@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useAppSelector } from '../../redux/hooks';
 import { useTranslation } from 'react-i18next';
+import { Button } from '@chakra-ui/react';
+import axios from 'axios';
 
 export default function AllNews() {
   const { t } = useTranslation();
   const [news, setNews] = useState([]);
-  const userCity = useAppSelector((store) => store.userSlice.user.city);
+  const user = useAppSelector((store) => store.userSlice.user);
 
   useEffect(() => {
     const getAllNews = async () => {
@@ -16,7 +18,7 @@ export default function AllNews() {
       let newsToShow; // Переменная для хранения отфильтрованных музеев
 
       // Фильтрация новостей по городу
-      if (userCity === 'moscow') {
+      if (user === 'moscow') {
         newsToShow = data.filter((el) => el.Museum.city === 'Москва');
       } else {
         newsToShow = data.filter((el) => el.Museum.city === 'Санкт-Петербург');
@@ -31,7 +33,13 @@ export default function AllNews() {
     };
 
     getAllNews();
-  }, [userCity]);
+  }, [user]);
+
+  const handleDelete = (e: any) => {
+      axios.delete(`http://localhost:3000/api/news/${e.target.parentNode.id}`).then(()=>{
+        setNews((data)=> ([...data.filter((el)=> el.id !== Number(e.target.parentNode.id))]))        
+      })
+  }
 
   return (
     <div>
@@ -43,9 +51,12 @@ export default function AllNews() {
         });
 
         return (
-          <div key={el.id}>
+          <div key={el.id} id={`${el.id}`}>
             <h4>{el.title}</h4>
             <img src={el.photo} alt="Тут должно быть фото музея" />
+            {user.email === "admin_museums@mail.ru" && (
+                  <Button onClick={handleDelete} id='delete'  m={2}>Удалить новость</Button>
+              )}
             <p>{el.text}</p>
             <p>{t('eventPlace')} {el.Museum.name}.</p>
             <p>{t('eventDate')} {formattedDate}.</p>

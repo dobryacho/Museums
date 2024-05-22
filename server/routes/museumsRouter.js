@@ -16,6 +16,7 @@ router.get('/:id', async (req, res) => {
   const response =
     lang === 'en'
       ? {
+          id: museum.id,
           name: museum.name_en,
           description: museum.description_en,
           location: museum.location_en,
@@ -29,6 +30,7 @@ router.get('/:id', async (req, res) => {
         }
       : lang === 'de'
         ? {
+            id: museum.id,
             name: museum.name_de,
             description: museum.description_de,
             location: museum.location_de,
@@ -41,6 +43,7 @@ router.get('/:id', async (req, res) => {
             recalledByUsers: museum.recalledByUsers,
           }
         : {
+            id: museum.id,
             name: museum.name,
             description: museum.description,
             location: museum.location,
