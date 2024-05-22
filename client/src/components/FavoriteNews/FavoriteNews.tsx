@@ -50,7 +50,7 @@ export default function FavoriteNews({ cardInfo }) {
       <div className="container">
         {cardInfo ? (
           <div className={styles.cardInfoWrapper}>
-            <p className={styles.cardInfo}>
+            <p>
               {t('cardNumber')} {cardInfo.id}
             </p>
             <p>
