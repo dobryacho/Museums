@@ -14,7 +14,7 @@ export const fetchFavorites = createAsyncThunk(
 
 export const fetchVisited = createAsyncThunk(
   'visited/fetchAll',
-  async ( userId ) => {
+  async ( userId: number ) => {
     const response = await axios.get(`http://localhost:3000/api/visited?userId=${userId}`, {
       withCredentials: true,
     });

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Dispatch, SetStateAction, useRef } from 'react';
 import { RecalledByUser } from '../CurrentMuseum';
 
-function DelBtn({id, handle, btnText, trigger }: {handle?: ()=>void;btnText: string;id?: RecalledByUser;trigger?: Dispatch<SetStateAction<boolean>>}) {
+function DelBtn({id, handle, btnText, trigger, toast }: {handle?: ()=>void;btnText: string;id?: RecalledByUser;trigger?: Dispatch<SetStateAction<boolean>>;toast?: any}) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = useRef()
 
@@ -17,6 +17,13 @@ function DelBtn({id, handle, btnText, trigger }: {handle?: ()=>void;btnText: str
     })
     onClose();
     trigger && trigger((pre)=>!pre);
+    toast && toast({
+      title: `комментарий удален`,
+      status: 'success',
+      isClosable: true,
+      duration: 1000,
+      position: 'bottom-right',
+    })
 }
 
   return (
