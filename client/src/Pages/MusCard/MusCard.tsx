@@ -54,7 +54,7 @@ export default function MusCard() {
   }
 
   if (!user.email) {
-    return <div>Загрузка...</div>
+    return <div>{t('loading')}</div>
   }
   
   return (
@@ -68,14 +68,14 @@ export default function MusCard() {
       <br/>
       
         {!isCardValid ? <></> : cardIsOrdered ? 
-          <div>Пластиковая музейная карта направлена вам по почте</div>
+          <div>{t('getPlasticCard')}</div>
           :
           (<> 
-            <Checkbox onChange={checkboxClick} colorScheme="green">Получить пластиковую музейную карту по почте</Checkbox>
+            <Checkbox onChange={checkboxClick} colorScheme="green">{t('orderPlasticCard')}</Checkbox>
             {choiceIsMade &&
               (<>
-              <Input placeholder='Введите почтовый адрес, на который будет отправлена карта' onChange={addressInputChange}/>
-              <Button onClick={handleOrderClick}>Отправить</Button>
+              <Input placeholder={t('addressPlasticCard')} onChange={addressInputChange}/>
+              <Button onClick={handleOrderClick}>{t('send')}</Button>
               </>)
             }
           </>)
