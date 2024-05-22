@@ -4,8 +4,10 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const { userId } = req.query;
+  console.log('USERID', userId);
   const visitedMuseums = await VisitedMuseum.findAll({ where: { userId } });
   res.json(visitedMuseums);
+  console.log('VISITED', visitedMuseums);
 });
 
 router.get('/:id', async (req, res) => {

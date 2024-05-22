@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useAppSelector } from '../../redux/hooks';
 import { useTranslation } from 'react-i18next';
 
-export default function RecommendedMuseums () {
-  const { t } = useTranslation();
+export default function RecommendedMuseums() {
+  const { t, i18n } = useTranslation();
+  //const { i18n } = useTranslation();
   type Museum = {
     name: string;
     description: string;
@@ -21,19 +22,29 @@ export default function RecommendedMuseums () {
   useEffect(() => {
     const getAllMuseums = async () => {
       // Получение всех музеев
-      const response = await fetch('http://localhost:3000/api/museums');
+      const response = await fetch(
+        `http://localhost:3000/api/museums?lang=${i18n.language}`,
+      );
       const data = await response.json();
-
+      
       let museumsToShow; // Переменная для хранения отфильтрованных музеев
 
       // Фильтрация музеев по городу
       if (userCity === 'moscow') {
         museumsToShow = data.filter(
-          (museum: Museum) => museum.city === 'Москва',
+          // (museum: Museum) => museum.city === 'Москва',
+          (museum: Museum) =>
+            museum.city === 'Москва' ||
+            museum.city === 'Moscow' ||
+            museum.city === 'Moskau',
         );
       } else {
         museumsToShow = data.filter(
-          (museum: Museum) => museum.city === 'Санкт-Петербург',
+          // museum: Museum) => museum.city === 'Санкт-Петербург',
+          (museum: Museum) =>
+            museum.city === 'Санкт-Петербург' ||
+            museum.city === 'Saint Petersburg' ||
+            museum.city === 'Sankt Petersburg',
         );
       }
 
@@ -55,7 +66,7 @@ export default function RecommendedMuseums () {
     };
 
     getAllMuseums();
-  }, [userCity]);
+  }, [userCity, i18n.language]);
 
   return (
     <div>

@@ -24,7 +24,6 @@ export default function MusCard() {
 
   return (
     <>
-      <div>Инфа о карте и как ее купить</div>
       <StripeContainer />
       {isCardValid && (
         <button onClick={handleScanClick}>

@@ -4,6 +4,7 @@ import AddNews from '../../components/AddNews/AddNews';
 import FavoriteNews from '../../components/FavoriteNews/FavoriteNews';
 import FavoritesMuseums from '../../components/FavoritesMuseums/FavoritesMuseums';
 import Visit from '../../components/VisitedMuseums/Visit';
+import Stat from '../../components/Stat/Stat';
 import { useAppSelector } from '../../redux/hooks';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -45,6 +46,7 @@ export default function Profile() {
         <>
           <AddMuseum />
           <AddNews />
+          <Stat />
         </>
       ) : (
         <>

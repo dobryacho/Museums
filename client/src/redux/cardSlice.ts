@@ -15,12 +15,13 @@ const initialState: CardState = {
 };
 
 const cardSlice = createSlice({
-  name: 'card',
+  name: 'cardSlice',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchCardInfo.fulfilled, (state, action: PayloadAction<CardInfoType | null>) => {
       state.cardInfo = action.payload;
+
     });
     builder.addCase(updateCardValidity.fulfilled, (state, action: PayloadAction<CardInfoType>) => {
       state.cardInfo = action.payload;
