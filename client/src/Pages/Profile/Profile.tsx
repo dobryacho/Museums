@@ -5,7 +5,6 @@ import FavoriteNews from '../../components/FavoriteNews/FavoriteNews';
 import FavoritesMuseums from '../../components/FavoritesMuseums/FavoritesMuseums';
 import Visit from '../../components/VisitedMuseums/Visit';
 import { useAppSelector } from '../../redux/hooks';
-import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 
@@ -18,10 +17,6 @@ export default function Profile() {
   const { t } = useTranslation();
 
   const user = useAppSelector((store) => store.userSlice.user);
-
-  if (!user.email) {
-    return <Navigate to="/" />;
-  }
 
   const [cardInfo, setCardInfo] = useState<CardInfoType | null>(null);
 
@@ -39,6 +34,10 @@ export default function Profile() {
 
     fetchCardInfo();
   }, [user.id]);
+
+  if (!user.email) {
+    return <div>Загрузка...</div>
+  }
 
   return (
     <div>
