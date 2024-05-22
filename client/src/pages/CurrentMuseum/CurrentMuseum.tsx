@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
-=======
 import { useState, useEffect, ChangeEvent } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
->>>>>>> 9c1e9a967b9919b79b7c9c4c9fab757ec65b3129
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -14,13 +9,9 @@ import FavIcon from '../../components/FavIcon/FavIcon';
 import Checkbox from '../../components/Checkbox/Checkbox';
 
 import type { RecallType, RouteParams, MuseumType } from './currMusTypes';
-<<<<<<< HEAD
-import { Button } from '@chakra-ui/react';
-=======
 import { Button, ButtonGroup, Input, Stack, Textarea } from '@chakra-ui/react';
 import DelBtn from './DelBtn/DelBtn';
 import { updateMuseums } from '../../redux/allMuseumsSlice';
->>>>>>> 9c1e9a967b9919b79b7c9c4c9fab757ec65b3129
 
 export interface MuseumsType {
   id:              number;
