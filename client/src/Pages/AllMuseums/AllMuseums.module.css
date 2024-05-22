@@ -1,6 +1,7 @@
 .wrapper {
   min-height: 100vh;
   padding-top: 190px;
+  padding-bottom: 90px;
   color: white;
   background-color: #040914;
   position: relative;
