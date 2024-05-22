@@ -23,7 +23,7 @@ export default function AllNews() {
       let newsToShow; // Переменная для хранения отфильтрованных музеев
 
       // Фильтрация новостей по городу
-      if (userCity === 'moscow') {
+      if (user.city === 'moscow') {
         newsToShow = data.filter(
           (el) =>
             el.museumCity === 'Москва' ||
@@ -92,7 +92,7 @@ export default function AllNews() {
                 <h3 className={styles.cardTitle}>{el.title}</h3>
                 <p>{el.text}</p>
                 <p>
-                  {t('eventPlace')} {el.Museum.name}.
+                  {t('eventPlace')} {el.museumName}.
                 </p>
                 <p>
                   {t('eventDate')}{' '}
@@ -102,7 +102,7 @@ export default function AllNews() {
                   .
                 </p>
                 <p>
-                  {t('address')} {el.Museum.location}.
+                  {t('address')} {el.museumLocation}.
                 </p>
               </Carousel.Caption>
             </Carousel.Item>

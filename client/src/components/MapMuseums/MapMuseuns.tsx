@@ -2,8 +2,9 @@ import { Map, Placemark, YMaps } from '@pbe/react-yandex-maps';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { fetchMuseums } from "../../redux/thunkActionsAllMuseums";
+import { fetchMuseums } from '../../redux/thunkActionsAllMuseums';
 import axios from 'axios';
+import styles from './MapMuseums.module.css';
 
 const piter = { center: [59.938573235606746, 30.323395361055585], zoom: 11 };
 const moscow = { center: [55.75, 37.57], zoom: 11 };
@@ -31,10 +32,14 @@ function MapMuseuns() {
   const [allMuseums, setAllMuseums] = useState<TopLevel[]>([]);
 
   useEffect(() => {
-    axios.get<TopLevel[]>(`http://localhost:3000/api/museums?lang=${i18n.language}`).then((res) => {
-      setAllMuseums(res.data);
-      setLoad(true);
-    });
+    axios
+      .get<TopLevel[]>(
+        `http://localhost:3000/api/museums?lang=${i18n.language}`,
+      )
+      .then((res) => {
+        setAllMuseums(res.data);
+        setLoad(true);
+      });
   }, [i18n.language]);
   // удалить
 
@@ -54,8 +59,9 @@ function MapMuseuns() {
         <YMaps>
           <Map
             defaultState={user?.city === 'petersburg' ? piter : moscow}
-            width={'90%'}
+            width={'1000px'}
             height={700}
+            margin={50}
           >
             <Placemark modules={['geoObject.addon.balloon']} />
             {allMuseums.map((el) => (

@@ -1,5 +1,6 @@
 .wrapper {
   padding-top: 50px;
+  padding-bottom: 50px;
   margin-top: -20px;
   min-height: 100vh;
   position: relative;
@@ -16,5 +17,4 @@
   background-color: #121721cc;
   color: white;
   height: 350px;
-
 }

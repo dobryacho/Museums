@@ -1,5 +1,7 @@
+import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
+import styles from './Minimuseum.module.css';
 type MuseumType = {
   id: number;
   name: string;
@@ -20,14 +22,33 @@ type MuseumProps = {
 };
 
 export default function Minimuseum({ museum }: MuseumProps): JSX.Element {
+  const { t } = useTranslation();
+
   return (
-    <div>
-      <Link to={`/allmuseums/${museum.id}`}>
-        <h3>{museum.name}</h3>
-      </Link>
-      <Link to={`/allmuseums/${museum.id}`}>
-        <img src={museum.photo} alt={museum.name} />
-      </Link>
-    </div>
+    <>
+      <div className={styles.wrapper}>
+        <Card className={styles.card}>
+          <Link to={`/allmuseums/${museum.id}`}>
+            <div className={styles.imageContainer}>
+              <div className={styles.overlay}></div>
+
+              <Card.Img
+                className={styles.museumLogo}
+                src={museum.photo}
+                alt={museum?.name || museum?.name_en || museum?.name_de}
+              />
+            </div>
+          </Link>
+          <Link to={`/allmuseums/${museum.id}`}>
+            <Card.Title className={styles.title}>
+              {museum?.name || museum?.name_en || museum?.name_de}
+            </Card.Title>
+          </Link>
+          <Link to={`/allmuseums/${museum.id}`}>
+            <Button className={styles.button}>Перейти</Button>
+          </Link>
+        </Card>
+      </div>
+    </>
   );
 }

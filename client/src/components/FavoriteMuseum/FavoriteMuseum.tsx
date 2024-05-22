@@ -82,11 +82,7 @@ export default function FavoriteMuseum({ museum }: MuseumProps): JSX.Element {
         <Card.Text className={styles.time}>
           {t('workingTime')} {museum.workedTime}
         </Card.Text>
-        <Button
-          onClick={handleFavoriteClick}
-          className={styles.button}
-          variant="primary"
-        >
+        <Button onClick={handleFavoriteClick} className={styles.button}>
           {isFavorite ? <span>❤️</span> : <span>🖤</span>}
         </Button>
       </Card>

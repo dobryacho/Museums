@@ -17,7 +17,7 @@ type NewsType = {
 
 type News = Array<NewsType>;
 
-export default function FavoriteNews() {
+export default function FavoriteNews({ cardInfo }) {
   const { t } = useTranslation();
   const { i18n } = useTranslation();
 
@@ -48,6 +48,18 @@ export default function FavoriteNews() {
   return (
     <div className={styles.wrapper}>
       <div className="container">
+        {cardInfo ? (
+          <div className={styles.cardInfoWrapper}>
+            <p className={styles.cardInfo}>
+              {t('cardNumber')} {cardInfo.id}
+            </p>
+            <p>
+              {t('validity')} {new Date(cardInfo.validity).toLocaleDateString()}
+            </p>
+          </div>
+        ) : (
+          <div className={styles.cardInfoWrapper}>{t('noCard')}</div>
+        )}
         {news.length === 0 ? (
           <h2 className={styles.noNewsTitle}>{t('headerEventsFav')}</h2>
         ) : (

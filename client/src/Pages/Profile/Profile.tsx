@@ -7,6 +7,7 @@ import Visit from '../../components/VisitedMuseums/Visit';
 import Stat from '../../components/Stat/Stat';
 import { useAppSelector } from '../../redux/hooks';
 import axios from 'axios';
+import styles from './Profile.module.css';
 import { useTranslation } from 'react-i18next';
 
 interface CardInfoType {
@@ -52,20 +53,7 @@ export default function Profile() {
         </>
       ) : (
         <>
-          {cardInfo ? (
-            <>
-              <p>
-                {t('cardNumber')} {cardInfo.id}
-              </p>
-              <p>
-                {t('validity')}{' '}
-                {new Date(cardInfo.validity).toLocaleDateString()}
-              </p>
-            </>
-          ) : (
-            <h2>{t('noCard')}</h2>
-          )}
-          <FavoriteNews />
+          <FavoriteNews cardInfo={cardInfo} />
           <FavoritesMuseums />
           <Visit />
         </>
