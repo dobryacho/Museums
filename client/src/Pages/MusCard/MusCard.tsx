@@ -12,16 +12,16 @@ export default function MusCard() {
   const cardInfo = useAppSelector((store) => store.cardSlice.cardInfo);
   const navigate = useNavigate();
 
-  if (!user.email) {
-    return <Navigate to="/" />;
-  }
-
   const handleScanClick = () => {
     navigate('/scan');
   };
 
   const isCardValid = cardInfo && new Date(cardInfo.validity) > new Date();
 
+  if (!user.email) {
+    return <div>Загрузка...</div>
+  }
+  
   return (
     <>
       <StripeContainer />

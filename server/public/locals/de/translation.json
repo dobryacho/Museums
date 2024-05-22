@@ -59,5 +59,10 @@
   "placeReview": "Hinterlasse Kommentar",
   "wordSearch": "über Schlüsselwort suchen",
   "paymentSuccess": "Zahlung erfolgreich durchgeführt",
-  "error": "Etwas ist schief gelaufen"
+  "paymentError": "Zahlungsfehler",
+  "enterAllData": "Bitte geben Sie alle Daten ein",
+  "error": "Etwas ist schief gelaufen",
+  "backToList": "Zurück zu allen Museen",
+  "userNotFound": "Benutzer nicht gefunden, bitte registrieren",
+  "incorrectPassword": "Falsches Passwort"
 }

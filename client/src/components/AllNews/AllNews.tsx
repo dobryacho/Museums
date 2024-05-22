@@ -21,13 +21,8 @@ export default function AllNews() {
       let newsToShow; // Переменная для хранения отфильтрованных музеев
 
       // Фильтрация новостей по городу
-      if (userCity === 'moscow') {
-        newsToShow = data.filter(
-          (el) =>
-            el.museumCity === 'Москва' ||
-            el.museumCity === 'Moscow' ||
-            el.museumCity === 'Moskau',
-        );
+      if (user.city === 'moscow') {
+        newsToShow = data.filter((el) => el.museumCity === 'Москва' || el.museumCity === 'Moscow' || el.museumCity === 'Moskau');
       } else {
         newsToShow = data.filter(
           (el) =>
