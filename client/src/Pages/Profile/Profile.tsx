@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import AddMuseum from '../../components/AddMuseum/AddMuseum';
-import AddNews from '../../components/AddNews/AddNews';
 import FavoriteNews from '../../components/FavoriteNews/FavoriteNews';
 import FavoritesMuseums from '../../components/FavoritesMuseums/FavoritesMuseums';
 import Visit from '../../components/VisitedMuseums/Visit';
-import Stat from '../../components/Stat/Stat';
 import { useAppSelector } from '../../redux/hooks';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import QrCodeGenerator from '../../components/QRScanner/QRCode/QRCode'
+import { Link, Outlet } from 'react-router-dom';
+import { Button } from '@chakra-ui/react';
 
 interface CardInfoType {
   id: number;
@@ -46,10 +44,24 @@ export default function Profile() {
     <div>
       {user.email === 'admin_museums@mail.ru' ? (
         <>
-          <AddMuseum />
-          <QrCodeGenerator />
-          <AddNews />
-          <Stat />
+        <Link to="addmuseum">
+          <Button colorScheme="green" margin="2px">Добавить музей</Button>
+        </Link>
+        <Link to="qrcodegenerator">
+          <Button colorScheme="green" margin="2px">QRCode</Button>
+        </Link>
+        <Link to="addnews">
+          <Button colorScheme="green" margin="2px">Добавить новость</Button>
+        </Link>
+        <Link to="stat">
+          <Button colorScheme="green" margin="2px">Статистика</Button>
+        </Link>
+        <Link to="orders">
+          <Button colorScheme="green" margin="2px">Заказы</Button>
+        </Link>
+        <div style={{ padding: 10, border: '1px solid white' }}>
+          <Outlet />
+        </div>
         </>
       ) : (
         <>

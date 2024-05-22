@@ -15,7 +15,7 @@ export default function AllMuseums() {
       </Link>
       <Link to="map">
         <Button colorScheme="green" margin="2px">
-        {t('map')}
+          {t('map')}
         </Button>
       </Link>
 
