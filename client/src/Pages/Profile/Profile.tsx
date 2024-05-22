@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { Link, Outlet } from 'react-router-dom';
 import { Button } from '@chakra-ui/react';
+import { Navigate } from 'react-router-dom';
 
 interface CardInfoType {
   id: number;
@@ -37,7 +38,7 @@ export default function Profile() {
   }, [user.id]);
 
   if (!user.email) {
-    return <div>Загрузка...</div>
+    return (<div>Загрузка...{user?.anon && (<Navigate to="/" />)}</div>)
   }
 
   return (

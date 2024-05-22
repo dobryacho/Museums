@@ -64,5 +64,9 @@
   "error": "Etwas ist schief gelaufen",
   "backToList": "Zurück zu allen Museen",
   "userNotFound": "Benutzer nicht gefunden, bitte registrieren",
-  "incorrectPassword": "Falsches Passwort"
+  "incorrectPassword": "Falsches Passwort",
+  "choosePlasticCard": "Получить пластиковую музейную карту по почте",
+  "getPlasticCard": "Ihre Plastik-Museumskarte wurde Ihnen per Post zugesandt",
+  "addressPlasticCard": "Geben Sie die Postanschrift ein, an die die Museumskarte gesendet werden soll",
+  "send": "Senden"
 }

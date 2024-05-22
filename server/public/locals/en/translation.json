@@ -64,5 +64,9 @@
   "error": "Something went wrong",
   "backToList": "Back to all museums",
   "userNotFound": "User not found, please register",
-  "incorrectPassword": "Incorrect password"
+  "incorrectPassword": "Incorrect password",
+  "getPlasticCard": "Your plastic Museum Card has been sent to you by mail",
+  "orderPlasticCard": "Get plastic Museum Card by post",
+  "addressPlasticCard": "Enter the postal address to which the Museum Card will be sent",
+  "send": "Send"
 }

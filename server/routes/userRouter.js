@@ -59,8 +59,9 @@ router.get('/auth', async (req, res) => {
   if (req.session?.login) {
     const user = await User.findOne({ where: { email: req.session.login } });
     return res.json(user);
+  } else {
+    res.json({ anon: true });
   }
-  res.end();
 });
 
 router.get('/visit/:id', async (req, res) => {
