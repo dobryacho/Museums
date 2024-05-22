@@ -1,4 +1,4 @@
-import react, { useEffect, useState } from "react";
+import react, { useEffect } from "react";
 import Minimuseum from "../../components/Minimuseum/Minimuseum";
 import { Select, Button, FormControl, Input } from '@chakra-ui/react'
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";

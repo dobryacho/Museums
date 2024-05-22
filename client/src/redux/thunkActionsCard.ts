@@ -31,3 +31,13 @@ export const addNewCard = createAsyncThunk('card/addNewCard', async (userId: num
   });
   return response.data;
 });
+
+export const addNewOrder = createAsyncThunk('order/addNewOrder', async (payload: { userId: number, userName: string, address: string }) => {
+  const response = await axios.post('http://localhost:3000/api/orders', payload);
+  return response.data;
+});
+
+export const fetchOrders = createAsyncThunk('orders/all', async () => {
+  const response = await axios.get('http://localhost:3000/api/orders');
+  return response.data;
+});
