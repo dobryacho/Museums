@@ -3,9 +3,24 @@ import { useAppSelector } from '../../redux/hooks';
 
 import { useTranslation } from 'react-i18next';
 
+type NewsType = {
+  id: number;
+  title: string;
+  text: string;
+  museumId: number;
+  museumName: string;
+  museumLocation: string;
+  photo: string;
+  date: string;
+};
+
+type News = Array<NewsType>;
+
 export default function FavoriteNews() {
   const { t } = useTranslation();
-  const [news, setNews] = useState([]);
+  const { i18n } = useTranslation();
+
+  const [news, setNews] = useState<News>([]);
   const userCity = useAppSelector((store) => store.userSlice.user.city);
   // const favoriteMuseums = useAppSelector(
   //   (store) => store.favoritesSlice.favorites,
@@ -14,7 +29,7 @@ export default function FavoriteNews() {
   useEffect(() => {
     const getAllNews = async () => {
       // Получение всех новостей
-      const response = await fetch('http://localhost:3000/api/favnews', {
+      const response = await fetch(`http://localhost:3000/api/favnews?lang=${i18n.language}`, {
         credentials: 'include',
       });
       const data = await response.json();
@@ -27,7 +42,7 @@ export default function FavoriteNews() {
       setNews(sortedByTimeNews);
     };
     getAllNews();
-  }, [userCity]);
+  }, [userCity, i18n.language]);
 
   return (
     <div>
@@ -42,18 +57,18 @@ export default function FavoriteNews() {
           <h2>{t('eventsFav')}</h2>
           {news.map((el) => {
             const eventDate = new Date(el.date);
-            const formattedDate = eventDate.toLocaleString('ru-RU', {
+            const formattedDate = eventDate.toLocaleString(i18n.language, {
               timeZone: 'Europe/Moscow',
             });
 
             return (
               <div key={el.id}>
                 <h4>{el.title}</h4>
-                <img src={el.photo} alt="Тут должно быть фото музея" />
+                <img src={el.photo} alt={el.museumName} />
                 <p>{el.text}</p>
-                <p>{t('eventPlace')} {el.Museum.name}.</p>
+                <p>{t('eventPlace')} {el.museumName}.</p>
                 <p>{t('eventDate')} {formattedDate}.</p>
-                <p>{t('address')} {el.Museum.location}.</p>
+                <p>{t('address')} {el.museumLocation}.</p>
               </div>
             );
           })}

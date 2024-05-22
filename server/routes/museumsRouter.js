@@ -3,8 +3,68 @@ const { Museum } = require('../db/models');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const museums = await Museum.findAll();
-  res.json(museums);
+  try {
+    const { lang } = req.query;
+
+    const museums = await Museum.findAll();
+
+    const response = museums.map((museum) => {
+      return {
+        id: museum.id,
+        name:
+          lang === 'en'
+            ? museum.name_en
+            : lang === 'de'
+              ? museum.name_de
+              : museum.name,
+        description:
+          lang === 'en'
+            ? museum.description_en
+            : lang === 'de'
+              ? museum.description_de
+              : museum.description,
+        location:
+          lang === 'en'
+            ? museum.location_en
+            : lang === 'de'
+              ? museum.location_de
+              : museum.location,
+        city:
+          lang === 'en'
+            ? museum.city_en
+            : lang === 'de'
+              ? museum.city_de
+              : museum.city,
+        photo: museum.photo,
+        workedTime:
+          lang === 'en'
+            ? museum.workedTime_en
+            : lang === 'de'
+              ? museum.workedTime_de
+              : museum.workedTime,
+        holidays:
+          lang === 'en'
+            ? museum.holidays_en
+            : lang === 'de'
+              ? museum.holidays_de
+              : museum.holidays,
+        theme:
+          lang === 'en'
+            ? museum.theme_en
+            : lang === 'de'
+              ? museum.theme_de
+              : museum.theme,
+        coordinates: museum.coordinates,
+      };
+    });
+
+    res.json(response);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: 'An error occurred while fetching museums.' });
+  }
 });
 
 router.get('/:id', async (req, res) => {

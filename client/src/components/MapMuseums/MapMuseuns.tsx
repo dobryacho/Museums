@@ -23,15 +23,15 @@ type TopLevel = {
 };
 
 function MapMuseuns() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   // удалить
   const [allMuseums, setAllMuseums] = useState<TopLevel[]>([]);
 
   useEffect(() => {
-    axios.get<TopLevel[]>('http://localhost:3000/api/museums').then((res) => {
+    axios.get<TopLevel[]>(`http://localhost:3000/api/museums?lang=${i18n.language}`).then((res) => {
       setAllMuseums(res.data);
     });
-  }, []);
+  }, [i18n.language]);
   // удалить
 
   const user = useAppSelector((store) => store.userSlice.user);

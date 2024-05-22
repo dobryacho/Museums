@@ -1,12 +1,16 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Menu, MenuButton, MenuList, MenuItem, Button, Flex, Image } from '@chakra-ui/react';
+import { useAppDispatch } from '../../redux/hooks';
+import { setLanguage } from '../../redux/languageSlice';
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+    dispatch(setLanguage(lng));
   };
 
   const getFlagSrc = (language) => {

@@ -34,11 +34,11 @@ const PaymentForm = () => {
       } else {
         await dispatch(addNewCard(user.id));
       }
-      setMessage('Оплата прошла успешно');
+      setMessage(t('paymentSuccess'));
       elements.getElement(CardElement)?.clear();
 
     } catch (error) {
-      console.error('Ошибка при добавлении карты:', error);
+      console.error(t('error'), error);
     }
   };
 

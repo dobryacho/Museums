@@ -4,6 +4,7 @@ import AddNews from '../../components/AddNews/AddNews';
 import FavoriteNews from '../../components/FavoriteNews/FavoriteNews';
 import FavoritesMuseums from '../../components/FavoritesMuseums/FavoritesMuseums';
 import Visit from '../../components/VisitedMuseums/Visit';
+import Stat from '../../components/Stat/Stat';
 import { useAppSelector } from '../../redux/hooks';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
@@ -46,6 +47,7 @@ export default function Profile() {
         <>
           <AddMuseum />
           <AddNews />
+          <Stat />
         </>
       ) : (
         <>

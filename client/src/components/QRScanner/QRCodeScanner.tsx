@@ -1,10 +1,16 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import QrScanner from 'qr-scanner';
 import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchAddVisited } from '../../redux/thunkActionsCurrentMuseum';
+import { fetchAddVisited, fetchVisited } from '../../redux/thunkActionsCurrentMuseum';
+import { fetchCardInfo } from '../../redux/thunkActionsCard';
 import './QrCodeScanner.style.css';
 import { useTranslation } from 'react-i18next';
+
+export interface CardInfoType {
+  id: number;
+  validity: string;
+}
 
 const QrCodeScanner = () => {
   const { t } = useTranslation();
@@ -16,7 +22,11 @@ const QrCodeScanner = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.userSlice.user);
   const visitedMuseums = useAppSelector((store) => store.visitedSlice.visited);
- 
+
+  useEffect(() => {
+      dispatch(fetchVisited(user.id));
+      dispatch(fetchCardInfo(user.id));
+  }, [user, scanning]);
 
   const handleScanClick = () => {
     if (scanning) {
@@ -31,10 +41,12 @@ const QrCodeScanner = () => {
       QrScanner.hasCamera().then(hasCamera => {
         if (hasCamera) {
           setScanning(true);
-          const qrScanner = new QrScanner(videoRef.current, async result => {
+          const qrScanner = new QrScanner(videoRef.current, async result1 => {
             stopScanning();
-            setResult(result);
-            await handleScanResult(result);
+            console.log('stop');
+            handleScanResult(result1).then(() => {
+              setResult('tr');
+            });
           });
           qrScanner.start();
         } else {
@@ -59,21 +71,15 @@ const QrCodeScanner = () => {
   const handleScanResult = async (result) => {
     const museumId = parseInt(result);
     if (!isNaN(museumId) && user) {
-      console.log(museumId);
       try {
-        const response = await axios.get(`http://localhost:3000/api/cards/?userId=${user.id}`);
-        console.log('response:', new Date(response.data[0].validity), new Date());
-
-        if (response && new Date(response.data[0].validity) > new Date()) {
-          const visitedMuseum = visitedMuseums.find(
-            (vis) => vis.museumId === museumId && vis.userId === user.id
-          );
+        const visitedMuseum = visitedMuseums.find(
+          (vis) => vis.museumId === museumId && vis.userId === user.id,
+        );
           if(!visitedMuseum) {
             dispatch(fetchAddVisited({ userId: user.id, museumId }));
           }
-        } else {
-          setErrorMessage('Приобретите музейную карту');
-        }
+          await axios.post('http://localhost:3000/api/scans', { userId: user.id, museumId: museumId});
+        
       } catch (error) {
         console.error('Error validating card:', error);
         setErrorMessage('Ошибка при проверке карты');

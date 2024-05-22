@@ -9,6 +9,7 @@ const visitedMuseumsRouter = require('./visitedMuseumsRouter');
 const recallRouter = require('./recallRouter');
 const favoriteNewsRouter = require('./favoriteNewsRouter');
 const getNewsPhoto = require('./getNewsPhoto');
+const scansRouter = require('./scansRouter')
 
 apiRouter.use('/user', userRouter);
 apiRouter.use('/cards', cardsRouter);
@@ -19,4 +20,6 @@ apiRouter.use('/favnews', favoriteNewsRouter);
 apiRouter.use('/visited', visitedMuseumsRouter);
 apiRouter.use('/recall', recallRouter);
 apiRouter.use('/getnewsphoto', getNewsPhoto);
+apiRouter.use('/scans', scansRouter);
+
 module.exports = apiRouter;
