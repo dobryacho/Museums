@@ -162,15 +162,6 @@ function Register() {
                       borderBottomColor: 'white',
                     }}
                   />
-                  {/* <InputLeftAddon>+7</InputLeftAddon>
-                  <Input
-                    fontSize={20}
-                    variant="flushed"
-                    type="tel"
-                    name="phone"
-                    placeholder="    Phone number"
-                    onChange={changeInputs}
-                  /> */}
                 </InputGroup>
                 <Button
                   variant="outline"

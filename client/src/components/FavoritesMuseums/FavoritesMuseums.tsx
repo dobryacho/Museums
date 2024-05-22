@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '../../redux/hooks';
 import { useTranslation } from 'react-i18next';
-
+import styles from './FavoritesMuseums.module.css';
 import FavoriteMuseum from '../FavoriteMuseum/FavoriteMuseum';
 
 type MuseumType = {
@@ -40,15 +40,21 @@ export default function FavoritesMuseums() {
   }, [user.id]);
 
   return (
-    <div>
-      <h2>{t('favMuseums')}</h2>
-      {favorites.length ? (
-        favorites.map((museum) => (
-          <FavoriteMuseum key={museum.id} museum={museum} />
-        ))
-      ) : (
-        <h3>{t('noFavMuseums')}</h3>
-      )}
+    <div className={styles.wrapper}>
+      <div className="container">
+        <div className={styles.secondWrapper}>
+          <h2 className={styles.title}>{t('favMuseums')}</h2>
+          <div className={styles.museumsWrapper}>
+            {favorites.length ? (
+              favorites.map((museum) => (
+                <FavoriteMuseum key={museum.id} museum={museum} />
+              ))
+            ) : (
+              <h3>{t('noFavMuseums')}</h3>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

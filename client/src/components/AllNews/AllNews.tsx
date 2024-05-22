@@ -39,7 +39,7 @@ export default function AllNews() {
     <div className={styles.wrapper}>
       <h2 className={styles.title}>{t('events')}</h2>
       <div className={styles['carousel-container']}>
-        <Carousel>
+        <Carousel interval={2500} fade>
           {news.map((el) => (
             <Carousel.Item key={el.id}>
               <div className={styles['image-container']}>

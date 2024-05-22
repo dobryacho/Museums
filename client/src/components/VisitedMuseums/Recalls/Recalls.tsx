@@ -91,100 +91,136 @@ function Recalls({ mus, setUpdate, visited }: RecallProps) {
 
   return (
     <>
-      <div>
-        <Link to={`/allmuseums/${mus.id}`}>{mus.name}</Link>
-      </div>
-      <Stack spacing={4} borderWidth="1px" p={1}>
-        {visited?.recalledMuseums.find((el) => el.id === mus.id) ? (
-          <div>
-            {editRecall ? (
-              <>
-                <div>
-                  Ваш отзыв:{' '}
-                  <Box w={'60vw'} p={5}>
-                    {
-                      visited?.recalledMuseums.find((el) => el.id === mus.id)
-                        ?.Recall?.text
+      <div className={styles.wrapper}>
+        <div className={styles.title}>
+          <Link to={`/allmuseums/${mus.id}`}>{mus.name}</Link>
+        </div>
+        <Stack spacing={4} p={1}>
+          {visited?.recalledMuseums.find((el) => el.id === mus.id) ? (
+            <div>
+              {editRecall ? (
+                <>
+                  <div>
+                    Ваш отзыв:{' '}
+                    <Box
+                      bg="#fff"
+                      color={'black'}
+                      borderRadius={'15px'}
+                      w={'60vw'}
+                      p={5}
+                      m={5}
+                    >
+                      {
+                        visited?.recalledMuseums.find((el) => el.id === mus.id)
+                          ?.Recall?.text
+                      }
+                    </Box>
+                  </div>
+                  <ButtonGroup>
+                    <Button
+                      className={styles.button}
+                      color={'black'}
+                      colorScheme=""
+                      id={`${mus.id}`}
+                      onClick={handlerEditRecall}
+                    >
+                      Редактировать
+                    </Button>
+                    <Button
+                      colorScheme="red"
+                      id={`${mus.id}`}
+                      onClick={handlerDeleteRecall}
+                    >
+                      Удалить отзыв
+                    </Button>
+                  </ButtonGroup>
+                </>
+              ) : (
+                <>
+                  <Textarea
+                    className={styles.textarea}
+                    padding={'20px'}
+                    variant="unstyled"
+                    backgroundColor={'white'}
+                    placeholder="Введите свой отзыв"
+                    value={recall.text}
+                    onChange={(e) =>
+                      setRecall((pre) => ({
+                        ...pre,
+                        text: e.target.value,
+                      }))
                     }
-                  </Box>
-                </div>
-                <ButtonGroup size="xs" spacing="3">
-                  <Button colorScheme="blue" onClick={handlerEditRecall}>
-                    Редактировать
-                  </Button>
-                  <Button
-                    colorScheme="red"
-                    id={`${mus.id}`}
-                    onClick={handlerDeleteRecall}
-                  >
-                    Удалить отзыв
-                  </Button>
-                </ButtonGroup>
-              </>
-            ) : (
-              <>
-                <Textarea
-                  value={recall.text}
-                  onChange={(e) =>
-                    setRecall((pre) => ({
-                      ...pre,
-                      text: e.target.value,
-                    }))
-                  }
-                />
-                <ButtonGroup size="xs" spacing="3" m={3}>
-                  <Button colorScheme="blue" onClick={handlerSubmitEditRecall}>
-                    Изменить
-                  </Button>
-                  <Button onClick={handlerUndoEditRecall}>Отмена</Button>
-                </ButtonGroup>
-              </>
-            )}
+                  />
+                  <ButtonGroup spacing="3" m={3}>
+                    <Button
+                      className={styles.button}
+                      color={'black'}
+                      colorScheme=""
+                      onClick={handlerSubmitEditRecall}
+                    >
+                      Изменить
+                    </Button>
+                    <Button
+                      className={styles.button}
+                      colorScheme="red"
+                      onClick={handlerUndoEditRecall}
+                    >
+                      Отмена
+                    </Button>
+                  </ButtonGroup>
+                </>
+              )}
+            </div>
+          ) : (
+            <>
+              <Textarea
+                className={styles.textarea}
+                padding={'20px'}
+                variant="unstyled"
+                backgroundColor={'white'}
+                placeholder="Введите свой отзыв"
+                value={recall.text}
+                onChange={(e) =>
+                  setRecall((pre) => ({
+                    ...pre,
+                    text: e.target.value,
+                  }))
+                }
+              />
+              <Button
+                className={styles.button}
+                color={'black'}
+                colorScheme=""
+                id={`${mus.id}`}
+                onClick={handlerRecall}
+              >
+                Оставить отзыв
+              </Button>
+            </>
+          )}
+        </Stack>
+        <Stack>
+          <div>
+            {mus.VisitedMuseum.rating ? 'Ваша оценка: ' : 'Оцените музей: '}
           </div>
-        ) : (
-          <>
-            <Textarea
-              backgroundColor={'white'}
-              value={recall.text}
-              onChange={(e) =>
-                setRecall((pre) => ({
-                  ...pre,
-                  text: e.target.value,
-                }))
-              }
-            />
-            <Button
-              className={styles.recall_btn}
-              m={3}
-              id={`${mus.id}`}
-              onClick={handlerRecall}
-            >
-              Оставить отзыв
-            </Button>
-          </>
-        )}
-      </Stack>
-      <Stack>
-        <div>
-          {mus.VisitedMuseum.rating ? 'Ваша оценка: ' : 'Оцените музей: '}
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          {rating.map((el, i) => (
-            <Star
-              key={`star${el}`}
-              el={el}
-              i={i}
-              setHover={setHover}
-              handlerRating={handlerRating}
-              hover={hover}
-              mus={mus}
-              color={
-                el <= (mus.VisitedMuseum.rating || 0) ? COLOR_STAR_VOITED : ''
-              }
-            />
-          ))}
-        </div>
-      </Stack>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {rating.map((el, i) => (
+              <Star
+                key={`star${el}`}
+                el={el}
+                i={i}
+                setHover={setHover}
+                handlerRating={handlerRating}
+                hover={hover}
+                mus={mus}
+                color={
+                  el <= (mus.VisitedMuseum.rating || 0) ? COLOR_STAR_VOITED : ''
+                }
+              />
+            ))}
+          </div>
+        </Stack>
+      </div>
     </>
   );
 }

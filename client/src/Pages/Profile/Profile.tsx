@@ -16,9 +16,9 @@ export default function Profile() {
         </>
       ) : (
         <>
-          <Visit />
           <FavoriteNews />
           <FavoritesMuseums />
+          <Visit />
         </>
       )}
     </div>
