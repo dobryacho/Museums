@@ -30,6 +30,7 @@ export default function ListMuseums() {
 
   
   useEffect(() => {
+    window.scrollTo(0, 0);
     void dispatch(fetchMuseums());
   }, []);
 
@@ -60,7 +61,8 @@ export default function ListMuseums() {
 
     return (
         <>
-    
+
+        <h1 id="top"></h1>
         <FormControl>
           <Select placeholder="Все города" onChange={handleSelectCityChange}>
             <option value='Москва'>Москва</option>

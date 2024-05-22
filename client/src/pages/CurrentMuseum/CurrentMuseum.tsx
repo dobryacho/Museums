@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -9,6 +9,7 @@ import FavIcon from '../../components/FavIcon/FavIcon';
 import Checkbox from '../../components/Checkbox/Checkbox';
 
 import type { RecallType, RouteParams, MuseumType } from './currMusTypes';
+import { Button } from '@chakra-ui/react';
 
 export interface MuseumsType {
   id:              number;
@@ -73,6 +74,7 @@ export default function CurrentMuseum(): JSX.Element {
       }
     }, [dispatch, user.id]);
 
+
   return (
     <>
       {museum?.photo && <img src={museum.photo} alt={museum.name} />}
@@ -105,6 +107,7 @@ export default function CurrentMuseum(): JSX.Element {
           <p>{t('noReviews')}</p>
         )}
       </div>
+      <Button as={Link} to="/allmuseums/list#top" colorScheme="purple">Вернуться к списку музеев</Button>
     </>
   );
 }

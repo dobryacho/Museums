@@ -1,8 +1,8 @@
 import { Map, Placemark, YMaps } from '@pbe/react-yandex-maps';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import { fetchMuseums } from "../../redux/thunkActionsAllMuseums";
 
 const piter = { center: [59.938573235606746, 30.323395361055585], zoom: 11 };
 const moscow = { center: [55.75, 37.57], zoom: 11 };
@@ -24,20 +24,13 @@ type TopLevel = {
 
 function MapMuseuns() {
   const { t } = useTranslation();
-  // удалить
-  const [allMuseums, setAllMuseums] = useState<TopLevel[]>([]);
-
-  useEffect(() => {
-    axios.get<TopLevel[]>('http://localhost:3000/api/museums').then((res) => {
-      setAllMuseums(res.data);
-    });
-  }, []);
-  // удалить
-
+  const dispatch = useAppDispatch();
+  const { allMuseums }  = useAppSelector((store) => store.allMuseumsSlice);
   const user = useAppSelector((store) => store.userSlice.user);
   const [load, setLoad] = useState(false);
 
   useEffect(() => {
+    void dispatch(fetchMuseums());
     if (allMuseums?.length) {
       setLoad(true);
     }
