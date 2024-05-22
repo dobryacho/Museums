@@ -36,7 +36,6 @@ export default function AllNews() {
   }, [user]);
 
   const handleDelete = (e: any) => {
-    console.log(Number(e.target.parentNode.id));
       axios.delete(`http://localhost:3000/api/news/${e.target.parentNode.id}`).then(()=>{
         setNews((data)=> ([...data.filter((el)=> el.id !== Number(e.target.parentNode.id))]))        
       })

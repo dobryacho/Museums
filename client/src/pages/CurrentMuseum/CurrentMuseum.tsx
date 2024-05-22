@@ -1,5 +1,5 @@
 import { useState, useEffect, ChangeEvent } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +11,7 @@ import Checkbox from '../../components/Checkbox/Checkbox';
 import type { RecallType, RouteParams, MuseumType } from './currMusTypes';
 import { Button, ButtonGroup, Input, Stack, Textarea } from '@chakra-ui/react';
 import DelBtn from './DelBtn/DelBtn';
+import { updateMuseums } from '../../redux/allMuseumsSlice';
 
 export interface MuseumsType {
   id:              number;
@@ -54,23 +55,25 @@ const initialState = {name: '', city: '', description: '', location: '', workedT
 export default function CurrentMuseum(): JSX.Element {
   const { t } = useTranslation();
   const { i18n } = useTranslation();
+  const allMuseums = useAppSelector((store)=> store.allMuseumsSlice.museums)
 
   const { id } = useParams<RouteParams>();
 
   const dispatch = useAppDispatch();
 
   const [museum, setMuseum] = useState<MuseumsType>([]);
-  const [editMuseum, setEditMuseum] = useState(false)
-  const [inputs, setInputs] = useState(initialState)
+  const [editMuseum, setEditMuseum] = useState(false);
+  const [inputs, setInputs] = useState(initialState);
+  const [updateRecalls, setUpdateRecalls] = useState<boolean>(true);
+  const navigate = useNavigate();
 
   const user = useAppSelector((store) => store.userSlice.user);
-  console.log(museum);
-  
+
     useEffect(() => {
       axios.get<MuseumsType>(`http://localhost:3000/api/museums/${id}?lang=${i18n.language}`).then((res) => {
        setMuseum(res.data);
       });
-     }, [id, i18n.language]);
+     }, [id, i18n.language, updateRecalls]);
 
      useEffect(() => {
       if (user.id) {
@@ -113,12 +116,17 @@ const changeInputs = (
   setInputs((pre) => ({ ...pre, [event.target.name]: event.target.value }));
 };
 
+const handlerConfirm = () => {
+  axios.delete(`http://localhost:3000/api/museums/${museum.id}`).then(()=>{dispatch(updateMuseums(allMuseums.filter((mus)=> mus.id !== museum.id)));navigate("/allmuseums/list");})
+  
+}
+
   return (
     <>
       {museum?.photo && <img src={museum.photo} alt={museum.name} />}
       {user.email === "admin_museums@mail.ru" && (
         <ButtonGroup spacing="3" m={2}>
-          <DelBtn id={museum.id}/>
+          <DelBtn handle={handlerConfirm} btnText='Удалить музей'/>
           <Button onClick={handelEdit}>Редактировать</Button>
         </ButtonGroup>
       )} {editMuseum ? (
@@ -162,6 +170,7 @@ const changeInputs = (
               <p>{recall.Recall.text}</p>
               <p>{t('author')} {recall.firstName} {recall.lastName}</p>
               <p>{t('date')} {new Date(recall.Recall.createdAt).toLocaleDateString()}</p>
+              {user.email === "admin_museums@mail.ru" && (<DelBtn trigger={setUpdateRecalls} id={recall} btnText='Удалить отзыв'/>)}
             </div>
           ))
         ) : (

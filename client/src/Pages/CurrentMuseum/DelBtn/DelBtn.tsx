@@ -1,23 +1,28 @@
 import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, useDisclosure } from '@chakra-ui/react';
 import axios from 'axios';
-import { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Dispatch, SetStateAction, useRef } from 'react';
+import { RecalledByUser } from '../CurrentMuseum';
 
-function DelBtn({id}: {id: number}) {
+function DelBtn({id, handle, btnText, trigger }: {handle?: ()=>void;btnText: string;id?: RecalledByUser;trigger?: Dispatch<SetStateAction<boolean>>}) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = useRef()
-  const navigate = useNavigate();
 
-const handlerConfirm = () => {
-  axios.delete(`http://localhost:3000/api/museums/${id}`)
-  onClose();
-  navigate("/allmuseums/list");
+  const handleDeleteUserRecall = () => {
+    axios
+    .delete(`http://127.0.0.1:3000/api/recall`, {
+      data: {
+        userId: id?.Recall.userId,
+        museumId: id?.Recall.museumId,
+      },
+    })
+    onClose();
+    trigger && trigger((pre)=>!pre);
 }
 
   return (
     <>
       <Button colorScheme='red' onClick={onOpen}>
-        Удалить музей
+        {btnText}
       </Button>
 
       <AlertDialog
@@ -28,18 +33,18 @@ const handlerConfirm = () => {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-              Удалить музей
+              {btnText}
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              Вы уверены? Это действие нельзя будет отменить
+              Вы уверены? Это действие необратимо
             </AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
                 Отмена
               </Button>
-              <Button colorScheme='red' onClick={handlerConfirm} ml={3}>
+              <Button colorScheme='red' onClick={handle || handleDeleteUserRecall} ml={3}>
                 Удалить
               </Button>
             </AlertDialogFooter>
