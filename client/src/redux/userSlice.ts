@@ -16,7 +16,7 @@ const initialState: {user: {id: number;email: string;password: string; err?: str
 };
 
 const usersSlice = createSlice({
-  name: 'todoSlice',
+  name: 'userSlice',
   initialState,
   reducers: {},
   extraReducers(builder) {

@@ -6,12 +6,15 @@ const path = require('path');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 require('dotenv').config();
+const swaggerSetup = require('./swagger/swagger');
 
 // Подключение роутера
 const apiRouter = require('./routes/apiRouter');
 
 // Создание сервера
 const app = express();
+
+swaggerSetup(app);
 
 // Подключение порта
 const PORT = process.env.PORT || 3001;
