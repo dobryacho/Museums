@@ -102,6 +102,7 @@ export default function ListMuseums() {
           <div className={styles.form}>
             <FormControl>
               <Select
+                cursor="pointer"
                 marginBottom={5}
                 color={'black'}
                 variant={'filled'}
@@ -112,6 +113,7 @@ export default function ListMuseums() {
                 <option value="Санкт-Петербург">{t('spb')}</option>
               </Select>
               <Select
+                cursor="pointer"
                 marginBottom={5}
                 color={'black'}
                 variant={'filled'}

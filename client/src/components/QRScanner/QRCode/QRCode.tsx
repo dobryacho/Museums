@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import QRCode from 'qrcode.react';
 import { Button } from '@chakra-ui/react';
+import styles from './QRCode.module.css';
 
 const QrCodeGenerator = () => {
   const [text, setText] = useState('');
@@ -14,29 +15,47 @@ const QrCodeGenerator = () => {
 
   const handlerButton = () => {
     setSend(!send);
-  }
+  };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h2>Создать QR код для музея</h2>
+    <div className={styles.wrapper}>
+      <h2 className={styles.title}>Создать QR код для музея</h2>
       <input
+        className={styles.museumId}
         type="text"
         placeholder="Введите текст"
         value={text}
         onChange={(e) => setText(e.target.value)}
         style={{ padding: '10px', fontSize: '16px', width: '300px' }}
       />
-      <button
+
+      <Button
+        variant="solid"
+        colorScheme="blue"
+        cursor="pointer"
         onClick={handleGenerateClick}
-        style={{ padding: '10px', fontSize: '16px', marginLeft: '10px' }}
       >
         Сгенерировать
-      </button>
+      </Button>
+
       {qrValue && (
-        <><div style={{ marginTop: '20px' }}>
-          <QRCode value={qrValue} />
-        </div>
-        {send ? <div>QR-код отправлен</div> : <Button onClick={handlerButton}>Отправить в музей</Button>}</>
+        <>
+          <div style={{ marginTop: '20px' }}>
+            <QRCode value={qrValue} />
+          </div>
+          {send ? (
+            <div>QR-код отправлен</div>
+          ) : (
+            <Button
+              variant="solid"
+              colorScheme="teal"
+              cursor="pointer"
+              onClick={handlerButton}
+            >
+              Отправить в музей
+            </Button>
+          )}
+        </>
       )}
     </div>
   );

@@ -62,6 +62,8 @@ export default function FavoriteMuseum({ museum }: MuseumProps): JSX.Element {
     }
   };
 
+  console.log(museum);
+
   return (
     <div className={styles.wrapper}>
       <Card className={styles.card}>
