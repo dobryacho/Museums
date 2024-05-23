@@ -1,6 +1,58 @@
 const express = require('express');
 const { Museum } = require('../db/models');
 const router = express.Router();
+/**
+ * @swagger
+ * tags:
+ *   name: Museums
+ *   description: API для управления музеями
+ */
+
+/**
+ * @swagger
+ * /museums:
+ *   get:
+ *     summary: Получить список музеев
+ *     tags: [Museums]
+ *     parameters:
+ *       - in: query
+ *         name: lang
+ *         schema:
+ *           type: string
+ *         description: Язык ответа (ru, en, de)
+ *     responses:
+ *       200:
+ *         description: Список музеев
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   name:
+ *                     type: string
+ *                   description:
+ *                     type: string
+ *                   location:
+ *                     type: string
+ *                   city:
+ *                     type: string
+ *                   photo:
+ *                     type: string
+ *                   workedTime:
+ *                     type: string
+ *                   holidays:
+ *                     type: string
+ *                   theme:
+ *                     type: string
+ *                   coordinates:
+ *                     type: string
+ *       500:
+ *         description: Ошибка сервера
+ */
 
 router.get('/', async (req, res) => {
   try {
@@ -67,6 +119,63 @@ router.get('/', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /museums/{id}:
+ *   get:
+ *     summary: Получить информацию о музее по ID
+ *     tags: [Museums]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID музея
+ *       - in: query
+ *         name: lang
+ *         schema:
+ *           type: string
+ *           enum: [en, de, ru]
+ *         description: Язык ответа (en, de, ru)
+ *     responses:
+ *       200:
+ *         description: Информация о музее
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 name:
+ *                   type: string
+ *                 description:
+ *                   type: string
+ *                 location:
+ *                   type: string
+ *                 city:
+ *                   type: string
+ *                 workedTime:
+ *                   type: string
+ *                 holidays:
+ *                   type: string
+ *                 theme:
+ *                   type: string
+ *                 photo:
+ *                   type: string
+ *                 coordinates:
+ *                   type: string
+ *                 recalledByUsers:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *       404:
+ *         description: Музей не найден
+ *       500:
+ *         description: Ошибка сервера
+ */
+
 router.get('/:id', async (req, res) => {
   const { lang } = req.query;
   const museum = await Museum.findByPk(req.params.id, {
@@ -118,16 +227,150 @@ router.get('/:id', async (req, res) => {
   res.json(response);
 });
 
+/**
+ * @swagger
+ * /museums:
+ *   post:
+ *     summary: Создать новый музей
+ *     tags: [Museums]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - description
+ *               - location
+ *               - city
+ *               - workedTime
+ *               - holidays
+ *               - theme
+ *               - coordinates
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: Название музея
+ *               description:
+ *                 type: string
+ *                 description: Описание музея
+ *               location:
+ *                 type: string
+ *                 description: Местоположение музея
+ *               city:
+ *                 type: string
+ *                 description: Город музея
+ *               photo:
+ *                 type: string
+ *                 description: URL фотографии музея
+ *               workedTime:
+ *                 type: string
+ *                 description: Время работы музея
+ *               holidays:
+ *                 type: string
+ *                 description: Выходные дни музея
+ *               theme:
+ *                 type: string
+ *                 description: Тема музея
+ *               coordinates:
+ *                 type: string
+ *                 description: Координаты музея
+ *     responses:
+ *       200:
+ *         description: Музей успешно создан
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Museum'
+ *       500:
+ *         description: Ошибка сервера
+ */
+
 router.post('/', async (req, res) => {
   const museum = await Museum.create(req.body);
   res.json(museum);
 });
+
+/**
+ * @swagger
+ * /museums/{id}:
+ *   patch:
+ *     summary: Обновить музей по ID
+ *     tags: [Museums]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID музея
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               location:
+ *                 type: string
+ *               city:
+ *                 type: string
+ *               photo:
+ *                 type: string
+ *               workedTime:
+ *                 type: string
+ *               holidays:
+ *                 type: string
+ *               theme:
+ *                 type: string
+ *               coordinates:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Музей успешно обновлен
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Museum'
+ *       404:
+ *         description: Музей не найден
+ *       500:
+ *         description: Ошибка сервера
+ */
 
 router.patch('/:id', async (req, res) => {
   const museum = await Museum.findByPk(req.params.id);
   await museum.update(req.body);
   res.json(museum);
 });
+
+/**
+ * @swagger
+ * /museums/{id}:
+ *   delete:
+ *     summary: Удалить музей по ID
+ *     tags: [Museums]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID музея
+ *     responses:
+ *       200:
+ *         description: Музей успешно удален
+ *       404:
+ *         description: Музей не найден
+ *       500:
+ *         description: Ошибка сервера
+ */
+
 
 router.delete('/:id', async (req, res) => {
   await Museum.destroy({ where: { id: req.params.id } });

@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import todoSlice from "./todoSlice";
 import userSlice from "./userSlice";
 import favoritesSlice from "./favoritesSlice";
 // import recallsSlice from "./recallsSlice";
@@ -11,7 +10,6 @@ import languageReducer from './languageSlice'
 
 const storeOptions = {
   reducer: {
-    todoSlice,
     userSlice,
     favoritesSlice,
     // recallsSlice,

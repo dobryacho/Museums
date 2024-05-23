@@ -1,5 +1,4 @@
 import axios from "axios";
-import { NewPost, ToDo, ToDos, UserInputs } from "../types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 type User = {
@@ -11,42 +10,6 @@ type User = {
   city: string;
   phone?: string;
 }
-
-export const fetchTodos = createAsyncThunk("todo/all", async () => {
-  const response = await axios.get<ToDos>("http://localhost:3000/api/todos");
-  return response.data;
-});
-
-export const fetchAdd = createAsyncThunk("todo/add", async (input: NewPost) => {
-  const response = await axios.post<ToDo>(
-    "http://localhost:3000/api/todos",
-    input
-  );
-  return response.data;
-});
-
-export const fetchDelete = createAsyncThunk(
-  "todo/delete",
-  async (id: number) => {
-    const response = await axios.delete<ToDo>(
-      `http://localhost:3000/api/todos/${id}`
-    );
-    if (response.status === 200) {
-      return id;
-    }
-  }
-);
-
-export const fetchChange = createAsyncThunk(
-  "todo/change",
-  async (card: ToDo): Promise<ToDo> => {
-    const respone = await axios.patch(
-      `http://localhost:3000/api/todos/${card.id}`,
-      { status: !card.status }
-    );
-    return respone.data;
-  }
-);
 
 export const fetchReg = createAsyncThunk(
   "user/reg",
