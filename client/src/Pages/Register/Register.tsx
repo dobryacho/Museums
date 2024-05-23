@@ -8,9 +8,14 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
+  InputLeftElement,
+  InputRightElement,
   Select,
   Stack,
 } from '@chakra-ui/react';
+import styles from './Register.module.css';
+import { PhoneIcon } from '@chakra-ui/icons';
+import { color } from 'framer-motion';
 
 const ERROR_MASSEGE_COLOR = '#ff6d6d';
 
@@ -48,59 +53,134 @@ function Register() {
     }
   }, [user]);
 
+  // Для показа и скрытия пароля
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
+
   return (
     <>
-      <form onSubmit={submitForm} style={{display:'flex',justifyContent:'center'}}>
-        <Stack spacing={3} width={350}>
-          <Input
-            type="email"
-            name="email"
-            placeholder="E-mail *"
-            required
-            onChange={changeInputs}
-          />
-          <Input
-            type="password"
-            name="password"
-            placeholder="password *"
-            required
-            onChange={changeInputs}
-          />
-          <Input
-            type="text"
-            name="firstName"
-            placeholder="First name *"
-            required
-            onChange={changeInputs}
-          />
-          <Input
-            type="text"
-            name="lastName"
-            placeholder="Last name *"
-            required
-            onChange={changeInputs}
-          />
-          <Select name="city" id="city" onChange={changeInputs}>
-            <option value="moscow" selected>
-            {t('moscow')}
-            </option>
-            <option value="petersburg">{t('spb')}</option>
-          </Select>
-          <InputGroup>
-            <InputLeftAddon>+7</InputLeftAddon>
-            <Input
-              type="tel"
-              name="phone"
-              placeholder="Phone number"
-              onChange={changeInputs}
-            />
-          </InputGroup>
-          <Button type="submit">{t('register')}</Button>
-          <p>
-            <b style={{ color: ERROR_MASSEGE_COLOR }}>{user.err}</b>
-          </p>
-        </Stack>
-      </form>
+      <div className={styles.wrapper}>
+        <div className="container">
+          <div className={styles.content}>
+            <form
+              onSubmit={submitForm}
+              style={{ display: 'flex', justifyContent: 'center' }}
+            >
+              <Stack spacing={4} width={380}>
+                <Input
+                  fontSize={20}
+                  type="email"
+                  name="email"
+                  variant="flushed"
+                  placeholder="E-mail *"
+                  required
+                  borderBottomWidth="2px"
+                  _focus={{
+                    borderBottomWidth: '4px',
+                    borderBottomColor: 'white',
+                  }}
+                  onChange={changeInputs}
+                />
+
+                <InputGroup size="md">
+                  <Input
+                    fontSize={20}
+                    name="password"
+                    pr="4.5rem"
+                    variant="flushed"
+                    type={show ? 'text' : 'password'}
+                    placeholder="password"
+                    required
+                    borderBottomWidth="2px"
+                    _focus={{
+                      borderBottomWidth: '4px',
+                      borderBottomColor: 'white',
+                    }}
+                  />
+                  <InputRightElement width="4.5rem">
+                    <Button h="1.75rem" size="sm" onClick={handleClick}>
+                      {show ? 'Hide' : 'Show'}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+
+                <Input
+                  fontSize={20}
+                  type="text"
+                  name="firstName"
+                  variant="flushed"
+                  placeholder="First name *"
+                  required
+                  borderBottomWidth="2px"
+                  _focus={{
+                    borderBottomWidth: '4px',
+                    borderBottomColor: 'white',
+                  }}
+                  onChange={changeInputs}
+                />
+                <Input
+                  fontSize={20}
+                  type="text"
+                  name="lastName"
+                  variant="flushed"
+                  placeholder="Last name *"
+                  required
+                  borderBottomWidth="2px"
+                  _focus={{
+                    borderBottomWidth: '4px',
+                    borderBottomColor: 'white',
+                  }}
+                  onChange={changeInputs}
+                />
+                <Select
+                  name="city"
+                  variant="flushed"
+                  id="city"
+                  borderBottomWidth="2px"
+                  _focus={{
+                    borderBottomColor: 'white',
+                  }}
+                  onChange={changeInputs}
+                >
+                  <option value="moscow" selected>
+                    {t('moscow')}
+                  </option>
+                  <option value="petersburg">{t('spb')}</option>
+                </Select>
+                <InputGroup>
+                  <InputLeftElement pointerEvents="none">
+                    <PhoneIcon color="gray.300" />
+                  </InputLeftElement>
+                  <Input
+                    fontSize={18}
+                    variant="flushed"
+                    type="tel"
+                    placeholder="Phone number"
+                    borderBottomWidth="2px"
+                    _focus={{
+                      borderBottomWidth: '4px',
+                      borderBottomColor: 'white',
+                    }}
+                  />
+                </InputGroup>
+                <Button
+                  variant="outline"
+                  border="solid 2px white"
+                  color="rgba(255, 255, 255, 0.828)"
+                  type="submit"
+                  _hover={{ color: 'black', backgroundColor: 'white' }}
+                  transition="all 0.5s ease"
+                >
+                  {t('register')}
+                </Button>
+                <p>
+                  <b style={{ color: ERROR_MASSEGE_COLOR }}>{user.err}</b>
+                </p>
+              </Stack>
+            </form>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

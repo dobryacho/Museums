@@ -3,8 +3,13 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
-import { fetchCardInfo, addNewCard, updateCardValidity } from '../../redux/thunkActionsCard';
+import {
+  fetchCardInfo,
+  addNewCard,
+  updateCardValidity,
+} from '../../redux/thunkActionsCard';
 import './paymentForm.style.css';
+import styles from './PaymentForm.module.css';
 
 const PaymentForm = () => {
   const { t, i18n } = useTranslation();
@@ -52,39 +57,53 @@ const PaymentForm = () => {
   };
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       {cardInfo ? (
         <>
-          <p>{t('cardNumber')} {cardInfo.id}</p>
-          <p>{t('validity')} {new Date(cardInfo.validity).toLocaleDateString()}</p>
-          <h2>{t('renewCard')}</h2>
+          <div className={styles.cardInfoWrapper}>
+            <p>
+              {t('cardNumber')} {cardInfo.id}
+            </p>
+            <p>
+              {t('validity')} {new Date(cardInfo.validity).toLocaleDateString()}
+            </p>
+            <h2 className={styles.renewCard}>{t('renewCard')}</h2>
+          </div>
         </>
       ) : (
         <>
-          <h2>{t('noCard')}</h2>
-          <h2>{t('buyCard')}</h2>
+          <div className={styles.noCardWrapper}>
+            <h2 className={styles.noCard}>{t('noCard')}</h2>
+            <h2>{t('buyCard')}</h2>
+          </div>
         </>
       )}
       <div className="card-container">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <label>
-            <p>{t('oneYearCard')}<br />{t('totalSum')}</p>
+            <p>
+              {t('oneYearCard')}
+              <br />
+              {t('totalSum')}
+            </p>
           </label>
           <label>
-            <CardElement 
-              className="card-element" 
-              options={{ hidePostalCode: true }} 
-              onChange={handleCardChange} 
+            <CardElement
+              className="card-element"
+              options={{ hidePostalCode: true }}
+              onChange={handleCardChange}
             />
           </label>
-          <button type="submit" disabled={!stripe || processing}>
+          <button
+            className={styles.button}
+            type="submit"
+            disabled={!stripe || processing}
+          >
             {t('buy')}
           </button>
         </form>
       </div>
-      <div>
-        {message && <p>{message}</p>}
-      </div>
+      <div className={styles.successPay}>{message && <p>{message}!</p>}</div>
     </div>
   );
 };

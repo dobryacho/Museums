@@ -1,34 +1,55 @@
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, useDisclosure } from '@chakra-ui/react';
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Button,
+  useDisclosure,
+} from '@chakra-ui/react';
 import axios from 'axios';
 import { Dispatch, SetStateAction, useRef } from 'react';
 import { RecalledByUser } from '../CurrentMuseum';
 
-function DelBtn({id, handle, btnText, trigger, toast }: {handle?: ()=>void;btnText: string;id?: RecalledByUser;trigger?: Dispatch<SetStateAction<boolean>>;toast?: any}) {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = useRef()
+function DelBtn({
+  id,
+  handle,
+  btnText,
+  trigger,
+  toast,
+}: {
+  handle?: () => void;
+  btnText: string;
+  id?: RecalledByUser;
+  trigger?: Dispatch<SetStateAction<boolean>>;
+  toast?: any;
+}) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef();
 
   const handleDeleteUserRecall = () => {
-    axios
-    .delete(`http://127.0.0.1:3000/api/recall`, {
+    axios.delete(`http://127.0.0.1:3000/api/recall`, {
       data: {
         userId: id?.Recall.userId,
         museumId: id?.Recall.museumId,
       },
-    })
+    });
     onClose();
-    trigger && trigger((pre)=>!pre);
-    toast && toast({
-      title: `комментарий удален`,
-      status: 'success',
-      isClosable: true,
-      duration: 1000,
-      position: 'bottom-right',
-    })
-}
+    trigger && trigger((pre) => !pre);
+    toast &&
+      toast({
+        title: `комментарий удален`,
+        status: 'success',
+        isClosable: true,
+        duration: 1000,
+        position: 'bottom-right',
+      });
+  };
 
   return (
     <>
-      <Button colorScheme='red' onClick={onOpen}>
+      <Button width="200px" colorScheme="red" onClick={onOpen}>
         {btnText}
       </Button>
 
@@ -39,7 +60,7 @@ function DelBtn({id, handle, btnText, trigger, toast }: {handle?: ()=>void;btnTe
       >
         <AlertDialogOverlay>
           <AlertDialogContent>
-            <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
               {btnText}
             </AlertDialogHeader>
 
@@ -51,7 +72,11 @@ function DelBtn({id, handle, btnText, trigger, toast }: {handle?: ()=>void;btnTe
               <Button ref={cancelRef} onClick={onClose}>
                 Отмена
               </Button>
-              <Button colorScheme='red' onClick={handle || handleDeleteUserRecall} ml={3}>
+              <Button
+                colorScheme="red"
+                onClick={handle || handleDeleteUserRecall}
+                ml={3}
+              >
                 Удалить
               </Button>
             </AlertDialogFooter>
@@ -59,7 +84,7 @@ function DelBtn({id, handle, btnText, trigger, toast }: {handle?: ()=>void;btnTe
         </AlertDialogOverlay>
       </AlertDialog>
     </>
-  )
+  );
 }
 
 export default DelBtn;

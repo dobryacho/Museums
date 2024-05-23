@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '../../redux/hooks';
 import { UserMuseums } from './VisitedMuseums';
-import './visit.css';
+import styles from './Visit.module.css';
 import Recalls from './Recalls/Recalls';
 import { Stack } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
@@ -28,14 +28,25 @@ function Visit() {
 
   return (
     <>
-      {visited?.visitedMuseums
-        .sort((a, b) => b.VisitedMuseum.id - a.VisitedMuseum.id)
-        .map((mus) => (
-            <Stack key={mus.id} spacing={4} shadow='md' borderWidth='1px' p={5} m={5}>
-            <Recalls mus={mus} setUpdate={setUpdate} visited={visited}/>
-            </Stack>
-        ))}
-    </> 
+      <div className={styles.wrapper}>
+        <div className="container">
+          {visited?.visitedMuseums
+            .sort((a, b) => b.VisitedMuseum.id - a.VisitedMuseum.id)
+            .map((mus) => (
+              <Stack
+                className={styles.card}
+                key={mus.id}
+                spacing={4}
+                shadow="md"
+                p={5}
+                marginBottom={70}
+              >
+                <Recalls mus={mus} setUpdate={setUpdate} visited={visited} />
+              </Stack>
+            ))}
+        </div>
+      </div>
+    </>
   );
 }
 

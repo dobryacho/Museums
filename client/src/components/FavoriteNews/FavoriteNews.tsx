@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useAppSelector } from '../../redux/hooks';
-
 import { useTranslation } from 'react-i18next';
+import { Carousel } from 'react-bootstrap';
+import styles from './FavoriteNews.module.css';
 
 type NewsType = {
   id: number;
@@ -16,22 +17,22 @@ type NewsType = {
 
 type News = Array<NewsType>;
 
-export default function FavoriteNews() {
+export default function FavoriteNews({ cardInfo }) {
   const { t } = useTranslation();
   const { i18n } = useTranslation();
 
   const [news, setNews] = useState<News>([]);
   const userCity = useAppSelector((store) => store.userSlice.user.city);
-  // const favoriteMuseums = useAppSelector(
-  //   (store) => store.favoritesSlice.favorites,
-  // );
 
   useEffect(() => {
     const getAllNews = async () => {
       // Получение всех новостей
-      const response = await fetch(`http://localhost:3000/api/favnews?lang=${i18n.language}`, {
-        credentials: 'include',
-      });
+      const response = await fetch(
+        `http://localhost:3000/api/favnews?lang=${i18n.language}`,
+        {
+          credentials: 'include',
+        },
+      );
       const data = await response.json();
 
       // Сортировка по дате
@@ -45,35 +46,63 @@ export default function FavoriteNews() {
   }, [userCity, i18n.language]);
 
   return (
-    <div>
-      {/* {favoriteMuseums.length === 0 && 'Ваш список любимых музеев пуст!'} */}
-
-      {news.length === 0 ? (
-        <h2>
-          {t('headerEventsFav')}
-        </h2>
-      ) : (
-        <>
-          <h2>{t('eventsFav')}</h2>
-          {news.map((el) => {
-            const eventDate = new Date(el.date);
-            const formattedDate = eventDate.toLocaleString(i18n.language, {
-              timeZone: 'Europe/Moscow',
-            });
-
-            return (
-              <div key={el.id}>
-                <h4>{el.title}</h4>
-                <img src={el.photo} alt={el.museumName} />
-                <p>{el.text}</p>
-                <p>{t('eventPlace')} {el.museumName}.</p>
-                <p>{t('eventDate')} {formattedDate}.</p>
-                <p>{t('address')} {el.museumLocation}.</p>
+    <div className={styles.wrapper}>
+      <div className="container">
+        {cardInfo ? (
+          <div className={styles.cardInfoWrapper}>
+            <p>
+              {t('cardNumber')} {cardInfo.id}
+            </p>
+            <p>
+              {t('validity')} {new Date(cardInfo.validity).toLocaleDateString()}
+            </p>
+          </div>
+        ) : (
+          <div className={styles.cardInfoWrapper}>{t('noCard')}</div>
+        )}
+        {news.length === 0 ? (
+          <h2 className={styles.noNewsTitle}>{t('headerEventsFav')}</h2>
+        ) : (
+          <>
+            <div className={styles.secondWrapper}>
+              <h2 className={styles.title}>{t('eventsFav')}</h2>
+              <div className={styles['carousel-container']}>
+                <Carousel interval={2000} fade>
+                  {news.map((el) => (
+                    <Carousel.Item key={el.id}>
+                      <div className={styles['image-container']}>
+                        <img
+                          className={styles.photo}
+                          src={el.photo}
+                          alt="Тут должно быть фото музея"
+                        />
+                        <div className={styles['image-overlay']}></div>
+                      </div>
+                      <Carousel.Caption>
+                        <h3 className={styles.cardTitle}>{el.title}</h3>
+                        <p>{el.text}</p>
+                        <p>
+                          {t('eventPlace')} {el?.museumName}.
+                        </p>
+                        <p>
+                          {t('eventDate')}{' '}
+                          {new Date(el.date).toLocaleString(i18n.language, {
+                            timeZone: 'Europe/Moscow',
+                          })}
+                          .
+                        </p>
+                        <p>
+                          {t('address')} {el?.museumLocation}.
+                        </p>
+                      </Carousel.Caption>
+                    </Carousel.Item>
+                  ))}
+                </Carousel>
               </div>
-            );
-          })}
-        </>
-      )}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }

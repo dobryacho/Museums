@@ -69,7 +69,7 @@ router.get('/', async (req, res) => {
             : lang === 'de'
               ? 'location_de'
               : 'location',
-          'city',
+          lang === 'en' ? 'city_en' : lang === 'de' ? 'city_de' : 'city',
         ],
       },
     });

@@ -349,6 +349,8 @@ router.get('/favorites/:id', async (req, res) => {
         attributes: [
           'id',
           'photo',
+          // ДОБАВИТЬ ПЕРЕВОД ТУТ
+          'workedTime',
           lang === 'en' ? 'name_en' : lang === 'de' ? 'name_de' : 'name',
         ],
       },

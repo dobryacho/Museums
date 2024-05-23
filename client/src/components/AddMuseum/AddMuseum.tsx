@@ -1,4 +1,6 @@
 import { ChangeEvent, useCallback, useState, useEffect } from 'react';
+import styles from './AddMuseum.module.css';
+import { Button, Input } from '@chakra-ui/react';
 
 export default function AddMuseum() {
   const [img, setImg] = useState(null);
@@ -15,7 +17,9 @@ export default function AddMuseum() {
   });
 
   // Ручка изменения инпутов
-  const changeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+  const changeHandler = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ): void => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -97,39 +101,91 @@ export default function AddMuseum() {
   };
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <h2>Добавить новый музей:</h2>
-      <input onChange={changeHandler} name="name" value={inputs.name} placeholder='Название музея'/>
-      <textarea
-        onChange={changeHandler}
-        name="description"
-        value={inputs.description}
-        placeholder='Описание музея'
-      />
-      <input onChange={changeHandler} name="location" value={inputs.location}  placeholder='Адрес музея'/>
-      <input onChange={changeHandler} name="city" value={inputs.city}  placeholder='Город'/>
-      <input
-        onChange={changeHandler}
-        name="workedTime"
-        value={inputs.workedTime}
-        placeholder='Время работы'
-      />
-      <input onChange={changeHandler} name="holidays" value={inputs.holidays} placeholder='Нерабочие дни' />
-      <input onChange={changeHandler} name="theme" value={inputs.theme} placeholder='Тематика' />
-      <input
-        onChange={changeHandler}
-        name="coordinates"
-        value={inputs.coordinates}
-        placeholder='Координаты'
-      />
-
-      <div className="avatar">
-        {avatar && <img src={`http://localhost:3000/${avatar}`} alt="" />}
+      <div className={styles.inputs}>
+        <input
+          onChange={changeHandler}
+          name="name"
+          value={inputs.name}
+          placeholder="Название музея"
+        />
+        <textarea
+          onChange={changeHandler}
+          name="description"
+          value={inputs.description}
+          placeholder="Описание музея"
+        />
+        <input
+          onChange={changeHandler}
+          name="location"
+          value={inputs.location}
+          placeholder="Адрес музея"
+        />
+        <input
+          onChange={changeHandler}
+          name="city"
+          value={inputs.city}
+          placeholder="Город"
+        />
+        <input
+          onChange={changeHandler}
+          name="workedTime"
+          value={inputs.workedTime}
+          placeholder="Время работы"
+        />
+        <input
+          onChange={changeHandler}
+          name="holidays"
+          value={inputs.holidays}
+          placeholder="Нерабочие дни"
+        />
+        <input
+          onChange={changeHandler}
+          name="theme"
+          value={inputs.theme}
+          placeholder="Тематика"
+        />
+        <input
+          onChange={changeHandler}
+          name="coordinates"
+          value={inputs.coordinates}
+          placeholder="Координаты"
+        />
       </div>
-      <input type="file" onChange={handleFileChange} />
-      <button type="button" onClick={submitHandler}>
-        Добавить
-      </button>
+
+      <div>
+        {avatar && (
+          <img
+            className={styles.avatar}
+            src={`http://localhost:3000/${avatar}`}
+            alt=""
+          />
+        )}
+      </div>
+
+      <div>
+        <input
+          type="file"
+          id="file-input"
+          onChange={handleFileChange}
+          style={{ display: 'none' }}
+        />
+        <label htmlFor="file-input">
+          <Button as="span" variant="solid" colorScheme="teal" cursor="pointer">
+            Выбрать файл
+          </Button>
+        </label>
+      </div>
+
+      <Button
+        variant="solid"
+        colorScheme="blue"
+        cursor="pointer"
+        onClick={submitHandler}
+      >
+        Добавить музей
+      </Button>
     </div>
   );
 }
