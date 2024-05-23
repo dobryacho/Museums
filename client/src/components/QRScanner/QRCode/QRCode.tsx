@@ -29,7 +29,13 @@ const QrCodeGenerator = () => {
       qr_code: qrCodeDataUrl,
     };
 
-    emailjs.send('service_06b9fyb', 'template_lw66k39', emailParams, 'pcSU7CXUZlx1r5HnZ')
+    emailjs
+      .send(
+        'service_06b9fyb',
+        'template_lw66k39',
+        emailParams,
+        'pcSU7CXUZlx1r5HnZ',
+      )
       .then((response) => {
         setMessage('QR код отправлен в музей');
         setEmail('');
@@ -66,7 +72,8 @@ const QrCodeGenerator = () => {
           <QRCode value={qrValue} />
         </div>
       )}
-      <div style={{ marginTop: '20px' }}>
+
+      <div className={styles.sendToEmail} style={{ marginTop: '20px' }}>
         <input
           type="email"
           placeholder="Введите email"
@@ -74,15 +81,26 @@ const QrCodeGenerator = () => {
           onChange={(e) => setEmail(e.target.value)}
           style={{ padding: '10px', fontSize: '16px', width: '300px' }}
         />
-        <button
+
+        <Button
+          width="100px"
+          variant="solid"
+          colorScheme="blue"
+          cursor="pointer"
           onClick={handleSendEmailClick}
-          style={{ padding: '10px', fontSize: '16px', marginLeft: '10px' }}
         >
           Отправить
-        </button>
+        </Button>
       </div>
+
       {message && (
-        <p style={{ marginTop: '20px', color: message.includes('successfully') ? 'green' : 'red' }}>
+        <p
+          className={styles.messageSuccess}
+          style={{
+            marginTop: '20px',
+            color: 'rgba(255, 255, 255, 0.802)',
+          }}
+        >
           {message}
         </p>
       )}

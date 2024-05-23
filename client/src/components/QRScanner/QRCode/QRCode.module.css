@@ -16,3 +16,18 @@
 .museumId {
   color: black;
 }
+
+.sendToEmail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.sendToEmail input {
+  color: black;
+}
+
+.messageSuccess {
+  font-weight: bold;
+}
