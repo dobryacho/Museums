@@ -140,18 +140,72 @@ router.put('/:id', async (req, res) => {
   res.json(updatedCard);
 });
 
-//not in use
+/**
+ * @swagger
+ * /cards/{id}:
+ *   patch:
+ *     summary: Обновить информацию о карте по ID
+ *     tags: [Cards]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID карты
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: integer
+ *               validity:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Информация о карте успешно обновлена
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Card'
+ *       404:
+ *         description: Карта не найдена
+ *       500:
+ *         description: Ошибка сервера
+ */
 router.patch('/:id', async (req, res) => {
   const card = await Card.findByPk(req.params.id);
   await card.update(req.body);
   res.json(card);
 });
 
-//not in use
+/**
+ * @swagger
+ * /cards/{id}:
+ *   delete:
+ *     summary: Удалить карту по ID
+ *     tags: [Cards]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID карты
+ *     responses:
+ *       200:
+ *         description: Карта успешно удалена
+ *       404:
+ *         description: Карта не найдена
+ *       500:
+ *         description: Ошибка сервера
+ */
 router.delete('/:id', async (req, res) => {
   await Card.destroy({ where: { id: req.params.id } });
   res.sendStatus(200);
 });
-
 
 module.exports = router;

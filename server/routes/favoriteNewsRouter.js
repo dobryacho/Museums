@@ -11,7 +11,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /favoriteNews:
+ * /favnews:
  *   get:
  *     summary: Получить новости из избранных музеев пользователя
  *     tags: [FavoriteNews]
@@ -119,27 +119,27 @@ router.get('/', async (req, res) => {
   }
 });
 
-//not in use
+//copied from favoriteMuseum router
 router.get('/:id', async (req, res) => {
   const favoriteMuseum = await FavoriteMuseum.findByPk(req.params.id);
   res.json(favoriteMuseum);
 });
 
-//not in use
+//copied from favoriteMuseum router
 router.post('/', async (req, res) => {
   const { userId, museumId } = req.body;
   const favoriteMuseum = await FavoriteMuseum.create({ userId, museumId });
   res.json(favoriteMuseum);
 });
 
-//not in use
+//copied from favoriteMuseum router
 router.patch('/:id', async (req, res) => {
   const favoriteMuseum = await FavoriteMuseum.findByPk(req.params.id);
   await favoriteMuseum.update(req.body);
   res.json(favoriteMuseum);
 });
 
-//not in use
+//copied from favoriteMuseum router
 router.delete('/:id', async (req, res) => {
   const favoriteMuseum = await FavoriteMuseum.findByPk(req.params.id);
   const favMusId = favoriteMuseum.museumId;

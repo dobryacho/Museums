@@ -129,7 +129,58 @@ router.get('/', async (req, res) => {
   }
 });
 
-//not in use
+/**
+ * @swagger
+ * tags:
+ *   name: News
+ *   description: API для управления новостями
+ */
+
+/**
+ * @swagger
+ * /news/{id}:
+ *   get:
+ *     summary: Получить новость по ID
+ *     tags: [News]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID новости
+ *     responses:
+ *       200:
+ *         description: Новость найдена
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 title:
+ *                   type: string
+ *                 text:
+ *                   type: string
+ *                 museumId:
+ *                   type: integer
+ *                 photo:
+ *                   type: string
+ *                 date:
+ *                   type: string
+ *                   format: date-time
+ *                 createdAt:
+ *                   type: string
+ *                   format: date-time
+ *                 updatedAt:
+ *                   type: string
+ *                   format: date-time
+ *       404:
+ *         description: Новость не найдена
+ *       500:
+ *         description: Ошибка сервера
+ */
 router.get('/:id', async (req, res) => {
   const news = await News.findByPk(req.params.id);
   res.json(news);
@@ -194,7 +245,49 @@ router.post('/', async (req, res) => {
   res.json(news);
 });
 
-//not in use
+/**
+ * @swagger
+ * /news/{id}:
+ *   patch:
+ *     summary: Обновить новость по ID
+ *     tags: [News]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID новости
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               text:
+ *                 type: string
+ *               museumId:
+ *                 type: integer
+ *               photo:
+ *                 type: string
+ *               date:
+ *                 type: string
+ *                 format: date-time
+ *     responses:
+ *       200:
+ *         description: Новость успешно обновлена
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/News'
+ *       404:
+ *         description: Новость не найдена
+ *       500:
+ *         description: Ошибка сервера
+ */
 router.patch('/:id', async (req, res) => {
   const news = await News.findByPk(req.params.id);
   await news.update(req.body);

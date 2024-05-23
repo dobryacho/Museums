@@ -22,6 +22,8 @@ const options = {
     './routes/favoritesMuseumsRouter.js',
     './routes/getNewsPhoto.js',
     './routes/newsRouter.js',
+    './routes/orderRouter.js',
+    './routes/recallRouter.js',
     './routes/scansRouter.js',
     './routes/userRouter.js',
     './routes/visitedMuseumsRouter.js',

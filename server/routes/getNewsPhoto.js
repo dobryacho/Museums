@@ -13,7 +13,7 @@ const addNewsMiddleware = require('../middleware/addNews');
 
 /**
  * @swagger
- * /getNewsPhoto:
+ * /getnewsphoto:
  *   post:
  *     summary: Добавить фотографию к новой новости или музею
  *     tags: [getNewsPhoto]

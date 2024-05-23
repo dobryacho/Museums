@@ -55,7 +55,46 @@ router.get('/', async (req, res) => {
   res.json(visitedMuseums);
 });
 
-//not in use
+/**
+ * @swagger
+ * /visited/{id}:
+ *   get:
+ *     summary: Получить посещенный музей по ID
+ *     tags: [VisitedMuseums]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID посещенного музея
+ *     responses:
+ *       200:
+ *         description: Информация о посещенном музее
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 userId:
+ *                   type: integer
+ *                 museumId:
+ *                   type: integer
+ *                 rating:
+ *                   type: integer
+ *                 createdAt:
+ *                   type: string
+ *                   format: date-time
+ *                 updatedAt:
+ *                   type: string
+ *                   format: date-time
+ *       404:
+ *         description: Посещенный музей не найден
+ *       500:
+ *         description: Ошибка сервера
+ */
 router.get('/:id', async (req, res) => {
   const visitedMuseum = await VisitedMuseum.findByPk(req.params.id);
   res.json(visitedMuseum);
@@ -99,7 +138,59 @@ router.post('/', async (req, res) => {
   res.json(visitedMuseum);
 });
 
-//not in use
+/**
+ * @swagger
+ * /visited/{id}:
+ *   patch:
+ *     summary: Обновить информацию о посещенном музее по ID
+ *     tags: [VisitedMuseums]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID посещенного музея
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: integer
+ *               museumId:
+ *                 type: integer
+ *               rating:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: Информация о посещенном музее успешно обновлена
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 userId:
+ *                   type: integer
+ *                 museumId:
+ *                   type: integer
+ *                 rating:
+ *                   type: integer
+ *                 createdAt:
+ *                   type: string
+ *                   format: date-time
+ *                 updatedAt:
+ *                   type: string
+ *                   format: date-time
+ *       404:
+ *         description: Посещенный музей не найден
+ *       500:
+ *         description: Ошибка сервера
+ */
 router.patch('/:id', async (req, res) => {
   const visitedMuseum = await VisitedMuseum.findByPk(req.params.id);
   await visitedMuseum.update(req.body);

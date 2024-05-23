@@ -7,11 +7,47 @@ const router = express.Router();
 /**
  * @swagger
  * tags:
- *   name: Users
+ *   name: User
  *   description: API для управления пользователями
  */
 
-//not in use
+/**
+ * @swagger
+ * /user/allusers:
+ *   get:
+ *     summary: Получить всех пользователей
+ *     tags: [User]
+ *     responses:
+ *       200:
+ *         description: Список всех пользователей
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   email:
+ *                     type: string
+ *                   firstName:
+ *                     type: string
+ *                   lastName:
+ *                     type: string
+ *                   city:
+ *                     type: string
+ *                   phone:
+ *                     type: string
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
+ *                   updatedAt:
+ *                     type: string
+ *                     format: date-time
+ *       500:
+ *         description: Ошибка сервера
+ */
 router.get('/allusers', async (req, res) => {
   const users = await User.findAll();
   res.json(users);
@@ -22,7 +58,7 @@ router.get('/allusers', async (req, res) => {
  * /user/login:
  *   post:
  *     summary: Войти в систему
- *     tags: [Users]
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -83,7 +119,7 @@ router.post('/login', async (req, res) => {
  * /user:
  *   post:
  *     summary: Создать нового пользователя
- *     tags: [Users]
+ *     tags: [User]
  *     requestBody:
  *       required: true
  *       content:
@@ -150,7 +186,7 @@ router.post('/', async (req, res) => {
  * /user/logout:
  *   get:
  *     summary: Выйти из системы
- *     tags: [Users]
+ *     tags: [User]
  *     responses:
  *       200:
  *         description: Пользователь успешно вышел из системы
@@ -169,7 +205,7 @@ router.get('/logout', (req, res) => {
  * /user/auth:
  *   get:
  *     summary: Проверить аутентификацию пользователя
- *     tags: [Users]
+ *     tags: [User]
  *     responses:
  *       200:
  *         description: Аутентифицированный пользователь
@@ -196,7 +232,7 @@ router.get('/auth', async (req, res) => {
  * /user/visit/{id}:
  *   get:
  *     summary: Получить посещенные музеи пользователя по ID
- *     tags: [Users]
+ *     tags: [User]
  *     parameters:
  *       - in: path
  *         name: id
@@ -265,7 +301,7 @@ router.get('/test', async (req, res) => {
  * /user/favorites/{id}:
  *   get:
  *     summary: Получить избранные музеи пользователя по ID
- *     tags: [Users]
+ *     tags: [User]
  *     parameters:
  *       - in: path
  *         name: id
