@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import QRCode from 'qrcode.react';
+import { Button } from '@chakra-ui/react';
 
 const QrCodeGenerator = () => {
   const [text, setText] = useState('');
   const [qrValue, setQrValue] = useState('');
+  const [send, setSend] = useState(false);
 
   const handleGenerateClick = () => {
     setQrValue(text);
     setText('');
   };
+
+  const handlerButton = () => {
+    setSend(!send);
+  }
 
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
@@ -27,9 +33,10 @@ const QrCodeGenerator = () => {
         Сгенерировать
       </button>
       {qrValue && (
-        <div style={{ marginTop: '20px' }}>
+        <><div style={{ marginTop: '20px' }}>
           <QRCode value={qrValue} />
         </div>
+        {send ? <div>QR-код отправлен</div> : <Button onClick={handlerButton}>Отправить в музей</Button>}</>
       )}
     </div>
   );

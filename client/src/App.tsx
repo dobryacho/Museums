@@ -17,7 +17,11 @@ import MusCard from './Pages/MusCard/MusCard';
 import MapMuseuns from './components/MapMuseums/MapMuseuns';
 import AddMuseum from './components/AddMuseum/AddMuseum';
 import QrCodeScanner from './components/QRScanner/QRCodeScanner';
-import QrCodeGenerator from './components/QRScanner/QRCode/QRCode';
+import QrCodeGenerator from './components/QRScanner/QRCode/QRCode'
+import UserOrders from './components/UserOrders/UserOrders';
+import Stat from './components/Stat/Stat';
+import AddNews from './components/AddNews/AddNews';
+
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -36,7 +40,13 @@ function App(): JSX.Element {
           <Route path="map" element={<MapMuseuns />} />
         </Route>
         <Route path="/allmuseums/:id" element={<CurrentMuseum />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile />}>
+          <Route path="addmuseum" element={<AddMuseum />} />
+          <Route path="qrcodegenerator" element={<QrCodeGenerator />} />
+          <Route path="addnews" element={<AddNews />} />
+          <Route path="stat" element={<Stat />} />
+          <Route path="orders" element={<UserOrders />} />
+        </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/card" element={<MusCard />} />

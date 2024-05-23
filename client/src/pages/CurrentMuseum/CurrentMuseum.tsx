@@ -73,13 +73,6 @@ export default function CurrentMuseum(): JSX.Element {
     useEffect(() => {
       axios.get<MuseumsType>(`http://localhost:3000/api/museums/${id}?lang=${i18n.language}`).then((res) => {
        setMuseum(res.data);
-       !updateRecalls && toast({
-        title: `комментарий удален`,
-        status: 'success',
-        isClosable: true,
-        duration: 1000,
-        position: 'bottom-right',
-      })
       });
      }, [id, i18n.language, updateRecalls]);
 
@@ -189,7 +182,7 @@ const handlerConfirm = () => {
               <p>{recall.Recall.text}</p>
               <p>{t('author')} {recall.firstName} {recall.lastName}</p>
               <p>{t('date')} {new Date(recall.Recall.createdAt).toLocaleDateString()}</p>
-              {user.email === "admin_museums@mail.ru" && (<DelBtn trigger={setUpdateRecalls} id={recall} btnText='Удалить отзыв'/>)}
+              {user.email === "admin_museums@mail.ru" && (<DelBtn toast={toast} trigger={setUpdateRecalls} id={recall} btnText='Удалить отзыв'/>)}
             </div>
           ))
         ) : (

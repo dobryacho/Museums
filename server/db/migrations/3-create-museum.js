@@ -46,67 +46,67 @@ module.exports = {
         type: Sequelize.STRING,
       },
       name_en: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       description_en: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.TEXT,
       },
       location_en: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       city_en: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       workedTime_en: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       holidays_en: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       theme_en: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       name_de: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       description_de: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.TEXT,
       },
       location_de: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       city_de: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       workedTime_de: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       holidays_de: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       theme_de: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       createdAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE,
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE,
       },
     });
