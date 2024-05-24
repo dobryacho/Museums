@@ -55,7 +55,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          userId: 3,
+          userId: 10,
           museumId: 17,
           createdAt: new Date('2024-05-24T14:09:00'),
           updatedAt: new Date(),

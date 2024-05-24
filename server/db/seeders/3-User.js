@@ -96,6 +96,16 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          email: 'den_destroyer@yandex.ru',
+          firstName: 'Денис',
+          lastName: 'Образцов',
+          password: '123',
+          city: 'petersburg',
+          phone: '7999999995',
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {},
     );
