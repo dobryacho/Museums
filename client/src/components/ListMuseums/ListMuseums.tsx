@@ -127,6 +127,7 @@ export default function ListMuseums() {
                 <option value="Архитектура">{t('architecture')}</option>
                 <option value="История">{t('history')}</option>
               </Select>
+              <form onSubmit={(e)=>{e.preventDefault();handleSubmit()}}>
               <Input
                 marginBottom={5}
                 color={'white'}
@@ -145,6 +146,7 @@ export default function ListMuseums() {
               >
                 {t('select')}
               </Button>
+              </form>
             </FormControl>
           </div>
         </div>
