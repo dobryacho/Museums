@@ -1,3 +1,3 @@
 # Museums
 
-final_project
+museums_project
